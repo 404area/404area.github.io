@@ -346,24 +346,30 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/04/27/day02-tomcat&servlet/">
+        <a class="abstract-title" href="/2019/04/27/day07过滤器/">
             
-                <span>day02-tomcat&amp;servlet.xml</span>
+                <span>day07过滤器.xml</span>
         </a>
         <div class="abstract-content">
-            Web服务器回顾:​    xml：
-​        概述:
-​            可扩展标记语言,标签自定义
-​        作用:
-​            作为数据传递的载体    —  被json代替
-​            配置文件
-​        组成:
-​            文档声明:  &lt;?xml version=”1.0” encoding=”UTF-8” ?&gt;
-​            元素: 标签 单标签  双标签
-​            属性: 开始标签上
-​            注释:
-​            转义符:
-​   ...
+            回顾:批量删除:
+​    需求分析:
+​        将数据库中的多条数据删除. 
+​    技术分析:
+​        前台:
+​            发送请求携带多个id
+​            form
+​        后台:
+​            servlet
+​    步骤分析:
+​        前台: 
+​        后台:
+​            web:
+​            service:
+​                事务控制
+​            dao:
+​                根据id删除信息
+条件查询:
+​  ...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -376,9 +382,9 @@
     
         <a class="post-tag" href="javascript:void(0);" data-tags="web">web</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="tomcat">tomcat</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="filler">filler</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="servlet">servlet</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="listener">listener</a>
     
 </div>
             
@@ -391,25 +397,23 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/04/27/day01-xml/">
+        <a class="abstract-title" href="/2019/04/27/day06-jsp&el&jstl/">
             
-                <span>day01-xml</span>
+                <span>day06-jsp&amp;el&amp;jstl.xml</span>
         </a>
         <div class="abstract-content">
-            XML回顾:​    Bootstrap:
-​        用来开发响应式布局移动设备优先的网页,提高开发效率,节约开发成本.
-​        Bootstrap是基于jQuery开发的.
-​    环境搭建:
-​        1.导入Bootstrap的css文件
-​        2.导入jQuery的js文件
-​        3.导入Bootstrap的js文件
-​        4.添加视口
-​        5.添加布局容器
-​    Bootstrap组成:
-​        全局css
-​        组件:
-​        插件:
-html: 超文本标记(标签...
+            回顾:会话技术:
+​    会话技术: 用来保存浏览器和服务器交互过程中产生的数据.
+​    浏览器会话: cookie
+​        特征:
+​            cookie由服务器创建
+​            cookie由浏览器保存
+​            cookie中存放文本类型的数据
+​            cookie最大存放4kb内容
+​            cookie中的内容不安全
+​        api:
+​            cookie的默认存活时间为浏览器会话结束.
+​            Cookie c = new Cookie...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -422,7 +426,142 @@ html: 超文本标记(标签...
     
         <a class="post-tag" href="javascript:void(0);" data-tags="web">web</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="xml">xml</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="jsp">jsp</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="jstl">jstl</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2019/04/27/day05-会话技术/">
+            
+                <span>day05-会话技术.xml</span>
+        </a>
+        <div class="abstract-content">
+            回顾:​    请求: 浏览器给服务器的内容
+​        请求行 请求头 请求体
+​        请求行: 请求方式 请求资源 协议/版本
+​            getMethod();
+​            getContextPath(); // 获取当前项目名称
+​            getRemoteAddr();
+​            getLocalPort();
+​        请求头: key/values  (约束请求的信息)
+​            getHeader(头名称);
+​                user-agent: 用...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/27</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="web">web</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="cookie">cookie</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Session">Session</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2019/04/27/day04-response/">
+            
+                <span>day04-request.xml</span>
+        </a>
+        <div class="abstract-content">
+            回顾:​    http协议-请求
+​        请求行: 请求方式 请求资源 协议/版本
+​        请求头: 约束请求的数据,和携带浏览器的信息
+​            user-agent:
+​            referer:
+​        请求体: 存放post请求携带的参数信息
+​    request:
+​        请求行: 请求方式 请求资源 协议/版本
+​            getMethod();
+​            getContextPath()
+​            getRemoteAddr()
+​          ...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/27</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="web">web</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="reponse">reponse</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="ServletContext">ServletContext</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2019/04/27/day03_request-笔记/">
+            
+                <span>day03-request.xml</span>
+        </a>
+        <div class="abstract-content">
+            回顾:​    web概念:
+​        web资源:
+​        web资源分类:
+​            静态web资源: 固定的
+​            动态web资源: 代码生成的
+​        web技术:
+​            静态web技术: html css js …
+动态web技术: servlet jsp
+​        软件架构:
+​            c/s:
+​            b/s:
+​        浏览器和服务器进行数据交互时需要遵循http协议.
+​    tomcat服务器:
+​        1.下载
+​    ...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/27</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class="abstract-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="web">web</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="request">request</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="request域">request域</a>
     
 </div>
             
@@ -432,7 +571,7 @@ html: 超文本标记(标签...
     <!-- paginator  -->
     
     <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/categories/编程/Java/">&#60; PREV</a><a class="page-number" href="/categories/编程/Java/">1</a><span class="page-number current">2</span>
+        <a class="extend prev" rel="prev" href="/categories/编程/Java/">&#60; PREV</a><a class="page-number" href="/categories/编程/Java/">1</a><span class="page-number current">2</span><a class="page-number" href="/categories/编程/Java/page/3/">3</a><a class="extend next" rel="next" href="/categories/编程/Java/page/3/">NEXT &#62;</a>
     </nav>
     
 </main>
@@ -756,17 +895,7 @@ html: 超文本标记(标签...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day01-xml/">day01-xml</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day9jquery3.0/">day9jquery.xml</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day04-response/">day04-request.xml</a>
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day05-会话技术/">day05-会话技术.xml</a>
         </li>
     
     
@@ -776,17 +905,17 @@ html: 超文本标记(标签...
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day04-response/">day04-request.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day9jquery3.0/">day9jquery.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day10Ajax&jQuery/">day10Ajax&jQuery.xml</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day08jquery3.0/">day08jquery.xml</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day06-jsp&el&jstl/">day06-jsp&el&jstl.xml</a>
         </li>
     
     
@@ -796,12 +925,17 @@ html: 超文本标记(标签...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day11redis/">day11redis.xml</a>
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day06-jsp&el&jstl/">day06-jsp&el&jstl.xml</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day05-会话技术/">day05-会话技术.xml</a>
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day08jquery3.0/">day08jquery.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day11redis/">day11redis.xml</a>
         </li>
     
     
@@ -812,6 +946,11 @@ html: 超文本标记(标签...
     
         <li class="archive-post-item">
             <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day03_request-笔记/">day03-request.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day01-xml/">day01-xml</a>
         </li>
     
     </ul></div>
@@ -839,6 +978,8 @@ html: 超文本标记(标签...
     
         <span class="sidebar-tag-name" data-tags="教程"><span class="iconfont-archer">&#xe606;</span>教程</span>
     
+        <span class="sidebar-tag-name" data-tags="xml"><span class="iconfont-archer">&#xe606;</span>xml</span>
+    
         <span class="sidebar-tag-name" data-tags="request"><span class="iconfont-archer">&#xe606;</span>request</span>
     
         <span class="sidebar-tag-name" data-tags="request域"><span class="iconfont-archer">&#xe606;</span>request域</span>
@@ -851,17 +992,15 @@ html: 超文本标记(标签...
     
         <span class="sidebar-tag-name" data-tags="Session"><span class="iconfont-archer">&#xe606;</span>Session</span>
     
-        <span class="sidebar-tag-name" data-tags="xml"><span class="iconfont-archer">&#xe606;</span>xml</span>
-    
-        <span class="sidebar-tag-name" data-tags="filler"><span class="iconfont-archer">&#xe606;</span>filler</span>
-    
-        <span class="sidebar-tag-name" data-tags="listener"><span class="iconfont-archer">&#xe606;</span>listener</span>
+        <span class="sidebar-tag-name" data-tags="jQuery"><span class="iconfont-archer">&#xe606;</span>jQuery</span>
     
         <span class="sidebar-tag-name" data-tags="jsp"><span class="iconfont-archer">&#xe606;</span>jsp</span>
     
         <span class="sidebar-tag-name" data-tags="jstl"><span class="iconfont-archer">&#xe606;</span>jstl</span>
     
-        <span class="sidebar-tag-name" data-tags="jQuery"><span class="iconfont-archer">&#xe606;</span>jQuery</span>
+        <span class="sidebar-tag-name" data-tags="filler"><span class="iconfont-archer">&#xe606;</span>filler</span>
+    
+        <span class="sidebar-tag-name" data-tags="listener"><span class="iconfont-archer">&#xe606;</span>listener</span>
     
         <span class="sidebar-tag-name" data-tags="Ajax"><span class="iconfont-archer">&#xe606;</span>Ajax</span>
     
