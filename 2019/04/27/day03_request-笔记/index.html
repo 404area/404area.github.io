@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="404area">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="404area">
+    
+    <meta name="keywords" content="404area,Java,PHP">
+    
+    <meta name="description" content>
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>day03-request.xml · 404area&#39;s Blog</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/">404area</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">day03-request.xml</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href="/">404area</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            day03-request.xml
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class="post-intro-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="web">web</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="request">request</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="request域">request域</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">1.9k</span>阅读时长: <span class="post-count reading-time">7 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/04/27</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="回顾"><a href="#回顾" class="headerlink" title="回顾:"></a>回顾:</h2><p>​    web概念:</p>
+<p>​        web资源:</p>
+<p>​        web资源分类:</p>
+<p>​            静态web资源: 固定的</p>
+<p>​            动态web资源: 代码生成的</p>
+<p>​        web技术:</p>
+<p>​            静态web技术: html css js …</p>
+<pre><code>动态web技术: servlet jsp
+</code></pre><p>​        软件架构:</p>
+<p>​            c/s:</p>
+<p>​            b/s:</p>
+<p>​        浏览器和服务器进行数据交互时需要遵循http协议.</p>
+<p>​    tomcat服务器:</p>
+<p>​        1.下载</p>
+<p>​        2.安装</p>
+<p>​        3.目录结构</p>
+<p>​            bin</p>
+<p>​            lib</p>
+<p>​            conf: 存放配置文件</p>
+<p>​            temp</p>
+<p>​            logs</p>
+<p>​            webapps: 存放部署的web项目</p>
+<p>​            work: </p>
+<p>​        4.启动</p>
+<p>​        5.停止</p>
+<p>​        6.访问:</p>
+<p>​            格式: http://主机地址:端口号</p>
+<p>​    web项目:</p>
+<p>​        目录结构: 部署到tomcat中的目录结构</p>
+<p>​            项目名:</p>
+<p>​                |– html  js  css  img …</p>
+<p>​                |– WEB-INF</p>
+<p>​                    |– lib</p>
+<p>​                    |– classes</p>
+<p>​                    |– web.xml(2.5版本必须的,3.0以后就不是必须的了)</p>
+<p>​        部署web项目的多种方式:</p>
+<p>​        1. 2. 3.</p>
+<p>​    servlet:</p>
+<p>​        概述: 一个运行在服务器上的java类,这个可以通过浏览器直接访问.</p>
+<p>​        一个类要想通过浏览器被访问到,那么该类必须直接或间接实现servlet接口.</p>
+<p>​        servlet: 入门</p>
+<p>​            2.5:</p>
+<p>​                1.编写一个类,继承 HttpServlet ,重写doGet和doPost方法</p>
+<p>​                2.编写配置文件 web.xmlitheima.servlet…</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--注册我们的servlet--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">  	<span class="comment">&lt;!--给册我们的servlet起名称--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>ServletDemo1<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">  	<span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>com.itheima.servlet...<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--给我们的servle绑定一个浏览器访问的路径--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>ServletDemo1<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">  	<span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/demo1<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>​            3.0:</p>
+<p>​                1.编写一个类,继承 HttpServlet ,重写doGet和doPost方法</p>
+<p>​                2.在servlet上添加注解  @WebServlet(urlPatters=”/demo1”)</p>
+<p>​    servlet: API</p>
+<p>​    servlet执行流程:</p>
+<p>​    servlet生命周期:</p>
+<p>​        init:</p>
+<p>​        service:</p>
+<p>​        destroy:</p>
+<h2 id="http协议-请求"><a href="#http协议-请求" class="headerlink" title="http协议-请求"></a>http协议-请求</h2><h3 id="协议"><a href="#协议" class="headerlink" title="协议:"></a>协议:</h3><p>​    规定内容的传输的格式</p>
+<h3 id="http协议"><a href="#http协议" class="headerlink" title="http协议:"></a>http协议:</h3><p>​    用来制定互联网上数据的传输的格式</p>
+<h3 id="组成"><a href="#组成" class="headerlink" title="组成:"></a>组成:</h3><p>​    浏览器发送给服务器的内容  请求 (规定请求数据的格式)</p>
+<p>​    服务器返回给浏览器的内容  响应 (规定响应数据的格式)</p>
+<h3 id="抓包"><a href="#抓包" class="headerlink" title="抓包:"></a>抓包:</h3><p>​    通过浏览器的抓包就可以查看当前请求所包含的请求信息和响应信息.</p>
+<h3 id="请求的格式"><a href="#请求的格式" class="headerlink" title="请求的格式:"></a>请求的格式:</h3><p>请求行 请求头 请求体</p>
+<h4 id="请求行"><a href="#请求行" class="headerlink" title="请求行:"></a>请求行:</h4><p>​        格式: 请求方式  请求资源  协议/版本<br>​            eg:  GET /day03/index.html HTTP/1.1</p>
+<p>​        请求方式:</p>
+<p>​            get:</p>
+<p>​                请求参数会在地址栏上显示,提交数据量受限,不安全</p>
+<p>​            post:</p>
+<p>​                请求参数不会在地址栏上显示,提交数据量不受限制,相对安全</p>
+<p>​        在地址栏中直接输入请求资源  – get请求</p>
+<p>​        超链接发送的请求是   –  get请求</p>
+<p>​        location.href = 路径  –  get请求</p>
+<p>​        form表单默认请求方式  – get请求</p>
+<p>​        截至目前为止,我们所接触到的post请求只有一个 form 表单上method=post;</p>
+<h4 id="请求头-约束请求参数的类型和格式"><a href="#请求头-约束请求参数的类型和格式" class="headerlink" title="请求头: 约束请求参数的类型和格式"></a>请求头: 约束请求参数的类型和格式</h4><p>​    格式: key/value的格式 (value可以为多个值的)</p>
+<h5 id="常见的请求头-了解"><a href="#常见的请求头-了解" class="headerlink" title="常见的请求头:(了解)"></a>常见的请求头:(了解)</h5><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Accept</td>
+<td>支持数据类型</td>
+</tr>
+<tr>
+<td>Accept-Charset</td>
+<td>字符集</td>
+</tr>
+<tr>
+<td>Accept-Encoding</td>
+<td>支持压缩</td>
+</tr>
+<tr>
+<td>Accept-Language</td>
+<td>语言环境</td>
+</tr>
+<tr>
+<td>Host</td>
+<td>访问主机</td>
+</tr>
+<tr>
+<td>If-Modified-Since</td>
+<td>缓存文件的最后修改时间</td>
+</tr>
+<tr>
+<td>Referer ★</td>
+<td>来自哪个页面、防盗链</td>
+</tr>
+<tr>
+<td>User-Agent ★</td>
+<td>用户代理</td>
+</tr>
+<tr>
+<td>Cookie  ★</td>
+<td></td>
+</tr>
+<tr>
+<td>Connection</td>
+<td>close/Keep-Alive       –链接状态</td>
+</tr>
+</tbody>
+</table>
+<h5 id="重要的头"><a href="#重要的头" class="headerlink" title="重要的头:"></a>重要的头:</h5><p>​        Referer   User-Agent   Cookie  </p>
+<h4 id="请求体"><a href="#请求体" class="headerlink" title="请求体"></a>请求体</h4><p>​    存放post请求的参数,get请求方式没有请求体.</p>
+<p>​    只有表单提交的时候明确了method=”post”这时候是post请求,其他的都是get请求</p>
+<h3 id="响应的格式-明天"><a href="#响应的格式-明天" class="headerlink" title="响应的格式:(明天)"></a>响应的格式:(明天)</h3><p>响应行 响应头 响应体</p>
+<h2 id="Request"><a href="#Request" class="headerlink" title="Request"></a>Request</h2><h3 id="操作request对象获取请求携带的数据"><a href="#操作request对象获取请求携带的数据" class="headerlink" title="操作request对象获取请求携带的数据:"></a>操作request对象获取请求携带的数据:</h3><p>​    HttpServletRequest: 查询javaEE API</p>
+<h4 id="操作请求行"><a href="#操作请求行" class="headerlink" title="操作请求行:"></a>操作请求行:</h4><h5 id="重要方法"><a href="#重要方法" class="headerlink" title="重要方法"></a>重要方法</h5><p>​            String getMethod():    获取请求方式</p>
+<p>​            ★String getContextPath():    获取项目路径    /web_day03_01</p>
+<p>​            String getRemoteAddr():    获取请求者的ip</p>
+<p>​            int getLocalPort():        获取端口 </p>
+<h5 id="了解的方法"><a href="#了解的方法" class="headerlink" title="了解的方法"></a>了解的方法</h5><p>​    /day03_01/row?username=tom&amp;pwd=123</p>
+<p>​            String getRequestURI():    获取请求资源(不带get请求的参数)</p>
+<p>​            String getQueryString():    获取get请求参数以一个字符串返回get请求的参数</p>
+<p>​            String getProtocol():    获取协议和版本</p>
+<h4 id="操作请求头"><a href="#操作请求头" class="headerlink" title="操作请求头:"></a>操作请求头:</h4><h5 id="重要方法-★"><a href="#重要方法-★" class="headerlink" title="重要方法:★"></a>重要方法:★</h5><p>​                String getHeader(String name):        以字符串形式返回一个请求头的值</p>
+<h5 id="了解的方法-1"><a href="#了解的方法-1" class="headerlink" title="了解的方法:"></a>了解的方法:</h5><p>​                Enumration getHeaderNames():     获取所有请求头的名称</p>
+<h5 id="常用的请求头"><a href="#常用的请求头" class="headerlink" title="常用的请求头:"></a>常用的请求头:</h5><p>​                user-agent:用户代理</p>
+<p>​                referer:页面的来源   防盗链</p>
+<h4 id="操作请求体-操作请求参数"><a href="#操作请求体-操作请求参数" class="headerlink" title="操作请求体: 操作请求参数"></a>操作请求体: 操作请求参数</h4><h5 id="重要方法-1"><a href="#重要方法-1" class="headerlink" title="重要方法:"></a>重要方法:</h5><p>​                String getParameter(String name):<br>​                    获取指定请求参数的值,如果不存在返回null</p>
+<p>​                String[] getParameterValues(String name)<br>​                    获取指定请求参数的多个值数组,如果不存在返回null</p>
+<p>​                ★ Map    getParameterMap():   Map<string key,string[] value><br>​                    获取所有的请求参数名称和值</string></p>
+<h5 id="请求的中文乱码"><a href="#请求的中文乱码" class="headerlink" title="请求的中文乱码"></a>请求的中文乱码</h5><p>​                request.setCharacterEncoding(“utf-8”);<br>​                    处理post请求乱码问题</p>
+<h3 id="Request作用域"><a href="#Request作用域" class="headerlink" title="==Request作用域:=="></a>==Request作用域:==</h3><h4 id="request的生命周期"><a href="#request的生命周期" class="headerlink" title="request的生命周期:"></a>request的生命周期:</h4><p>​        创建:  请求来的时候</p>
+<p>​        销毁:  响应信息生成的时候</p>
+<p>​        作用范围: 当前请求中    </p>
+<h4 id="请求转发-Request"><a href="#请求转发-Request" class="headerlink" title="请求转发(Request):"></a>请求转发(Request):</h4><p>​        一次请求的延续,将请求交给其他servlet来处理</p>
+<p>​        请求链上的servlet共享Request对象</p>
+<h5 id="RequestDispatcher-请求转发器"><a href="#RequestDispatcher-请求转发器" class="headerlink" title="RequestDispatcher 请求转发器"></a>RequestDispatcher 请求转发器</h5><p>​            获取RequestDispatcher:</p>
+<p>​                request.getRequestDispatcher(“/内部路径”);</p>
+<p>​            方法:</p>
+<p>​                forward(request,response);</p>
+<p>​    请求转发时浏览器地址栏显示的是第一个servlet的地址</p>
+<p>​    请求转发发送的是1次</p>
+<p>​    请求转发可以共享request作用域</p>
+<h5 id="request域对象API"><a href="#request域对象API" class="headerlink" title="request域对象API:"></a>request域对象API:</h5><p>​            setAttribute(string name,object o);<br>​                设置相同属性名称的参数,就是修改</p>
+<p>​            getAttribute(name);</p>
+<p>​            removeAttribute(name);</p>
+<h2 id="今日案例"><a href="#今日案例" class="headerlink" title="今日案例:"></a>今日案例:</h2><p>案例1-防盗链的使用:</p>
+<p>​    需求分析:</p>
+<p>​        从download.html页面发送下载请求,访问 DownloadServlet,</p>
+<p>​        如果请求是从download.html页面发出的,则返回给浏览器 “允许下载”</p>
+<p>​        如果请求不是从download.html页面发出的,则返回给浏览器 “不允许下载”</p>
+<p>​    技术分析:</p>
+<p>​        html</p>
+<p>​            a</p>
+<p>​        servlet:</p>
+<p>​            referer : 防盗链</p>
+<p>​    步骤分析:</p>
+<p>​        前台:</p>
+<p>​            编写download.html页面</p>
+<p>​                提供下载超链接</p>
+<p>​                /download</p>
+<p>​        后台:</p>
+<p>​            编写downloadServlet</p>
+<p>​            获取referer请求头信息</p>
+<p>​            判断是否来源于download.html页面</p>
+<p>​                // 如果是从download.html页面过来的请求,则返回: 请求方式正确允许下载    </p>
+<p>​                // 如果不是从download.html页面过来的请求,则返回: 请求方式不正确不允许下载</p>
+<p>案例2-用户登录</p>
+<p>​    需求分析:</p>
+<p>​        在登录页面上,当用户输入完用户名和密码后,点击”登录”按钮时,向服务器发送一个登录的请求.</p>
+<p>​        servlet接收请求,处理请求,生成响应结果:</p>
+<p>​        结果:</p>
+<p>​            1.登录成功</p>
+<p>​            2.登录失败</p>
+<p>​            3.当前功能正在维护…</p>
+<p>​    技术分析:</p>
+<p>​        html:</p>
+<p>​            表单:</p>
+<p>​        servlet:</p>
+<p>​            request</p>
+<p>​    步骤分析:</p>
+<p>​        前台:</p>
+<p>​            编写login.html页面提供表单</p>
+<p>​                username:</p>
+<p>​                password:</p>
+<p>​                /login</p>
+<p>​        后台:</p>
+<p>​            web:</p>
+<p>​                //1.编写LoginServlet</p>
+<p>​                //2.接收用户和密码</p>
+<p>​                //3.调用service处理业务逻辑</p>
+<p>​                boolean flag = service.login(username,password);</p>
+<p>​                //4.判断登录结果生成响应信息</p>
+<p>​                if(flag){    </p>
+<p>​                    // 登录成功                    </p>
+<p>​                }else{</p>
+<p>​                    // 失败</p>
+<p>​                }</p>
+<p>​            service:</p>
+<p>​                login(username,password){</p>
+<p>​                    // 调用dao完数据库查询</p>
+<p>​                    User user = dao.login(username,password);</p>
+<p>​                    return user == null ? false : true;</p>
+<p>​                }</p>
+<p>​            dao:</p>
+<p>​                login(username,password){</p>
+<p>​                    String sql = “select * from user where username = ? and password = ?”</p>
+<p>​                }</p>
+<p>环境搭建:</p>
+<p>​    1.创建数据库表 user</p>
+<p>​    2.创建web项目和包结构</p>
+<p>​    3.导入所需jar包</p>
+<p>​    4.导入配置文件(需要修改)</p>
+<p>​    5.导入工具类</p>
+<p>​    6.导入前端页面</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结:"></a>总结:</h2><p>http协议—请求</p>
+<p>​    组成:</p>
+<p>​        请求</p>
+<p>​        响应</p>
+<p>​    请求:</p>
+<p>​        请求行: 请求方式 请求资源 协议/版本</p>
+<p>​        请求头: key/values</p>
+<p>​            referer</p>
+<p>​            user-agent</p>
+<p>​            cookie</p>
+<p>​        请求体: post请求携带的参数信息,get请求没有请求体</p>
+<p>request:</p>
+<p>​    请求行:</p>
+<p>​        getMethod()</p>
+<p>​        getContextPath()</p>
+<p>​        getRemoteAddr()</p>
+<p>​        getLocalPort()</p>
+<p>​    请求头:</p>
+<p>​        getHeader();</p>
+<p>​    请求体: 请求参数</p>
+<p>​        getParameter(“name”);  String</p>
+<p>​        getParameterValues(“name”); String[]</p>
+<p>​        getParameterMap(); Map<string ,string[]></string></p>
+<p>​        设置post请求的编解码方式:</p>
+<p>​            request.setCharacterEncoding(“utf-8”);</p>
+<p>request作用域:</p>
+<p>​    生命周期:</p>
+<p>​        创建: 请求来的时候</p>
+<p>​        销毁: 响应信息生成的时候</p>
+<p>​    API:</p>
+<p>​        setAttribute(String,Object);</p>
+<p>​        getAttribute(String);</p>
+<p>​        removeAttribute(String);</p>
+<p>​    请求转发: 一次请求的延续</p>
+<p>​        request.getRequestDispacther(“项目内部路径”).forWard(req,resp);</p>
+<p>​        </p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://404area.github.io">404area</a>
+            </p><p>原文链接：<a href="http://404area.github.io/2019/04/27/day03_request-笔记/">http://404area.github.io/2019/04/27/day03_request-笔记/</a>
+            </p><p>发表日期：<a href="http://404area.github.io/2019/04/27/day03_request-笔记/">April 27th 2019, 9:36:16 pm</a>
+            </p><p>更新日期：<a href="http://404area.github.io/2019/04/27/day03_request-笔记/">May 1st 2019, 3:33:15 pm</a>
+            </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2019/04/27/day04-response/" title="day04-request.xml">
+                    <div class="nextTitle">day04-request.xml</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2019/04/27/day02-tomcat&servlet/" title="day02-tomcat&servlet.xml">
+                    <div class="prevTitle">day02-tomcat&servlet.xml</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:javatest1901@gmail.com" class="iconfont-archer email" title="email"></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/404area" class="iconfont-archer github" target="_blank" title="github"></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title="wechat">
+                  
+                  <img class="profile-qr" src="/assets/example_qr.png">
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#回顾"><span class="toc-number">1.</span> <span class="toc-text">回顾:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#http协议-请求"><span class="toc-number">2.</span> <span class="toc-text">http协议-请求</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#协议"><span class="toc-number">2.1.</span> <span class="toc-text">协议:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#http协议"><span class="toc-number">2.2.</span> <span class="toc-text">http协议:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#组成"><span class="toc-number">2.3.</span> <span class="toc-text">组成:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#抓包"><span class="toc-number">2.4.</span> <span class="toc-text">抓包:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#请求的格式"><span class="toc-number">2.5.</span> <span class="toc-text">请求的格式:</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#请求行"><span class="toc-number">2.5.1.</span> <span class="toc-text">请求行:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#请求头-约束请求参数的类型和格式"><span class="toc-number">2.5.2.</span> <span class="toc-text">请求头: 约束请求参数的类型和格式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#常见的请求头-了解"><span class="toc-number">2.5.2.1.</span> <span class="toc-text">常见的请求头:(了解)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#重要的头"><span class="toc-number">2.5.2.2.</span> <span class="toc-text">重要的头:</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#请求体"><span class="toc-number">2.5.3.</span> <span class="toc-text">请求体</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#响应的格式-明天"><span class="toc-number">2.6.</span> <span class="toc-text">响应的格式:(明天)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Request"><span class="toc-number">3.</span> <span class="toc-text">Request</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#操作request对象获取请求携带的数据"><span class="toc-number">3.1.</span> <span class="toc-text">操作request对象获取请求携带的数据:</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#操作请求行"><span class="toc-number">3.1.1.</span> <span class="toc-text">操作请求行:</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#重要方法"><span class="toc-number">3.1.1.1.</span> <span class="toc-text">重要方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#了解的方法"><span class="toc-number">3.1.1.2.</span> <span class="toc-text">了解的方法</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#操作请求头"><span class="toc-number">3.1.2.</span> <span class="toc-text">操作请求头:</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#重要方法-★"><span class="toc-number">3.1.2.1.</span> <span class="toc-text">重要方法:★</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#了解的方法-1"><span class="toc-number">3.1.2.2.</span> <span class="toc-text">了解的方法:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#常用的请求头"><span class="toc-number">3.1.2.3.</span> <span class="toc-text">常用的请求头:</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#操作请求体-操作请求参数"><span class="toc-number">3.1.3.</span> <span class="toc-text">操作请求体: 操作请求参数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#重要方法-1"><span class="toc-number">3.1.3.1.</span> <span class="toc-text">重要方法:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#请求的中文乱码"><span class="toc-number">3.1.3.2.</span> <span class="toc-text">请求的中文乱码</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Request作用域"><span class="toc-number">3.2.</span> <span class="toc-text">==Request作用域:==</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#request的生命周期"><span class="toc-number">3.2.1.</span> <span class="toc-text">request的生命周期:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#请求转发-Request"><span class="toc-number">3.2.2.</span> <span class="toc-text">请求转发(Request):</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#RequestDispatcher-请求转发器"><span class="toc-number">3.2.2.1.</span> <span class="toc-text">RequestDispatcher 请求转发器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#request域对象API"><span class="toc-number">3.2.2.2.</span> <span class="toc-text">request域对象API:</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#今日案例"><span class="toc-number">4.</span> <span class="toc-text">今日案例:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">5.</span> <span class="toc-text">总结:</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 14
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span><a class="archive-post-title" href="/2019/05/01/Hexo搭建教程/">Hexo搭建教程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span><a class="archive-post-title" href="/2019/05/01/前言/">前言</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day05-会话技术/">day05-会话技术.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day9jquery3.0/">day9jquery.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day04-response/">day04-request.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day12mavem&idea集成/">day12mavem&idea集成.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day10Ajax&jQuery/">day10Ajax&jQuery.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day07过滤器/">day07过滤器.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day08jquery3.0/">day08jquery.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day06-jsp&el&jstl/">day06-jsp&el&jstl.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day11redis/">day11redis.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day01-xml/">day01-xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day03_request-笔记/">day03-request.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day02-tomcat&servlet/">day02-tomcat&servlet.xml</a>
+        </li>
+    
+    </ul></div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="web"><span class="iconfont-archer">&#xe606;</span>web</span>
+    
+        <span class="sidebar-tag-name" data-tags="reponse"><span class="iconfont-archer">&#xe606;</span>reponse</span>
+    
+        <span class="sidebar-tag-name" data-tags="ServletContext"><span class="iconfont-archer">&#xe606;</span>ServletContext</span>
+    
+        <span class="sidebar-tag-name" data-tags="redis"><span class="iconfont-archer">&#xe606;</span>redis</span>
+    
+        <span class="sidebar-tag-name" data-tags="NOSQL"><span class="iconfont-archer">&#xe606;</span>NOSQL</span>
+    
+        <span class="sidebar-tag-name" data-tags="理想"><span class="iconfont-archer">&#xe606;</span>理想</span>
+    
+        <span class="sidebar-tag-name" data-tags="生活"><span class="iconfont-archer">&#xe606;</span>生活</span>
+    
+        <span class="sidebar-tag-name" data-tags="Hexo"><span class="iconfont-archer">&#xe606;</span>Hexo</span>
+    
+        <span class="sidebar-tag-name" data-tags="源码技术"><span class="iconfont-archer">&#xe606;</span>源码技术</span>
+    
+        <span class="sidebar-tag-name" data-tags="教程"><span class="iconfont-archer">&#xe606;</span>教程</span>
+    
+        <span class="sidebar-tag-name" data-tags="tomcat"><span class="iconfont-archer">&#xe606;</span>tomcat</span>
+    
+        <span class="sidebar-tag-name" data-tags="servlet"><span class="iconfont-archer">&#xe606;</span>servlet</span>
+    
+        <span class="sidebar-tag-name" data-tags="request"><span class="iconfont-archer">&#xe606;</span>request</span>
+    
+        <span class="sidebar-tag-name" data-tags="request域"><span class="iconfont-archer">&#xe606;</span>request域</span>
+    
+        <span class="sidebar-tag-name" data-tags="xml"><span class="iconfont-archer">&#xe606;</span>xml</span>
+    
+        <span class="sidebar-tag-name" data-tags="cookie"><span class="iconfont-archer">&#xe606;</span>cookie</span>
+    
+        <span class="sidebar-tag-name" data-tags="Session"><span class="iconfont-archer">&#xe606;</span>Session</span>
+    
+        <span class="sidebar-tag-name" data-tags="jsp"><span class="iconfont-archer">&#xe606;</span>jsp</span>
+    
+        <span class="sidebar-tag-name" data-tags="jstl"><span class="iconfont-archer">&#xe606;</span>jstl</span>
+    
+        <span class="sidebar-tag-name" data-tags="jQuery"><span class="iconfont-archer">&#xe606;</span>jQuery</span>
+    
+        <span class="sidebar-tag-name" data-tags="filler"><span class="iconfont-archer">&#xe606;</span>filler</span>
+    
+        <span class="sidebar-tag-name" data-tags="listener"><span class="iconfont-archer">&#xe606;</span>listener</span>
+    
+        <span class="sidebar-tag-name" data-tags="Ajax"><span class="iconfont-archer">&#xe606;</span>Ajax</span>
+    
+        <span class="sidebar-tag-name" data-tags="maven"><span class="iconfont-archer">&#xe606;</span>maven</span>
+    
+        <span class="sidebar-tag-name" data-tags="idea"><span class="iconfont-archer">&#xe606;</span>idea</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br>
+    1、请确保node版本大于6.2<br>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="编程"><span class="iconfont-archer">&#xe60a;</span>编程</span>
+    
+        <span class="sidebar-category-name" data-categories="杂谈"><span class="iconfont-archer">&#xe60a;</span>杂谈</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/Java"><span class="iconfont-archer">&#xe60a;</span>编程/Java</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/Java/web核心"><span class="iconfont-archer">&#xe60a;</span>编程/Java/web核心</span>
+    
+        <span class="sidebar-category-name" data-categories="源码搭建"><span class="iconfont-archer">&#xe60a;</span>源码搭建</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "404area"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+

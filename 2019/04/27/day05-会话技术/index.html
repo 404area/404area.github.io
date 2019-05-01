@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="404area">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="404area">
+    
+    <meta name="keywords" content="404area,Java,PHP">
+    
+    <meta name="description" content>
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>day05-会话技术.xml · 404area&#39;s Blog</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/">404area</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">day05-会话技术.xml</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href="/">404area</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            day05-会话技术.xml
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class="post-intro-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="web">web</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="cookie">cookie</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Session">Session</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">2.7k</span>阅读时长: <span class="post-count reading-time">11 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/04/27</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="回顾"><a href="#回顾" class="headerlink" title="回顾:"></a>回顾:</h1><p>​    请求: 浏览器给服务器的内容</p>
+<p>​        请求行 请求头 请求体</p>
+<p>​        请求行: 请求方式 请求资源 协议/版本</p>
+<p>​            getMethod();</p>
+<p>​            getContextPath(); // 获取当前项目名称</p>
+<p>​            getRemoteAddr();</p>
+<p>​            getLocalPort();</p>
+<p>​        请求头: key/values  (约束请求的信息)</p>
+<p>​            getHeader(头名称);</p>
+<p>​                user-agent: 用户代理</p>
+<p>​                referer: 防盗链                </p>
+<p>​        请求体: post请求携带的参数信息 (请求携带的所有参数都是字符串)</p>
+<p>​            getParameter(name属性);</p>
+<p>​            getParameterValues(name属性);</p>
+<p>​            getParameterMap();</p>
+<p>​        request作用域:</p>
+<p>​            请求转发: 一次请求的延续</p>
+<p>​                request.getRequestDispacther(“项目内部路径”).forWard(req,resp);</p>
+<p>​            api:</p>
+<p>​                setAttribute(String key,Object value);</p>
+<p>​                getAttribute(String key);</p>
+<p>​                removeAttribute(String key);                </p>
+<p>​    响应: 服务器返回给浏览器的内容   –response</p>
+<p>​        响应行 响应头 响应体</p>
+<p>​        响应行 : 协议/版本  状态码 (说明)</p>
+<p>​            200</p>
+<p>​            302</p>
+<p>​            304</p>
+<p>​            404</p>
+<p>​            500</p>
+<p>​            setStatus(); 1 2 3</p>
+<p>​            sendError(); 4 5</p>
+<p>​        响应头 : key/values </p>
+<p>​            setHeader(string 头名称,string value);</p>
+<p>​                location: 重定向的路径</p>
+<p>​                    sendRedirect(“绝对路径”);  ★</p>
+<p>​                content-type: 设置响应文件的mime类型</p>
+<p>​                    response.setContentType(mime类型);</p>
+<p>​                refresh: 定时刷新</p>
+<p>​                content-disposition: 文件下载专用头</p>
+<p>​        响应体 : 需求浏览器解析的内容</p>
+<p>​            getOutputStream();</p>
+<p>​            getWriter();</p>
+<p>​            互斥</p>
+<p>​        上下文对象: servletContext</p>
+<p>​            获取:</p>
+<p>​                getServletContext();</p>
+<p>​            生命周期: 和项目共存亡</p>
+<p>​                创建: 服务器启动时,会为每一个项目创建一个servletContext对象</p>
+<p>​                销毁: 当服务器关闭时或项目从服务器移出时.</p>
+<p>​            作用:</p>
+<p>​                资源共享</p>
+<p>​                    setAttribute(String key,Object value);</p>
+<p>​                    getAttribute(String key);</p>
+<p>​                    removeAttribute(String key);        </p>
+<p>​                获取文件的mime类型</p>
+<p>​                    getMimeType(filename);</p>
+<p>​                获取资源在服务器上的完整(绝对)路径</p>
+<p>​                    getRealPath(“文件路径”);</p>
+<h1 id="会话技术"><a href="#会话技术" class="headerlink" title="会话技术"></a>会话技术</h1><h2 id="会话概述"><a href="#会话概述" class="headerlink" title="会话概述:"></a>会话概述:</h2><p>​    会话: 一次通话.</p>
+<p>​    作用: 用来保存浏览器在访问服务器的过程中 产生的数据</p>
+<h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie:"></a>Cookie:</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述:"></a>概述:</h3><p>​    英文直译:饼干; 小甜点</p>
+<p>​    浏览器端的会话技术</p>
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用:"></a>作用:</h3><p>​    将会话中产生的数据存放在浏览器端</p>
+<p>​    ==小结:==    </p>
+<p>​    cookie存在浏览器上</p>
+<p>​    cookie由服务器创建</p>
+<p>​    cookie中存放的数据不安全</p>
+<p>​    cookie中存到的数据量不超过4kb</p>
+<p>​    cookie中存放的是文本信息(String)</p>
+<h3 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h3><p>​    浏览器访问服务器时,服务器生成cookie(键值对形式),通过响应(响应头 set-cookie)返回给浏览器,cookie保存在浏览器上.</p>
+<p>​    下次访问服务器的时候,根据一定的规则携带不同的cookie<br>​    将cookie装在请求头中带到服务器上   cookie头</p>
+<h3 id="有关Cookie的API"><a href="#有关Cookie的API" class="headerlink" title="==有关Cookie的API=="></a>==有关Cookie的API==</h3><h4 id="创建cookie"><a href="#创建cookie" class="headerlink" title="创建cookie"></a>创建cookie</h4><p>​    new Cookie(String name,String value);</p>
+<h4 id="返回给浏览器"><a href="#返回给浏览器" class="headerlink" title="返回给浏览器"></a>返回给浏览器</h4><p>​    response.addCookie(Cookie c);<br>​    意思为:给set-Cookie设置值</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"createCookie"</span>&gt;</span>创建cookie对象并返回给浏览器保存<span class="tag">&lt;/<span class="name">a</span>&gt;</span> <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@WebServlet</span>(name = <span class="string">"CreateCookieServlet"</span>, urlPatterns = <span class="string">"/createCookie"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CreateCookieServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 创建cookie对象,并返回给浏览器保存</span></span><br><span class="line">        <span class="comment">// 创建cookie对象</span></span><br><span class="line">        Cookie a = <span class="keyword">new</span> Cookie(<span class="string">"akey"</span>, <span class="string">"avalue"</span>);</span><br><span class="line">        Cookie b = <span class="keyword">new</span> Cookie(<span class="string">"bkey"</span>, <span class="string">"bvalue"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 将cookie对象返回给浏览器保存</span></span><br><span class="line">        <span class="comment">// 通过响应头(set-cookie)返回给浏览器</span></span><br><span class="line">        response.addCookie(a);</span><br><span class="line">        response.addCookie(b);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="设置Cookie在浏览器的存活时间"><a href="#设置Cookie在浏览器的存活时间" class="headerlink" title="设置Cookie在浏览器的存活时间"></a>设置Cookie在浏览器的存活时间</h4><p>​    注意:  cookie的默认存活时间为浏览器会话结束时</p>
+<p>​    setMaxAge(int 秒数);<br>​    如果秒数=0:删除该cookie(前提:路径必须相同)</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"setMaxAgeCookie"</span>&gt;</span>设置cookie的存活时间<span class="tag">&lt;/<span class="name">a</span>&gt;</span> <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置cookie的存活时间</span></span><br><span class="line"><span class="meta">@WebServlet</span>(name = <span class="string">"SetMaxAgeCookieServlet"</span>, urlPatterns = <span class="string">"/setMaxAgeCookie"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SetMaxAgeCookieServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 创建cookie对象</span></span><br><span class="line">        Cookie c = <span class="keyword">new</span> Cookie(<span class="string">"ckey"</span>, <span class="string">"cvalue"</span>);</span><br><span class="line">        Cookie d = <span class="keyword">new</span> Cookie(<span class="string">"dkey"</span>, <span class="string">"dvalue"</span>);</span><br><span class="line">        <span class="comment">// 设置cookie的存活时间</span></span><br><span class="line">        c.setMaxAge(<span class="number">20</span>);</span><br><span class="line">        d.setMaxAge(<span class="number">3600</span>);</span><br><span class="line">        <span class="comment">// 将cookie返回给浏览器保存</span></span><br><span class="line">        response.addCookie(c);</span><br><span class="line">        response.addCookie(d);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="设置路径"><a href="#设置路径" class="headerlink" title="设置路径"></a>设置路径</h4><p>​    setPath(String cookie的路径);<br>​    默认路径:<br>​        /day05/hello_cookie<br>​        /day05</p>
+<p>​    注意: 一旦给cookie设置了绑定路径,那么默认的绑定路径就会被覆盖.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// cookie的默认绑定路径</span></span><br><span class="line"><span class="comment">// 总结: cookie的默认绑定路径为访问路径的上一层.</span></span><br><span class="line"><span class="comment">// 名称		值			绑定路径				访问路径</span></span><br><span class="line"><span class="comment">// akey		avalue		/web_day05_01		/web_day05_01/createCookie</span></span><br><span class="line"><span class="comment">// bkey		bvalue		/web_day05_01		/web_day05_01/createCookie</span></span><br><span class="line"><span class="comment">// dkey		dvalue		/web_day05_01		/web_day05_01/setMaxAgeCookie</span></span><br><span class="line"><span class="comment">// ekey		evalue		/web_day05_01/url	/web_day05_01/url/setPathCookie</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"setPathCookie1"</span>&gt;</span>设置cookie的绑定路径<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 设置cookie的绑定路径</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@WebServlet</span>(name = <span class="string">"SetPathCookie1Servlet"</span>, urlPatterns = <span class="string">"/setPathCookie1"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SetPathCookie1Servlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        Cookie f = <span class="keyword">new</span> Cookie(<span class="string">"fkey"</span>, <span class="string">"fvalue"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 设置cookie的绑定路径</span></span><br><span class="line">        f.setPath(request.getContextPath()+<span class="string">"/aa"</span>);</span><br><span class="line"></span><br><span class="line">        response.addCookie(f);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="获取请求中的所有cookie"><a href="#获取请求中的所有cookie" class="headerlink" title="获取请求中的所有cookie"></a>获取请求中的所有cookie</h4><p>​    request.getCookies();  数组接收 cookie[]</p>
+<p>==// 浏览器携带cookie的规则==<br>​     访问路径字符串包含原则</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 浏览器携带cookie的规则</span></span><br><span class="line"><span class="comment">// 访问路径字符串包含原则</span></span><br><span class="line"><span class="comment">// 浏览器中已经存在的cookie</span></span><br><span class="line"><span class="comment">// 名称		值			绑定路径				</span></span><br><span class="line"><span class="comment">// akey		avalue		/web_day05_01		</span></span><br><span class="line"><span class="comment">// bkey		bvalue		/web_day05_01		</span></span><br><span class="line"><span class="comment">// dkey		dvalue		/web_day05_01		</span></span><br><span class="line"><span class="comment">// ekey		evalue		/web_day05_01/url	</span></span><br><span class="line"><span class="comment">// fkey		fvalue		/web_day05_01/aa	</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 访问路径: /web_day05_01/createCookie</span></span><br><span class="line"><span class="comment">// akey		avalue		/web_day05_01		</span></span><br><span class="line"><span class="comment">// bkey		bvalue		/web_day05_01		</span></span><br><span class="line"><span class="comment">// dkey		dvalue		/web_day05_01	</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 访问路径: /web_day05_01/url/setPathCookie</span></span><br><span class="line"><span class="comment">// akey		avalue		/web_day05_01		</span></span><br><span class="line"><span class="comment">// bkey		bvalue		/web_day05_01		</span></span><br><span class="line"><span class="comment">// dkey		dvalue		/web_day05_01		</span></span><br><span class="line"><span class="comment">// ekey		evalue		/web_day05_01/url</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 访问路径: /web_day05_01/aa</span></span><br><span class="line"><span class="comment">// akey		avalue		/web_day05_01		</span></span><br><span class="line"><span class="comment">// bkey		bvalue		/web_day05_01		</span></span><br><span class="line"><span class="comment">// dkey		dvalue		/web_day05_01		</span></span><br><span class="line"><span class="comment">// fkey		fvalue		/web_day05_01/aa</span></span><br></pre></td></tr></table></figure>
+<h4 id="获取Cookie的名称"><a href="#获取Cookie的名称" class="headerlink" title="获取Cookie的名称"></a>获取Cookie的名称</h4><p>​    getName();</p>
+<h4 id="获取Cookie的值"><a href="#获取Cookie的值" class="headerlink" title="获取Cookie的值"></a>获取Cookie的值</h4><p>​    getValue();</p>
+<h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><p>​    cookie不能跨浏览器</p>
+<p>​    cookie中存放的内容不能超过 4 kb</p>
+<p>​    cookie中存放的是文本信息</p>
+<h4 id="通过服务器删除指定cookie对象"><a href="#通过服务器删除指定cookie对象" class="headerlink" title="通过服务器删除指定cookie对象:"></a>通过服务器删除指定cookie对象:</h4><p>​    将cookie的存活时间设置为 0 秒</p>
+<p>​    创建相同名称 和 相同路径的cookie,将其覆盖</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"delCookie"</span>&gt;</span>通过服务器删除指定的cookie对象<span class="tag">&lt;/<span class="name">a</span>&gt;</span> <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 删除指定的cookie对象(覆盖)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@WebServlet</span>(name = <span class="string">"DelCookieServlet"</span>, urlPatterns = <span class="string">"/delCookie"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DelCookieServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 创建cookie对象</span></span><br><span class="line">        Cookie d = <span class="keyword">new</span> Cookie(<span class="string">"dkey"</span>, <span class="string">"aaaa"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 设置存活时间为0秒</span></span><br><span class="line">        d.setMaxAge(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 返回</span></span><br><span class="line">        response.addCookie(d);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Session"><a href="#Session" class="headerlink" title="Session:"></a>Session:</h2><h3 id="概述-1"><a href="#概述-1" class="headerlink" title="概述:"></a>概述:</h3><p>​    英文直译:开会，会议</p>
+<p>​    服务器端的会话技术</p>
+<h3 id="作用-1"><a href="#作用-1" class="headerlink" title="作用:"></a>作用:</h3><p>​    在服务器上存放一次会话中的数据</p>
+<p>​    ==小结:==    </p>
+<p>​    session存在服务器上</p>
+<p>​    session由服务器创建</p>
+<p>​    session中存放的数据相对安全</p>
+<p>​    session中存放的数据量不受限制</p>
+<p>​    session中可以存放一切数据(object)</p>
+<h3 id="工作流程-1"><a href="#工作流程-1" class="headerlink" title="工作流程"></a>工作流程</h3><p>​    浏览器访问服务器时,服务器会获取浏览器的数据,判断浏览器是否携带了sessionID</p>
+<p>​    如果没带:<br>​        如果没带,且想使用session,需要先创建session(服务器端的内存空间,由服务器创建),这样以来就可以使用这个session了,使用完毕后将sessionID返回给浏览器,由浏览器保存sessionID(依赖Cookie)</p>
+<p>​    如果带了:</p>
+<p>​        如果带了,服务器要先获取sessionID,根据sessionID找到这个session</p>
+<p>​        没找到:<br>​            想使用session,需要先创建session(服务器端的内存空间,由服务器创建),这样以来就可以使用这个session了,使用完毕后将sessionID返回给浏览器,由浏览器保存sessionID(依赖Cookie)</p>
+<p>​        找到直接操作session</p>
+<h3 id="关于Session的API"><a href="#关于Session的API" class="headerlink" title="关于Session的API"></a>关于Session的API</h3><h4 id="获取一个session"><a href="#获取一个session" class="headerlink" title="获取一个session:"></a>获取一个session:</h4><p>​    在java中我们认为第一次调用request.getSession()就是创建session空间<br>​    HttpSession session = request.getSession();</p>
+<p>​        创建session空间</p>
+<p>​        自动根据jsessionid找到session空间</p>
+<h4 id="Session的属性操作"><a href="#Session的属性操作" class="headerlink" title="Session的属性操作"></a>Session的属性操作</h4><p>​    setAttrbute(String name,object obj);</p>
+<p>​    getAttrbute(name);</p>
+<p>​    removeAttribute(String name);  </p>
+<h4 id="Session生命周期"><a href="#Session生命周期" class="headerlink" title="Session生命周期"></a>Session生命周期</h4><h5 id="创建"><a href="#创建" class="headerlink" title="创建:"></a>创建:</h5><p>​    java代码中第一次调用request.getSession()</p>
+<p>​    不携带jsessionid也会创建</p>
+<p>​    携带jsessionid但找不到对应的session也会创建</p>
+<h5 id="销毁"><a href="#销毁" class="headerlink" title="销毁:"></a>销毁:</h5><p>​    服务器非正常关闭<br>​    session超时:tomcat默认超时时间为30分种<br>​    手动销毁:调用session.invalidate()方法</p>
+<h1 id="域对象-Servlet中的三大域对象"><a href="#域对象-Servlet中的三大域对象" class="headerlink" title="域对象(Servlet中的三大域对象)"></a>域对象(Servlet中的三大域对象)</h1><h3 id="ServletContext-上下文对象"><a href="#ServletContext-上下文对象" class="headerlink" title="ServletContext: 上下文对象"></a>ServletContext: 上下文对象</h3><p>​    生命周期</p>
+<p>​        创建:服务器启动的时候,会为每一个项目创建一个servletContext对象</p>
+<p>​        销毁:服务器关闭的时候 或 项目从服务器上移出</p>
+<p>​        作用范围:整个项目</p>
+<p>​        作用:</p>
+<p>​            获取文件mime类型</p>
+<p>​            获取资源在服务器上的完整路径</p>
+<p>​            存放共享的数据</p>
+<h3 id="Session-会话"><a href="#Session-会话" class="headerlink" title="Session: 会话"></a>Session: 会话</h3><p>​    生命周期</p>
+<p>​        创建:调用request.getSession()时</p>
+<p>​        销毁:</p>
+<p>​            服务器非正常关闭</p>
+<p>​            Session超时</p>
+<p>​            手动销毁</p>
+<p>​                调用invalidate方法</p>
+<p>​        作用范围:一次会话</p>
+<p>​        作用:存放私有的数据</p>
+<h3 id="Request-请求"><a href="#Request-请求" class="headerlink" title="Request:请求"></a>Request:请求</h3><p>​    生命周期</p>
+<p>​        创建:请求来的时候</p>
+<p>​        销毁:响应生成的时候</p>
+<p>​    作用范围:一次请求链中</p>
+<p>​    作用:存放一次请求串中的数据</p>
+<h1 id="案例"><a href="#案例" class="headerlink" title="案例:"></a>案例:</h1><p>案例1-记录上次访问时间</p>
+<p>​    需求分析:</p>
+<p>​        当浏览器访问 remServlet 时,记录本次访问的时间,当下一次再访问时,将上次的访问时间返回的浏览器.</p>
+<p>​    技术分析:</p>
+<p>​        cookie</p>
+<p>​    步骤分析:</p>
+<p>​        ….</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"rem"</span>&gt;</span>记录上次访问时间<span class="tag">&lt;/<span class="name">a</span>&gt;</span> <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@WebServlet</span>(name = <span class="string">"RemServlet"</span>, urlPatterns = <span class="string">"/rem"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RemServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">       response.setContentType(<span class="string">"text/html;charset=utf-8"</span>);</span><br><span class="line">        <span class="comment">//1.获取请求携带的所有cookie对象</span></span><br><span class="line">        Cookie[] cookies = request.getCookies();</span><br><span class="line">        <span class="comment">//2.遍历cookie集合,查找名称为 "lastTime"的cookie对象</span></span><br><span class="line">        Cookie c = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span>(cookies!=<span class="keyword">null</span> &amp;&amp; cookies.length &gt;<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">for</span> (Cookie cookie : cookies) &#123;</span><br><span class="line">                <span class="keyword">if</span>(<span class="string">"lastTime"</span>.equals(cookie.getName()))&#123;</span><br><span class="line">                    c = cookie;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(c==<span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="comment">//a.没有找到: 第一次访问</span></span><br><span class="line">            <span class="comment">// 您是第一次访问,欢迎再来玩呀...</span></span><br><span class="line">            response.getWriter().print(<span class="string">"您是第一次访问,欢迎再来玩呀..."</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">//b.找到了: 不是第一次访问</span></span><br><span class="line">            <span class="comment">// 获取上次访问的时间</span></span><br><span class="line">            String lastTime = c.getValue();</span><br><span class="line">            <span class="comment">// 返回上次访问的时间</span></span><br><span class="line">            response.getWriter().print(<span class="string">"您上次访问时间为: "</span>+lastTime);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//3.创建cookie,生成本次访问时间,并返回给浏览器</span></span><br><span class="line">        Date date = <span class="keyword">new</span> Date();</span><br><span class="line">        SimpleDateFormat simpleDateFormat = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyy年MM月dd日HH时mm分ss秒"</span>);</span><br><span class="line">        String dateStr = simpleDateFormat.format(date);</span><br><span class="line">        c = <span class="keyword">new</span> Cookie(<span class="string">"lastTime"</span>,dateStr);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 设置存活时间</span></span><br><span class="line">        c.setMaxAge(<span class="number">360000</span>);</span><br><span class="line">        <span class="comment">// 设置绑定路径</span></span><br><span class="line">        c.setPath(request.getContextPath()+<span class="string">"/rem"</span>);</span><br><span class="line">        <span class="comment">// 返回给浏览器保存</span></span><br><span class="line">        response.addCookie(c);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>案例2-用户登录(验证码)</p>
+<p>​    需求分析:</p>
+<p>​        在登录页面上,当用户输入完用户名,密码和验证码后,点击”登录”按钮时,向服务器发送登录的请求.</p>
+<p>​        登录结果:</p>
+<p>​            验证码不可为空</p>
+<p>​            验证码不正确</p>
+<p>​            登录成功</p>
+<p>​            登录失败</p>
+<p>​            代码异常</p>
+<p>​        步骤分析:</p>
+<p>​            前台:</p>
+<p>​                提供登录页面</p>
+<p>​                    username  password  ucode</p>
+<p>​                        /login</p>
+<p>​            后台:</p>
+<p>​                web:</p>
+<p>​                    LoginServlet:</p>
+<p>​                        //——————————添加验证码校验</p>
+<p>​                        //a.获取用户输入的验证码 ucode</p>
+<p>​                        //b.或session中的验证码  scode</p>
+<p>​                        //c.判断验证码</p>
+<p>​                        //————————–执行登录</p>
+<p>​                        // 获取用户名和密码,调用service处理业务逻辑</p>
+<p>​                        // 判断执行结果,生成响应信息</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结:"></a>总结:</h1><p>会话:</p>
+<p>​    浏览器会话: cookie</p>
+<p>​        api:</p>
+<p>​            创建cookie对象</p>
+<p>​            返回给浏览器</p>
+<p>​            设置cookie存活时间</p>
+<p>​            设置cookie的绑定路劲</p>
+<p>​            获取请求携带的cookie</p>
+<p>​                规则: 访问路径字符串包含原则</p>
+<p>​            获取cookie的名称</p>
+<p>​            获取cookie的值</p>
+<p>​    服务器会话: session</p>
+<p>​        api:</p>
+<p>​            request.getSession();</p>
+<p>​        生命周期:</p>
+<p>​            创建:</p>
+<p>​            销毁:</p>
+<p>​        session作用域:</p>
+<p>​            </p>
+<p>域对象:</p>
+<p>​    </p>
+<p>​        </p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://404area.github.io">404area</a>
+            </p><p>原文链接：<a href="http://404area.github.io/2019/04/27/day05-会话技术/">http://404area.github.io/2019/04/27/day05-会话技术/</a>
+            </p><p>发表日期：<a href="http://404area.github.io/2019/04/27/day05-会话技术/">April 27th 2019, 9:36:18 pm</a>
+            </p><p>更新日期：<a href="http://404area.github.io/2019/04/27/day05-会话技术/">May 1st 2019, 3:33:50 pm</a>
+            </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2019/04/27/day06-jsp&el&jstl/" title="day06-jsp&el&jstl.xml">
+                    <div class="nextTitle">day06-jsp&el&jstl.xml</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2019/04/27/day04-response/" title="day04-request.xml">
+                    <div class="prevTitle">day04-request.xml</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:javatest1901@gmail.com" class="iconfont-archer email" title="email"></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/404area" class="iconfont-archer github" target="_blank" title="github"></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title="wechat">
+                  
+                  <img class="profile-qr" src="/assets/example_qr.png">
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#回顾"><span class="toc-number">1.</span> <span class="toc-text">回顾:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#会话技术"><span class="toc-number">2.</span> <span class="toc-text">会话技术</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#会话概述"><span class="toc-number">2.1.</span> <span class="toc-text">会话概述:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cookie"><span class="toc-number">2.2.</span> <span class="toc-text">Cookie:</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#概述"><span class="toc-number">2.2.1.</span> <span class="toc-text">概述:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#作用"><span class="toc-number">2.2.2.</span> <span class="toc-text">作用:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#工作流程"><span class="toc-number">2.2.3.</span> <span class="toc-text">工作流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#有关Cookie的API"><span class="toc-number">2.2.4.</span> <span class="toc-text">==有关Cookie的API==</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建cookie"><span class="toc-number">2.2.4.1.</span> <span class="toc-text">创建cookie</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#返回给浏览器"><span class="toc-number">2.2.4.2.</span> <span class="toc-text">返回给浏览器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#设置Cookie在浏览器的存活时间"><span class="toc-number">2.2.4.3.</span> <span class="toc-text">设置Cookie在浏览器的存活时间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#设置路径"><span class="toc-number">2.2.4.4.</span> <span class="toc-text">设置路径</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#获取请求中的所有cookie"><span class="toc-number">2.2.4.5.</span> <span class="toc-text">获取请求中的所有cookie</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#获取Cookie的名称"><span class="toc-number">2.2.4.6.</span> <span class="toc-text">获取Cookie的名称</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#获取Cookie的值"><span class="toc-number">2.2.4.7.</span> <span class="toc-text">获取Cookie的值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#注意事项"><span class="toc-number">2.2.4.8.</span> <span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#通过服务器删除指定cookie对象"><span class="toc-number">2.2.4.9.</span> <span class="toc-text">通过服务器删除指定cookie对象:</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Session"><span class="toc-number">2.3.</span> <span class="toc-text">Session:</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#概述-1"><span class="toc-number">2.3.1.</span> <span class="toc-text">概述:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#作用-1"><span class="toc-number">2.3.2.</span> <span class="toc-text">作用:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#工作流程-1"><span class="toc-number">2.3.3.</span> <span class="toc-text">工作流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于Session的API"><span class="toc-number">2.3.4.</span> <span class="toc-text">关于Session的API</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#获取一个session"><span class="toc-number">2.3.4.1.</span> <span class="toc-text">获取一个session:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Session的属性操作"><span class="toc-number">2.3.4.2.</span> <span class="toc-text">Session的属性操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Session生命周期"><span class="toc-number">2.3.4.3.</span> <span class="toc-text">Session生命周期</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#创建"><span class="toc-number">2.3.4.3.1.</span> <span class="toc-text">创建:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#销毁"><span class="toc-number">2.3.4.3.2.</span> <span class="toc-text">销毁:</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#域对象-Servlet中的三大域对象"><span class="toc-number">3.</span> <span class="toc-text">域对象(Servlet中的三大域对象)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ServletContext-上下文对象"><span class="toc-number">3.0.1.</span> <span class="toc-text">ServletContext: 上下文对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Session-会话"><span class="toc-number">3.0.2.</span> <span class="toc-text">Session: 会话</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Request-请求"><span class="toc-number">3.0.3.</span> <span class="toc-text">Request:请求</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#案例"><span class="toc-number">4.</span> <span class="toc-text">案例:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">5.</span> <span class="toc-text">总结:</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 14
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span><a class="archive-post-title" href="/2019/05/01/Hexo搭建教程/">Hexo搭建教程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span><a class="archive-post-title" href="/2019/05/01/前言/">前言</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day05-会话技术/">day05-会话技术.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day9jquery3.0/">day9jquery.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day04-response/">day04-request.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day12mavem&idea集成/">day12mavem&idea集成.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day10Ajax&jQuery/">day10Ajax&jQuery.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day07过滤器/">day07过滤器.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day08jquery3.0/">day08jquery.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day06-jsp&el&jstl/">day06-jsp&el&jstl.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day11redis/">day11redis.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day01-xml/">day01-xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day03_request-笔记/">day03-request.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day02-tomcat&servlet/">day02-tomcat&servlet.xml</a>
+        </li>
+    
+    </ul></div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="web"><span class="iconfont-archer">&#xe606;</span>web</span>
+    
+        <span class="sidebar-tag-name" data-tags="reponse"><span class="iconfont-archer">&#xe606;</span>reponse</span>
+    
+        <span class="sidebar-tag-name" data-tags="ServletContext"><span class="iconfont-archer">&#xe606;</span>ServletContext</span>
+    
+        <span class="sidebar-tag-name" data-tags="redis"><span class="iconfont-archer">&#xe606;</span>redis</span>
+    
+        <span class="sidebar-tag-name" data-tags="NOSQL"><span class="iconfont-archer">&#xe606;</span>NOSQL</span>
+    
+        <span class="sidebar-tag-name" data-tags="理想"><span class="iconfont-archer">&#xe606;</span>理想</span>
+    
+        <span class="sidebar-tag-name" data-tags="生活"><span class="iconfont-archer">&#xe606;</span>生活</span>
+    
+        <span class="sidebar-tag-name" data-tags="Hexo"><span class="iconfont-archer">&#xe606;</span>Hexo</span>
+    
+        <span class="sidebar-tag-name" data-tags="源码技术"><span class="iconfont-archer">&#xe606;</span>源码技术</span>
+    
+        <span class="sidebar-tag-name" data-tags="教程"><span class="iconfont-archer">&#xe606;</span>教程</span>
+    
+        <span class="sidebar-tag-name" data-tags="tomcat"><span class="iconfont-archer">&#xe606;</span>tomcat</span>
+    
+        <span class="sidebar-tag-name" data-tags="servlet"><span class="iconfont-archer">&#xe606;</span>servlet</span>
+    
+        <span class="sidebar-tag-name" data-tags="request"><span class="iconfont-archer">&#xe606;</span>request</span>
+    
+        <span class="sidebar-tag-name" data-tags="request域"><span class="iconfont-archer">&#xe606;</span>request域</span>
+    
+        <span class="sidebar-tag-name" data-tags="xml"><span class="iconfont-archer">&#xe606;</span>xml</span>
+    
+        <span class="sidebar-tag-name" data-tags="cookie"><span class="iconfont-archer">&#xe606;</span>cookie</span>
+    
+        <span class="sidebar-tag-name" data-tags="Session"><span class="iconfont-archer">&#xe606;</span>Session</span>
+    
+        <span class="sidebar-tag-name" data-tags="jsp"><span class="iconfont-archer">&#xe606;</span>jsp</span>
+    
+        <span class="sidebar-tag-name" data-tags="jstl"><span class="iconfont-archer">&#xe606;</span>jstl</span>
+    
+        <span class="sidebar-tag-name" data-tags="jQuery"><span class="iconfont-archer">&#xe606;</span>jQuery</span>
+    
+        <span class="sidebar-tag-name" data-tags="filler"><span class="iconfont-archer">&#xe606;</span>filler</span>
+    
+        <span class="sidebar-tag-name" data-tags="listener"><span class="iconfont-archer">&#xe606;</span>listener</span>
+    
+        <span class="sidebar-tag-name" data-tags="Ajax"><span class="iconfont-archer">&#xe606;</span>Ajax</span>
+    
+        <span class="sidebar-tag-name" data-tags="maven"><span class="iconfont-archer">&#xe606;</span>maven</span>
+    
+        <span class="sidebar-tag-name" data-tags="idea"><span class="iconfont-archer">&#xe606;</span>idea</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br>
+    1、请确保node版本大于6.2<br>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="编程"><span class="iconfont-archer">&#xe60a;</span>编程</span>
+    
+        <span class="sidebar-category-name" data-categories="杂谈"><span class="iconfont-archer">&#xe60a;</span>杂谈</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/Java"><span class="iconfont-archer">&#xe60a;</span>编程/Java</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/Java/web核心"><span class="iconfont-archer">&#xe60a;</span>编程/Java/web核心</span>
+    
+        <span class="sidebar-category-name" data-categories="源码搭建"><span class="iconfont-archer">&#xe60a;</span>源码搭建</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "404area"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+

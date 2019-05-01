@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="404area">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="404area">
+    
+    <meta name="keywords" content="404area,Java,PHP">
+    
+    <meta name="description" content>
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>day08jquery.xml · 404area&#39;s Blog</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/">404area</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">day08jquery.xml</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href="/">404area</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            day08jquery.xml
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class="post-intro-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="web">web</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="jQuery">jQuery</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">2.2k</span>阅读时长: <span class="post-count reading-time">8 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/04/27</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="学习目录"><a href="#学习目录" class="headerlink" title="学习目录:"></a>学习目录:</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. 能够理解js框架的概念</span><br><span class="line"><span class="number">2</span>. 能够引入jQuery</span><br><span class="line"><span class="number">3</span>. 能够使用jQuery的基本选择器</span><br><span class="line"><span class="number">4</span>. 能够使用jQuery的层级选择器</span><br><span class="line"><span class="number">5</span>. 能够使用jQuery的属性选择器</span><br><span class="line"><span class="number">6</span>. 能够使用jQuery的基本过滤选择器</span><br><span class="line"><span class="number">7</span>. 能够使用jQuery的属性过滤选择器</span><br><span class="line"><span class="number">8</span>. 能够使用jQuery的DOM操作的方法</span><br><span class="line"><span class="number">9</span>. 能够完成隔行换色案例</span><br><span class="line"><span class="number">10</span>. 能够完成全选全不选案例</span><br></pre></td></tr></table></figure>
+<h1 id="回顾"><a href="#回顾" class="headerlink" title="回顾:"></a>回顾:</h1><p>​    过滤器:Filter</p>
+<p>​        作用: 过滤请求和响应,主要过滤请求.</p>
+<p>​        入门:</p>
+<p>​            xml:</p>
+<p>​                1.编写一个类实现Filter接口,重写抽象方法</p>
+<p>​                2.编写配置文件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 注册我们的filter,让服务器知道该filter的存在 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">filter</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>demo1<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">  	<span class="tag">&lt;<span class="name">filter-class</span>&gt;</span>权限的名<span class="tag">&lt;/<span class="name">filter-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 给filter绑定过滤的路径.映射 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">filter-mapping</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>demo1<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">  	<span class="tag">&lt;<span class="name">url-partter</span>&gt;</span>/demo1<span class="tag">&lt;/<span class="name">url-partter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">filter-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>​            注解:</p>
+<p>​                1.编写一个类实现Filter接口,重写抽象方法</p>
+<p>​                2.在该类上添加 @WebFilter(urlPartters=”/过滤路径”)</p>
+<p>​        执行流程:</p>
+<p>​        doFilter: ServletRequest ServletResponse FIlterChain</p>
+<p>​            FIlterChain: 放行到下一个过滤器,如果当前过滤是最后一个过滤器,放行后到达指定的资源(Servlet|jsp|html)</p>
+<p>​        生命周期:</p>
+<p>​            init()</p>
+<p>​            doFilter()</p>
+<p>​            destory()</p>
+<p>​        过滤器的过滤路径:</p>
+<p>​            完全匹配: /a/demo1</p>
+<p>​            目录匹配: /b/*</p>
+<p>​            后缀名匹配: *.xxx</p>
+<p>​        过滤方式:</p>
+<p>​            Dispacther:</p>
+<p>​                REQUEST: 浏览器发送</p>
+<p>​                FORWARD: 请求转发</p>
+<p>​        错误的友好页面:</p>
+<p>​    监听器:Listener</p>
+<p>​        用来监听Servlet的三大作用域对象</p>
+<p>​        监听器: ServletContextListener</p>
+<p>​            作用: 监听上下文对象的创建和销毁.</p>
+<p>​                我们就可以间接的知道项目什么时候启动,什么时候关闭了.</p>
+<p>​                我们就可以在项目启动时加载框架的配置文件.</p>
+<p>回顾: javaScript</p>
+<p>​    js是一个动态类型,弱类型,基于原型的脚本语言.给页面添加动态效果.</p>
+<p>​    js和html整合:</p>
+<p>​        内联式: 通过<script></script>实现</p>
+<p>​        外联式:</p>
+<p>​            1.编写外部的js文件(*.js)</p>
+<p>​            2.在使用的html中引入(<script></script>的src属性引入)</p>
+<h1 id="day09jQuery3-0"><a href="#day09jQuery3-0" class="headerlink" title="day09jQuery3.0"></a>day09jQuery3.0</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>​    jQuery是一个优秀的javascript框架(js类库)，兼容css3和各大浏览器，提供dom，events，animate，ajax等简易的操作。并且jQuery有非常丰富的插件，大多数功能都有相应的插件解决方案。jQuery的宗旨是write less, do more. (写的更少,做的更多)</p>
+<p>​    jq本质上就是一个外部的js文件(jQuery.js),在该文件中封装了很多js代码,实现了很多功能.</p>
+<p>​    我们管jq文件叫做 js 框架或 js 类库.</p>
+<h2 id="jQuery入门"><a href="#jQuery入门" class="headerlink" title="jQuery入门"></a>jQuery入门</h2><h3 id="jQuery和html整合"><a href="#jQuery和html整合" class="headerlink" title="jQuery和html整合"></a>jQuery和html整合</h3><ul>
+<li><p>下载</p>
+<ul>
+<li>下载地址:<a href="http://www.jquery.com" target="_blank" rel="noopener">www.jquery.com</a></li>
+<li>jQuery 2.0 以后不再支持ie 6 7 8.</li>
+</ul>
+</li>
+<li><p>使用script的src属性即可<br>eg:<script src="jquery-x.x.x.js"></script></p>
+<h2 id="语法"><a href="#语法" class="headerlink" title="==语法=="></a>==语法==</h2><p>​    $(“选择器”)     或     jQuery(“选择器”)<br>​    var  元素对象  = $(“选择器”);<br>​    $(“#id值”);     </p>
+<p>​    val();  // 获取当前对象上value属性的值</p>
+</li>
+</ul>
+<h3 id="javaScript和jquery区别"><a href="#javaScript和jquery区别" class="headerlink" title="javaScript和jquery区别"></a>javaScript和jquery区别</h3><ul>
+<li><p>注意事项:<br>​    使用jquery的方式获取的对象称为jquery对象,</p>
+<p>​        jQuery对象本质上是js对象数组.</p>
+<p>​    使用dom的方式获取的对象称为dom(js)对象,<br>​    两者的方法和属性不能混用,<br>​    使用jquery的方法和属性时,必须保证对象是jquery对象.</p>
+</li>
+<li><p>js对象和jquery对象之间的转换</p>
+<ul>
+<li>js对象  →  jquery对象<ul>
+<li>$(js对象);</li>
+<li>jQuery(js对象);</li>
+</ul>
+</li>
+<li>jquery对象  →   js对象 (jQuery对象本质上是js对象数组.)<ul>
+<li>方式1:jQuery对象[index]</li>
+<li>方式2:jQuery对象.get(index)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="事件-event"><a href="#事件-event" class="headerlink" title="事件(event)"></a>事件(event)</h2><p>在js的事件中,事件前加on,在jq的事件中没有on,直接写名称即可</p>
+<ul>
+<li><p>页面加载成功事件</p>
+<ul>
+<li>格式1:$(document).ready(function(){});</li>
+<li>格式2:$(function(){});</li>
+<li>注意:在同一个页面内,jquery的页面加载成功事件可以出现多次,随机执行,js的页面加载成功事件能出现多次,但只有最后一个生效</li>
+</ul>
+</li>
+<li><p>重点事件</p>
+<ul>
+<li>click(fun())</li>
+<li>change(fun())</li>
+<li>submit(fun())</li>
+<li>focus(fun())</li>
+<li>blur(fun())</li>
+</ul>
+</li>
+<li><p>jquery事件和事件源的绑定</p>
+<p>如果你想将jq代码写在head标签中,那么要保证页面加载成功后,才能使用jq的事件</p>
+<ul>
+<li>jquery对象.事件名称(function(){});</li>
+</ul>
+</li>
+</ul>
+<h2 id="jQuery的选择器"><a href="#jQuery的选择器" class="headerlink" title="jQuery的选择器"></a>jQuery的选择器</h2><h3 id="基本选择器-★"><a href="#基本选择器-★" class="headerlink" title="基本选择器:★"></a>基本选择器:★</h3><ul>
+<li>* 所有</li>
+<li># id</li>
+<li>.class</li>
+<li>标签选择器(标签名)</li>
+<li>多个选择器用”,”号隔开   a,b</li>
+</ul>
+<h3 id="层级选择器-★"><a href="#层级选择器-★" class="headerlink" title="层级选择器:★"></a>层级选择器:★</h3><ul>
+<li>a b:选择a的b的后代</li>
+<li>a&gt;b:选择a的b孩子</li>
+<li>a+b:选择a的b大弟弟</li>
+<li>a~b:选择a的所有的b弟弟 </li>
+</ul>
+<h3 id="属性选择器★"><a href="#属性选择器★" class="headerlink" title="属性选择器★"></a>属性选择器★</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// [属性名]	获取元素上带有该属性名的元素对象</span></span><br><span class="line"><span class="comment">// [属性名='值']	获取元素上带有该属性名且值为'zhi'的元素对象</span></span><br></pre></td></tr></table></figure>
+<h3 id="基本过滤-★"><a href="#基本过滤-★" class="headerlink" title="基本过滤: ★"></a>基本过滤: ★</h3><ul>
+<li>:first 第一个</li>
+<li>:last  最后一个</li>
+<li>:even 偶数</li>
+<li>:odd 奇数</li>
+<li>:eq(index) 索引=</li>
+<li>:gt(index) 索引&gt;</li>
+<li>:lt(index) 索引&lt;</li>
+<li>:not(选择器)</li>
+</ul>
+<h3 id="表单对象属性★"><a href="#表单对象属性★" class="headerlink" title="表单对象属性★"></a>表单对象属性★</h3><ul>
+<li>:enabled        可用的</li>
+<li>:disabled          不可用的</li>
+<li>:checked           选中的(针对的是单选框和复选框)</li>
+<li>:selected          选中的(下拉选)</li>
+</ul>
+<h2 id="jQuery的DOM操作"><a href="#jQuery的DOM操作" class="headerlink" title="jQuery的DOM操作"></a>jQuery的DOM操作</h2><h3 id="操作HTML代码-文本-值-★"><a href="#操作HTML代码-文本-值-★" class="headerlink" title="操作HTML代码/文本/值 ★"></a>操作HTML代码/文本/值 ★</h3><ul>
+<li>val() : 对value属性的操作<ul>
+<li>jq对象.val();       获取value属性的值</li>
+<li>jq对象.val(“值”);       设置value属性的值</li>
+</ul>
+</li>
+<li>html() : 对标签体的操作  (等同于js的innerHTML属性)<ul>
+<li>jq对象.html();      获取标签体的内容</li>
+<li>jq对象.html(“值”);     设置标签体的内容</li>
+</ul>
+</li>
+<li>text() : 对标签体的操作  (等同于js的innerText属性) <ul>
+<li>jq对象.text();       获取标签体的内容</li>
+<li>jq对象.text(“值”);     设置标签体的内容</li>
+</ul>
+</li>
+<li>html和text区别<br>设置内容: html可以将内容解析,text只是作为普通文本<br>获取内容:html获取所有源码内容,text只是获取文本内容</li>
+</ul>
+<h3 id="文档处理"><a href="#文档处理" class="headerlink" title="文档处理"></a>文档处理</h3><h4 id="内部插入"><a href="#内部插入" class="headerlink" title="内部插入:"></a>内部插入:</h4><ul>
+<li>append        a.append(c)     将c插入到a的内部的后面</li>
+<li>prepend        a.prepend(c)    将c插入到a的内部的前面</li>
+</ul>
+<h4 id="外部插入"><a href="#外部插入" class="headerlink" title="外部插入:"></a>外部插入:</h4><ul>
+<li>after            a.after(c)                在a的后面插入c</li>
+<li>before                a.before(c)          在a的前面插入c</li>
+</ul>
+<h4 id="删除"><a href="#删除" class="headerlink" title="删除:"></a>删除:</h4><ul>
+<li>empty():清空元素 (清空所有的子标签)</li>
+<li>remove():移除 (自杀)</li>
+</ul>
+<h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><ul>
+<li>attr():设置或者获取元素的属性<ul>
+<li>设置属性(给标签添加属性)<ul>
+<li>格式1:设置单个属性<br>jq对象.attr(“属性名”,”值”);</li>
+<li>格式2:设置多个属性<br>jq对象.attr({<br>​    “属性”:”值”,<br>​    “属性1”:”值1”<br>});</li>
+</ul>
+</li>
+<li>获取属性的值<br>​    jq对象.attr(“属性名”);</li>
+<li>移除属性(删除属性)<br>​    jq对象.removeAttr(“属性名”);</li>
+</ul>
+</li>
+<li>prop():使用方式和attr一样,优先使用attr方法,若attr方法不能用,换prop方法(版本升级后的产物)<br>checked 和 selected 使用prop获取</li>
+</ul>
+<h4 id="class操作"><a href="#class操作" class="headerlink" title="class操作"></a>class操作</h4><ul>
+<li>元素.addClass(“属性值”);添加</li>
+<li>元素.removeClass():移除指定的样式</li>
+<li>元素.toggleClass(“属性值”): 有class属性就删除,没有class属性就添加.</li>
+</ul>
+<h4 id="css样式"><a href="#css样式" class="headerlink" title="css样式"></a>css样式</h4><ul>
+<li>css<ul>
+<li>设置css样式<ul>
+<li>格式1:设置单个属性<br>jq对象.css(“属性”,”值”);</li>
+<li>格式2:设置多个属性<br>jq对象.css({<br>​    “属性”:”值”,<br>​    “属性1”:”值1”<br>});</li>
+</ul>
+</li>
+<li>获取css样式的值<br>​    jq对象.css(“属性名称”);</li>
+</ul>
+</li>
+<li>获取元素的宽和高<ul>
+<li>jq对象.width()</li>
+<li>jq对象.height()</li>
+</ul>
+</li>
+</ul>
+<h2 id="案例"><a href="#案例" class="headerlink" title="案例:"></a>案例:</h2><p>案例1-表格隔行换色</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//需求分析:</span></span><br><span class="line"><span class="comment">// 	当页面加载成功后,给表格的计数行和偶数行添加不同的背景颜色,表头除外.</span></span><br><span class="line"><span class="comment">//技术分析:</span></span><br><span class="line"><span class="comment">//	jQuery: 选择器 jq操作css</span></span><br><span class="line"><span class="comment">//步骤分析:</span></span><br><span class="line"><span class="comment">//	1.页面加载成功事件</span></span><br><span class="line"><span class="comment">//	2.获取奇数行添加背景颜色,获取偶数行添加背景颜色.</span></span><br></pre></td></tr></table></figure>
+<p>案例2-全选和全不选</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">需求分析:</span><br><span class="line">	当点击头部复选框时,让其他的复选框的状态和头部复选框的状态保持一致.</span><br><span class="line">技术分析:</span><br><span class="line">	jQuery:</span><br><span class="line">		事件:</span><br><span class="line">		属性: checked</span><br><span class="line">        选择器:</span><br><span class="line">步骤分析:</span><br><span class="line">	<span class="number">1.</span>给头部复选框添加点击事件</span><br><span class="line">    <span class="number">2.</span>获取头部复选框的状态(checked)</span><br><span class="line">	<span class="number">3.</span>获取其他复选框设置checked属性值.</span><br></pre></td></tr></table></figure>
+<p>案例3-QQ表情添加</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结:"></a>总结:</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> 能够理解js框架的概念</span><br><span class="line">	jq本质上就是一个js文件, js类库 或 js框架</span><br><span class="line"><span class="number">2.</span> 能够引入jQuery</span><br><span class="line">	a.下载</span><br><span class="line">	b.使用script标签的src属性引入</span><br><span class="line"><span class="number">3.</span> 能够使用jQuery的基本选择器</span><br><span class="line">	*</span><br><span class="line">  	#id</span><br><span class="line">	.class</span><br><span class="line">    标签</span><br><span class="line">    a,b</span><br><span class="line"><span class="number">4.</span> 能够使用jQuery的层级选择器</span><br><span class="line">	a b</span><br><span class="line">    a&gt;b</span><br><span class="line">	a+b</span><br><span class="line">	a~b</span><br><span class="line"><span class="number">5.</span> 能够使用jQuery的属性选择器</span><br><span class="line">	[属性名]</span><br><span class="line">	[属性名=<span class="string">'值'</span>]</span><br><span class="line"><span class="number">6.</span> 能够使用jQuery的基本过滤选择器</span><br><span class="line">	:first</span><br><span class="line">    :last</span><br><span class="line">    :even</span><br><span class="line">    :odd</span><br><span class="line">    :eq(index)</span><br><span class="line">	:lt(index)</span><br><span class="line">	:gt(index)</span><br><span class="line">	:not(<span class="string">'选择器'</span>)</span><br><span class="line"><span class="number">7.</span> 能够使用jQuery的属性过滤选择器</span><br><span class="line">	标签[属性]</span><br><span class="line"><span class="number">8.</span> 能够使用jQuery的DOM操作的方法</span><br><span class="line">	val()  html()  text()</span><br><span class="line">	文档处理:</span><br><span class="line">		append()	prepend()</span><br><span class="line">		after()		before()</span><br><span class="line">		empty()		remove()</span><br><span class="line">	 操作属性:</span><br><span class="line">		attr()	prop()</span><br><span class="line">	 操作css</span><br><span class="line">     	css()</span><br><span class="line"><span class="number">9.</span> 能够完成隔行换色案例</span><br><span class="line"><span class="number">10.</span> 能够完成全选全不选案例</span><br></pre></td></tr></table></figure>
+<p>jq语法:</p>
+<p>​    $(“选择器”);        jQuery(“选择器”);</p>
+<p>jq对象  —-&gt;  js对象</p>
+<p>​    jq对象[index]        jq对象.get(index)</p>
+<p>js对象  —–&gt;   jq对象</p>
+<p>​    $(js对象);        jQuery(js对象);</p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://404area.github.io">404area</a>
+            </p><p>原文链接：<a href="http://404area.github.io/2019/04/27/day08jquery3.0/">http://404area.github.io/2019/04/27/day08jquery3.0/</a>
+            </p><p>发表日期：<a href="http://404area.github.io/2019/04/27/day08jquery3.0/">April 27th 2019, 9:36:22 pm</a>
+            </p><p>更新日期：<a href="http://404area.github.io/2019/04/27/day08jquery3.0/">May 1st 2019, 3:35:00 pm</a>
+            </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2019/04/27/day10Ajax&jQuery/" title="day10Ajax&jQuery.xml">
+                    <div class="nextTitle">day10Ajax&jQuery.xml</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2019/04/27/day07过滤器/" title="day07过滤器.xml">
+                    <div class="prevTitle">day07过滤器.xml</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:javatest1901@gmail.com" class="iconfont-archer email" title="email"></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/404area" class="iconfont-archer github" target="_blank" title="github"></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title="wechat">
+                  
+                  <img class="profile-qr" src="/assets/example_qr.png">
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#学习目录"><span class="toc-number">1.</span> <span class="toc-text">学习目录:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#回顾"><span class="toc-number">2.</span> <span class="toc-text">回顾:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#day09jQuery3-0"><span class="toc-number">3.</span> <span class="toc-text">day09jQuery3.0</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#概述"><span class="toc-number">3.1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jQuery入门"><span class="toc-number">3.2.</span> <span class="toc-text">jQuery入门</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#jQuery和html整合"><span class="toc-number">3.2.1.</span> <span class="toc-text">jQuery和html整合</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#语法"><span class="toc-number">3.3.</span> <span class="toc-text">==语法==</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#javaScript和jquery区别"><span class="toc-number">3.3.1.</span> <span class="toc-text">javaScript和jquery区别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事件-event"><span class="toc-number">3.4.</span> <span class="toc-text">事件(event)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jQuery的选择器"><span class="toc-number">3.5.</span> <span class="toc-text">jQuery的选择器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本选择器-★"><span class="toc-number">3.5.1.</span> <span class="toc-text">基本选择器:★</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#层级选择器-★"><span class="toc-number">3.5.2.</span> <span class="toc-text">层级选择器:★</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#属性选择器★"><span class="toc-number">3.5.3.</span> <span class="toc-text">属性选择器★</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本过滤-★"><span class="toc-number">3.5.4.</span> <span class="toc-text">基本过滤: ★</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#表单对象属性★"><span class="toc-number">3.5.5.</span> <span class="toc-text">表单对象属性★</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jQuery的DOM操作"><span class="toc-number">3.6.</span> <span class="toc-text">jQuery的DOM操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#操作HTML代码-文本-值-★"><span class="toc-number">3.6.1.</span> <span class="toc-text">操作HTML代码/文本/值 ★</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文档处理"><span class="toc-number">3.6.2.</span> <span class="toc-text">文档处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#内部插入"><span class="toc-number">3.6.2.1.</span> <span class="toc-text">内部插入:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#外部插入"><span class="toc-number">3.6.2.2.</span> <span class="toc-text">外部插入:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#删除"><span class="toc-number">3.6.2.3.</span> <span class="toc-text">删除:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#属性"><span class="toc-number">3.6.3.</span> <span class="toc-text">属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#class操作"><span class="toc-number">3.6.3.1.</span> <span class="toc-text">class操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#css样式"><span class="toc-number">3.6.3.2.</span> <span class="toc-text">css样式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#案例"><span class="toc-number">3.7.</span> <span class="toc-text">案例:</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结:</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 14
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span><a class="archive-post-title" href="/2019/05/01/Hexo搭建教程/">Hexo搭建教程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span><a class="archive-post-title" href="/2019/05/01/前言/">前言</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day05-会话技术/">day05-会话技术.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day9jquery3.0/">day9jquery.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day04-response/">day04-request.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day12mavem&idea集成/">day12mavem&idea集成.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day10Ajax&jQuery/">day10Ajax&jQuery.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day07过滤器/">day07过滤器.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day08jquery3.0/">day08jquery.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day06-jsp&el&jstl/">day06-jsp&el&jstl.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day11redis/">day11redis.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day01-xml/">day01-xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day03_request-笔记/">day03-request.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day02-tomcat&servlet/">day02-tomcat&servlet.xml</a>
+        </li>
+    
+    </ul></div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="web"><span class="iconfont-archer">&#xe606;</span>web</span>
+    
+        <span class="sidebar-tag-name" data-tags="reponse"><span class="iconfont-archer">&#xe606;</span>reponse</span>
+    
+        <span class="sidebar-tag-name" data-tags="ServletContext"><span class="iconfont-archer">&#xe606;</span>ServletContext</span>
+    
+        <span class="sidebar-tag-name" data-tags="redis"><span class="iconfont-archer">&#xe606;</span>redis</span>
+    
+        <span class="sidebar-tag-name" data-tags="NOSQL"><span class="iconfont-archer">&#xe606;</span>NOSQL</span>
+    
+        <span class="sidebar-tag-name" data-tags="理想"><span class="iconfont-archer">&#xe606;</span>理想</span>
+    
+        <span class="sidebar-tag-name" data-tags="生活"><span class="iconfont-archer">&#xe606;</span>生活</span>
+    
+        <span class="sidebar-tag-name" data-tags="Hexo"><span class="iconfont-archer">&#xe606;</span>Hexo</span>
+    
+        <span class="sidebar-tag-name" data-tags="源码技术"><span class="iconfont-archer">&#xe606;</span>源码技术</span>
+    
+        <span class="sidebar-tag-name" data-tags="教程"><span class="iconfont-archer">&#xe606;</span>教程</span>
+    
+        <span class="sidebar-tag-name" data-tags="tomcat"><span class="iconfont-archer">&#xe606;</span>tomcat</span>
+    
+        <span class="sidebar-tag-name" data-tags="servlet"><span class="iconfont-archer">&#xe606;</span>servlet</span>
+    
+        <span class="sidebar-tag-name" data-tags="request"><span class="iconfont-archer">&#xe606;</span>request</span>
+    
+        <span class="sidebar-tag-name" data-tags="request域"><span class="iconfont-archer">&#xe606;</span>request域</span>
+    
+        <span class="sidebar-tag-name" data-tags="xml"><span class="iconfont-archer">&#xe606;</span>xml</span>
+    
+        <span class="sidebar-tag-name" data-tags="cookie"><span class="iconfont-archer">&#xe606;</span>cookie</span>
+    
+        <span class="sidebar-tag-name" data-tags="Session"><span class="iconfont-archer">&#xe606;</span>Session</span>
+    
+        <span class="sidebar-tag-name" data-tags="jsp"><span class="iconfont-archer">&#xe606;</span>jsp</span>
+    
+        <span class="sidebar-tag-name" data-tags="jstl"><span class="iconfont-archer">&#xe606;</span>jstl</span>
+    
+        <span class="sidebar-tag-name" data-tags="jQuery"><span class="iconfont-archer">&#xe606;</span>jQuery</span>
+    
+        <span class="sidebar-tag-name" data-tags="filler"><span class="iconfont-archer">&#xe606;</span>filler</span>
+    
+        <span class="sidebar-tag-name" data-tags="listener"><span class="iconfont-archer">&#xe606;</span>listener</span>
+    
+        <span class="sidebar-tag-name" data-tags="Ajax"><span class="iconfont-archer">&#xe606;</span>Ajax</span>
+    
+        <span class="sidebar-tag-name" data-tags="maven"><span class="iconfont-archer">&#xe606;</span>maven</span>
+    
+        <span class="sidebar-tag-name" data-tags="idea"><span class="iconfont-archer">&#xe606;</span>idea</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br>
+    1、请确保node版本大于6.2<br>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="编程"><span class="iconfont-archer">&#xe60a;</span>编程</span>
+    
+        <span class="sidebar-category-name" data-categories="杂谈"><span class="iconfont-archer">&#xe60a;</span>杂谈</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/Java"><span class="iconfont-archer">&#xe60a;</span>编程/Java</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/Java/web核心"><span class="iconfont-archer">&#xe60a;</span>编程/Java/web核心</span>
+    
+        <span class="sidebar-category-name" data-categories="源码搭建"><span class="iconfont-archer">&#xe60a;</span>源码搭建</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "404area"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+

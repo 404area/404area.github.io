@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="404area">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="404area">
+    
+    <meta name="keywords" content="404area,Java,PHP">
+    
+    <meta name="description" content>
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>day9jquery.xml · 404area&#39;s Blog</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/">404area</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">day9jquery.xml</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href="/">404area</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            day9jquery.xml
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class="post-intro-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="web">web</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="jQuery">jQuery</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">2.5k</span>阅读时长: <span class="post-count reading-time">10 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/04/27</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="回顾"><a href="#回顾" class="headerlink" title="回顾:"></a>回顾:</h1><p>jQuery:</p>
+<p>​    概述:</p>
+<p>​        jQuery本质上就是一个外部的js文件,我们管他叫做 js类库 或 js框架.</p>
+<p>​    jQuery使用:</p>
+<p>​        1.下载</p>
+<p>​            3.3.1版本    2.0版本以后不再支持ie 6 7 8</p>
+<p>​        2.在需要使用的html页面中引入即可</p>
+<p>​            使用外联式: <script> 的src属性.</p>
+<p>​    jQuery语法:</p>
+<p>​        $(“选择器”)    jQuery(“选择器”)</p>
+<p>​        使用jq的语法获取的对象叫做jq对象,除了jq对象外其他的对象均是js(dom)对象</p>
+<p>​        jq对象和js对象的方法和属性不能混用.</p>
+<p>​        jq对象本质上就是js对象数组.</p>
+<p>​    jq对象和js(dom)对象转换:</p>
+<p>​        jq对象    —–&gt;     js对象</p>
+<p>​            jq对象[index]            jq对象.get(index)</p>
+<p>​        js对象    —–&gt;         jq对象</p>
+<p>​            $(js对象)        jQuery(js对象)</p>
+<p>​    jq选择器:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">基本选择器:</span><br><span class="line">	*</span><br><span class="line">    #id</span><br><span class="line">    .class</span><br><span class="line">    标签</span><br><span class="line">    多个选择器之间使用 逗号 隔开</span><br><span class="line">层级选择器:</span><br><span class="line">	a b</span><br><span class="line">    a&gt;b</span><br><span class="line">	a+b</span><br><span class="line">	a~b</span><br><span class="line">属性选择器:</span><br><span class="line">	[属性名]</span><br><span class="line">	[属性名=<span class="string">'值'</span>]</span><br><span class="line">属性过滤选择器:</span><br><span class="line">	标签[属性]</span><br><span class="line">基本过滤选择器:</span><br><span class="line">	:first</span><br><span class="line">    :last</span><br><span class="line">    :odd</span><br><span class="line">    :even</span><br><span class="line">    :eq(index)</span><br><span class="line">	:lt(index)</span><br><span class="line">	:gt(index)</span><br><span class="line">	:not(<span class="string">'选择器'</span>)</span><br><span class="line">表单对象属性选择器:</span><br><span class="line">	:enabled</span><br><span class="line">    :disabled</span><br><span class="line">    :checked</span><br><span class="line">    :selected</span><br></pre></td></tr></table></figure>
+<p>​    jQuery的DOM操作:</p>
+<p>​        val / text /html:</p>
+<p>​            val()        val(“值”)</p>
+<p>​            html()    html(“值”)</p>
+<p>​            text()    text(“值”)</p>
+<p>​        文档操作:</p>
+<p>​            内部插入: append        prepend</p>
+<p>​            外部插入: after        before</p>
+<p>​            删除:    empty        remove</p>
+<p>​        属性:</p>
+<p>​            attr    | prop</p>
+<p>​                设置:</p>
+<p>​                    jq对象.attr(“属性名称”,”值”);</p>
+<p>​                    jq对象.attr({</p>
+<p>​                        “属性名”:”值”,</p>
+<p>​                        “属性名”:”值”</p>
+<p>​                    });</p>
+<p>​                获取:</p>
+<p>​                    jq对象.attr(“属性名”);</p>
+<p>​                删除:</p>
+<p>​                    jq对象.removeAttr(“属性名”);</p>
+<p>​            class:</p>
+<p>​                addClass(“值”);</p>
+<p>​                removeClass();</p>
+<p>​                toggleClass(“值”);</p>
+<p>​            prop主要用于操作 checked selected</p>
+<p>​        css样式:    </p>
+<p>​            jq对象.css(“属性名称”,”值”);</p>
+<p>​            jq对象.css({</p>
+<p>​                “属性名”:”值”,</p>
+<p>​                “属性名”:”值”</p>
+<p>​            });</p>
+<p>​            jq对象.css(“属性名”);</p>
+<p>jq对象.clone();  // 将当前对象复制一份</p>
+<p>this: 代表的是当前jq对象所选中的js对象</p>
+<h1 id="day10jquery3-0"><a href="#day10jquery3-0" class="headerlink" title="day10jquery3.0"></a>day10jquery3.0</h1><h2 id="jQuery-Dom操作"><a href="#jQuery-Dom操作" class="headerlink" title="jQuery-Dom操作"></a>jQuery-Dom操作</h2><h3 id="jQuery效果"><a href="#jQuery效果" class="headerlink" title="jQuery效果:"></a>jQuery效果:</h3><ul>
+<li>基本:高和宽都变化<ul>
+<li>hide([毫秒值]):隐藏</li>
+<li>show([毫秒值]):显示</li>
+<li>toggle([毫秒值]):切换</li>
+</ul>
+</li>
+<li>滑入滑出:高变化<ul>
+<li>slideUp([毫秒值]):滑出</li>
+<li>slideDown([毫秒值]):滑入</li>
+<li>slideToggle([毫秒值]);切换</li>
+</ul>
+</li>
+<li>淡入淡出:<ul>
+<li>fadeIn([毫秒值]);淡入</li>
+<li>fadeOut([毫秒值]);淡出</li>
+<li>fadeToggle([毫秒值]);切换</li>
+</ul>
+</li>
+<li>了解:<ul>
+<li>fadeToggle(毫秒值,[速度],function(){});</li>
+<li>以上效果都可以添加一个回调函数</li>
+</ul>
+</li>
+</ul>
+<h3 id="jQuery遍历"><a href="#jQuery遍历" class="headerlink" title="jQuery遍历"></a>jQuery遍历</h3><h4 id="方式1-jQuery的对象方法"><a href="#方式1-jQuery的对象方法" class="headerlink" title="方式1:jQuery的对象方法"></a>方式1:jQuery的对象方法</h4><ul>
+<li>格式: [ele0,ele1,ele2]<br> jq对象.each(function([index],[dom对象]){<br> ​        对遍历到每个元素的操作<br>  });</li>
+</ul>
+<h4 id="方式2-全局函数"><a href="#方式2-全局函数" class="headerlink" title="方式2:全局函数"></a>方式2:全局函数</h4><ul>
+<li>格式:<br>$.each(要遍历的对象,function([index],[dom对象]){<br>});</li>
+</ul>
+<h4 id="方式3-新特性"><a href="#方式3-新特性" class="headerlink" title="方式3: 新特性"></a>方式3: 新特性</h4><ul>
+<li>格式:  for of<ul>
+<li>for(var 变量 of 被遍历的对象){}</li>
+</ul>
+</li>
+</ul>
+<h2 id="jQuery的事件总结"><a href="#jQuery的事件总结" class="headerlink" title="jQuery的事件总结"></a>jQuery的事件总结</h2><h3 id="常见事件"><a href="#常见事件" class="headerlink" title="常见事件"></a>常见事件</h3><ul>
+<li>页面加载成功事件★<ul>
+<li>$(function(){})</li>
+<li>$(document).ready(function(){})</li>
+</ul>
+</li>
+<li>submit 表单提交事件★</li>
+<li>focus 获得焦点事件  ★</li>
+<li>blur  失去焦点  ★</li>
+<li>change  改变 ★</li>
+<li>click  单击 ★</li>
+<li>dblclick 双击</li>
+<li>keydown  键盘按下</li>
+<li>keyup  键盘弹起</li>
+<li>keypress 键盘按下并弹起</li>
+<li>mousedown   鼠标按下</li>
+<li>mouseup  鼠标弹起</li>
+<li>mousemove  鼠标移入</li>
+<li>mouseout   鼠标移出</li>
+<li>mouseover  鼠标悬停  </li>
+</ul>
+<h3 id="事件和事件源的绑定-★"><a href="#事件和事件源的绑定-★" class="headerlink" title="事件和事件源的绑定  ★"></a>事件和事件源的绑定  ★</h3><ul>
+<li>派发事件<ul>
+<li>jq对象.事件名称(function(){});</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>jQuery的事件绑定与解绑<ul>
+<li>on绑定事件<ul>
+<li>jQuery对象.on(“事件名称”,function(){})</li>
+</ul>
+</li>
+<li>off解绑事件<ul>
+<li>jQuery对象.off(“事件名称”)<br>如果不给名称,解绑所有</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="事件切换"><a href="#事件切换" class="headerlink" title="事件切换"></a>事件切换</h3><ul>
+<li>hover:相当于给一个元素添加了mouseover和mouseout两个事件<br>jq元素对象.hover(function(){<br>​    //第一个函数相当于mouseover<br>},function(){<br>​    //第二个函数相当于mouseout<br>});</li>
+</ul>
+<h2 id="jQuery插件"><a href="#jQuery插件" class="headerlink" title="jQuery插件"></a>jQuery插件</h2><p>插件: 实现了指定功能的代码片段</p>
+<h3 id="插件机制"><a href="#插件机制" class="headerlink" title="插件机制"></a>插件机制</h3><ul>
+<li><p>jQuery插件机制概述</p>
+<ul>
+<li>jQuery插件的机制很简单，就是利用jQuery提供的jQuery.fn.extend()和jQuery.extend()方法，扩展jQuery的功能.</li>
+</ul>
+</li>
+<li><p>jQuery插件机制语法 </p>
+<ul>
+<li>jQuery.fn.extend(object)     对jQuery对象进行方法扩展</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">jQuery.fn.extend(&#123;</span><br><span class="line">  <span class="string">"check"</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.each(<span class="function"><span class="keyword">function</span> (<span class="params">index,ele</span>) </span>&#123;</span><br><span class="line">      ele.checked = <span class="literal">true</span>;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"自定义方法名称"</span>:<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 处理对象的逻辑</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.each(<span class="function"><span class="keyword">function</span> (<span class="params">index,ele</span>) </span>&#123;</span><br><span class="line">      ele.checked = <span class="literal">false</span>;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>jQuery.extend(object)         对jQuery全局进行方法扩展 </li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">jQuery.extend(&#123;</span><br><span class="line">  <span class="string">"min"</span>:<span class="function"><span class="keyword">function</span> (<span class="params">i,j</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> i&gt;j?j:i;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"max"</span>:<span class="function"><span class="keyword">function</span> (<span class="params">i,j</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> i&gt;j?i:j;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+</ul>
+<h3 id="validate插件"><a href="#validate插件" class="headerlink" title="validate插件"></a>validate插件</h3><p>插件:指的就是别人已经写好的功能代码,直接引入使用即可.</p>
+<ul>
+<li><p>作用:对表单进行校验</p>
+</li>
+<li><p>下载:<br>​    下载路径:<a href="http://jqueryvalidation.org/files/jquery-validation-1.15.0.zip">http://jqueryvalidation.org/files/jquery-validation-1.15.0.zip</a></p>
+</li>
+<li><p>使用方式:</p>
+<ul>
+<li><p>1.导入jquery.js<br>validate是基于jquery写的,所以要先导入jquery的js文件</p>
+</li>
+<li><p>2.再导入validate.js<br>想要使用别人的插件就必须的导入人家已经写好的js文件(插件)</p>
+</li>
+<li><p>3.在页面加载成功后,要确定对页面上的哪个表单进行校验<br>​    $(function(){<br>​        表单对象.validate();<br>​    });</p>
+</li>
+<li><p>4.validate使用格式:<br>​    表单对象.validate({<br>​        rules:{},    //校验规则<br>​        messages:{}    //提示信息<br>​    });</p>
+</li>
+<li><p>5.常见的校验规则</p>
+<p>| 校验器名称       | 值                     | 描述                            |<br>| ———– | ——————— | —————————– |<br>| required    | true|false           | 必须填写                          |<br>| number      | true|false           | 只能输入数字                        |<br>| min         | 数字                    | 最小值                           |<br>| max         | 数字                    | 最大值                           |<br>| range       | [min,max]             | 取值范围                          |<br>| minlength   | 数字                    | 最小长度                          |<br>| maxlength   | 数字                    | 最大长度                          |<br>| rangelength | [minlength,maxlength] | 长度范围                          |<br>| equalTo     | 通过jQuery选择器选中指定元素对象   | 和谁相等(重复密码)                    |<br>| email       | “email”               | 校验邮箱                          |<br>| date        | true                  | 校验日期                          |<br>| dateISO     | true                  | 校验日期格式xxxx-xx-xx   xxxx/xx/xx |</p>
+</li>
+<li><p>6.rules校验器语法:</p>
+<ul>
+<li>方式1:单一校验<br>name属性的值:”校验器”</li>
+<li>方式2:多个校验<br>​    name属性的值:{<br>​        校验器1:值1,<br>​        校验器2:值2<br>​    }</li>
+</ul>
+</li>
+<li><p>7.messages自定义提示信息语法:</p>
+<ul>
+<li>方式1:<br>name属性的值:”提示信息”</li>
+<li>方式2:<br>​    name属性的值:{<br>​        校验器1:”提示信息1”,<br>​        校验器2:”提示信息2”<br>​    }</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>自定义校验器</p>
+<ul>
+<li>格式:<ul>
+<li>$.validator.addMethod(name,function(value,element,params){},”message”);</li>
+<li>参数说明:<ul>
+<li>name:校验器的名称,唯一</li>
+<li>function:校验规则<ul>
+<li>value:用户输入的值</li>
+<li>element:要校验的dom对象</li>
+<li>params:校验器的值</li>
+</ul>
+</li>
+<li>message:当不满足校验规则时的提示信息</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//自定义校验器</span></span><br><span class="line"><span class="comment">//校验器的名称为: cardLength</span></span><br><span class="line"><span class="comment">//作用: 校验身份证号长度为15位 或 18位</span></span><br><span class="line">$.validator.addMethod(</span><br><span class="line">  <span class="string">"cardLength"</span>,</span><br><span class="line">  <span class="function"><span class="keyword">function</span>(<span class="params">val,ele,params</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(params)&#123;</span><br><span class="line">      <span class="keyword">if</span>(val.length==<span class="number">15</span>||val.length==<span class="number">18</span>)&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"请输入15位或18位的身份证号"</span>);</span><br><span class="line"></span><br><span class="line">card:&#123;</span><br><span class="line">  cardLength:<span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<input name="card" />
+
+
+
+</li>
+</ul>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  ​</span><br><span class="line"></span><br><span class="line">  ​</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 案例:</span><br><span class="line"></span><br><span class="line">​```javaScript</span><br><span class="line">案例1-定时弹出广告</span><br><span class="line">	需求分析:</span><br><span class="line">		页面加载成功后,每隔5秒展示一次广告,广告时间3秒中.以此轮询3次</span><br><span class="line">    技术分析:</span><br><span class="line">    	事件: 页面加载</span><br><span class="line">        定时器:</span><br><span class="line">			周期执行定时器:</span><br><span class="line">				var interId = setInterval(函数名,毫秒值);</span><br><span class="line">				var interId = setInterval(&quot;函数名()&quot;,毫秒值);</span><br><span class="line">				clearInterval(interId);</span><br><span class="line">			单次执行定时器:</span><br><span class="line">				var timeId = setTimeout(函数名,毫秒值);</span><br><span class="line">				var timeId = setTimeout(&quot;函数名()&quot;,毫秒值);</span><br><span class="line">				clearTimeout(timeId);</span><br><span class="line">	步骤分析:</span><br><span class="line">		//1.确定事件 页面加载成功事件</span><br><span class="line">          $(function()&#123;</span><br><span class="line">			// 设置周期执行定时器5秒展示一次广告.</span><br><span class="line">            setInterval(showAd,5000);</span><br><span class="line">          &#125;);</span><br><span class="line">		//2.编写展示广告的函数 </span><br><span class="line">          function showAd()&#123;</span><br><span class="line">			// 让存放广告图片的div显示</span><br><span class="line">            $(&quot;#ad&quot;).show();</span><br><span class="line">            // 计时3秒后,隐藏广告</span><br><span class="line">            // 设置单次执行定时器,用于隐藏广告</span><br><span class="line">            setTimeout(hideAd,3000);</span><br><span class="line">          &#125;</span><br><span class="line">		//3.编写隐藏广告的函数</span><br><span class="line">          function hideAd()&#123;</span><br><span class="line">			// 让存放广告图片的div隐藏</span><br><span class="line">            $(&quot;#ad&quot;).hide();</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">案例2-抽奖小游戏</span><br><span class="line">需求分析:</span><br><span class="line">	页面加载成功后让&quot;点击停止&quot;按钮失效.</span><br><span class="line">    给&quot;点击开始&quot;和&quot;点击停止&quot;按钮绑定单击事件.</span><br><span class="line">    当用户点击&quot;点击开始&quot;按钮时,让&quot;点击开始&quot;按钮失效,并让&quot;点击停止&quot;按钮生效.让小图片实现轮播效果.</span><br><span class="line">    当用户点击&quot;点击停止&quot;按钮时,让&quot;点击开始&quot;按钮生效,并让&quot;点击停止&quot;按钮失效.将选中的图片在2秒后展示到大的图片中.</span><br><span class="line">技术分析:</span><br><span class="line">	事件: 页面加载成功事件  单击事件</span><br><span class="line">    操作属性: attr</span><br><span class="line">    周期执行定时器:</span><br><span class="line">步骤分析:</span><br><span class="line">	//1.页面加载成功后让&quot;点击停止&quot;按钮失效.</span><br><span class="line">    $(function()&#123;</span><br><span class="line">		//让&quot;点击停止&quot;按钮失效.</span><br><span class="line">    &#125;);</span><br><span class="line">	//2.给&quot;点击开始&quot;和&quot;点击停止&quot;按钮绑定单击事件.</span><br><span class="line">    function start()&#123;</span><br><span class="line">		//当用户点击&quot;点击开始&quot;按钮时,</span><br><span class="line">      	//让&quot;点击开始&quot;按钮失效,</span><br><span class="line">        //并让&quot;点击停止&quot;按钮生效.</span><br><span class="line">      	//让小图片实现轮播效果.</span><br><span class="line">    &#125;	</span><br><span class="line">    function stop()&#123;</span><br><span class="line">		//当用户点击&quot;点击停止&quot;按钮时,</span><br><span class="line">      	//让&quot;点击开始&quot;按钮生效,</span><br><span class="line">      	//并让&quot;点击停止&quot;按钮失效.</span><br><span class="line">      	//将选中的图片在2秒后展示到大的图片中.</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结:"></a>总结:</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> 能够使用jQuery的<span class="number">3</span>种动画效果</span><br><span class="line"><span class="number">2.</span> 能够使用jQuery对象的遍历方法</span><br><span class="line">	jq对象.each(<span class="function"><span class="keyword">function</span>(<span class="params">index,ele</span>)</span>&#123;&#125;);</span><br><span class="line"><span class="number">3.</span> 能够使用jQuery全局的遍历方法</span><br><span class="line">	$.each(被遍历的对象,<span class="function"><span class="keyword">function</span>(<span class="params">index,ele</span>)</span>&#123;&#125;);</span><br><span class="line"><span class="number">4.</span> 能够使用jQuery3<span class="number">.0</span>的<span class="keyword">for</span>-<span class="keyword">of</span>遍历方法</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> 变量名 <span class="keyword">of</span> 被遍历的对象)&#123;&#125;</span><br><span class="line"><span class="number">5.</span> 能够使用jQuery的绑定与解绑方法</span><br><span class="line">	jq对象.on(<span class="string">"事件名称"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;);</span><br><span class="line">	jq对象.off(<span class="string">"事件名称"</span>);</span><br><span class="line"><span class="number">6.</span> 能够使用jQuery的完成案例-广告的显示与隐藏</span><br><span class="line"><span class="number">7.</span> 能够使用jQuery的完成案例-抽奖程序</span><br><span class="line"><span class="number">8.</span> 能够理解jQuery的插件机制及其相关API</span><br><span class="line">    jQuery.fn.extend(&#123;</span><br><span class="line">      <span class="string">"方法名称"</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;,</span><br><span class="line">      <span class="string">"方法名称"</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">    &#125;);</span><br><span class="line">	 jQuery.extend(&#123;</span><br><span class="line">      <span class="string">"方法名称"</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;,</span><br><span class="line">      <span class="string">"方法名称"</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">    &#125;);</span><br><span class="line"><span class="number">9.</span> 能够使用jQuery的表单校验插件进行表单校验</span><br><span class="line">	<span class="comment">//a.导入jquery的js文件</span></span><br><span class="line">	<span class="comment">//b.导入validate的js文件 (中文.js)</span></span><br><span class="line">	<span class="comment">//c.页面加载成功后锁定要校验的表单对象</span></span><br><span class="line">	<span class="comment">//d.编写校验格式和自定义提示信息的格式</span></span><br><span class="line">      $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        表单对象.validate(&#123;</span><br><span class="line">          rules:&#123;</span><br><span class="line">            name属性的值:<span class="string">"校验器"</span>,</span><br><span class="line">            name属性的值:&#123;</span><br><span class="line">              校验器:值</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;,</span><br><span class="line">          messages:&#123;</span><br><span class="line">            name属性的值:<span class="string">"校验器"</span>,</span><br><span class="line">            name属性的值:&#123;</span><br><span class="line">              校验器:值</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;);</span><br><span class="line"><span class="number">10.</span> 能够使用表单校验插件的方法进行自定义校验规则</span><br><span class="line">	$.validator.addMethod(<span class="string">"name"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">val,ele,params</span>)</span>&#123;&#125;,<span class="string">"messages"</span>);</span><br></pre></td></tr></table></figure>
+</script></p>
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://404area.github.io">404area</a>
+            </p><p>原文链接：<a href="http://404area.github.io/2019/04/27/day9jquery3.0/">http://404area.github.io/2019/04/27/day9jquery3.0/</a>
+            </p><p>发表日期：<a href="http://404area.github.io/2019/04/27/day9jquery3.0/">April 27th 2019, 9:36:23 pm</a>
+            </p><p>更新日期：<a href="http://404area.github.io/2019/04/27/day9jquery3.0/">May 1st 2019, 3:35:21 pm</a>
+            </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2019/04/27/day11redis/" title="day11redis.xml">
+                    <div class="nextTitle">day11redis.xml</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2019/04/27/day10Ajax&jQuery/" title="day10Ajax&jQuery.xml">
+                    <div class="prevTitle">day10Ajax&jQuery.xml</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:javatest1901@gmail.com" class="iconfont-archer email" title="email"></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/404area" class="iconfont-archer github" target="_blank" title="github"></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title="wechat">
+                  
+                  <img class="profile-qr" src="/assets/example_qr.png">
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#回顾"><span class="toc-number">1.</span> <span class="toc-text">回顾:</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 14
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span><a class="archive-post-title" href="/2019/05/01/Hexo搭建教程/">Hexo搭建教程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span><a class="archive-post-title" href="/2019/05/01/前言/">前言</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day05-会话技术/">day05-会话技术.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day9jquery3.0/">day9jquery.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day04-response/">day04-request.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day12mavem&idea集成/">day12mavem&idea集成.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day10Ajax&jQuery/">day10Ajax&jQuery.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day07过滤器/">day07过滤器.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day08jquery3.0/">day08jquery.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day06-jsp&el&jstl/">day06-jsp&el&jstl.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day11redis/">day11redis.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day01-xml/">day01-xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day03_request-笔记/">day03-request.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day02-tomcat&servlet/">day02-tomcat&servlet.xml</a>
+        </li>
+    
+    </ul></div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="web"><span class="iconfont-archer">&#xe606;</span>web</span>
+    
+        <span class="sidebar-tag-name" data-tags="reponse"><span class="iconfont-archer">&#xe606;</span>reponse</span>
+    
+        <span class="sidebar-tag-name" data-tags="ServletContext"><span class="iconfont-archer">&#xe606;</span>ServletContext</span>
+    
+        <span class="sidebar-tag-name" data-tags="redis"><span class="iconfont-archer">&#xe606;</span>redis</span>
+    
+        <span class="sidebar-tag-name" data-tags="NOSQL"><span class="iconfont-archer">&#xe606;</span>NOSQL</span>
+    
+        <span class="sidebar-tag-name" data-tags="理想"><span class="iconfont-archer">&#xe606;</span>理想</span>
+    
+        <span class="sidebar-tag-name" data-tags="生活"><span class="iconfont-archer">&#xe606;</span>生活</span>
+    
+        <span class="sidebar-tag-name" data-tags="Hexo"><span class="iconfont-archer">&#xe606;</span>Hexo</span>
+    
+        <span class="sidebar-tag-name" data-tags="源码技术"><span class="iconfont-archer">&#xe606;</span>源码技术</span>
+    
+        <span class="sidebar-tag-name" data-tags="教程"><span class="iconfont-archer">&#xe606;</span>教程</span>
+    
+        <span class="sidebar-tag-name" data-tags="tomcat"><span class="iconfont-archer">&#xe606;</span>tomcat</span>
+    
+        <span class="sidebar-tag-name" data-tags="servlet"><span class="iconfont-archer">&#xe606;</span>servlet</span>
+    
+        <span class="sidebar-tag-name" data-tags="request"><span class="iconfont-archer">&#xe606;</span>request</span>
+    
+        <span class="sidebar-tag-name" data-tags="request域"><span class="iconfont-archer">&#xe606;</span>request域</span>
+    
+        <span class="sidebar-tag-name" data-tags="xml"><span class="iconfont-archer">&#xe606;</span>xml</span>
+    
+        <span class="sidebar-tag-name" data-tags="cookie"><span class="iconfont-archer">&#xe606;</span>cookie</span>
+    
+        <span class="sidebar-tag-name" data-tags="Session"><span class="iconfont-archer">&#xe606;</span>Session</span>
+    
+        <span class="sidebar-tag-name" data-tags="jsp"><span class="iconfont-archer">&#xe606;</span>jsp</span>
+    
+        <span class="sidebar-tag-name" data-tags="jstl"><span class="iconfont-archer">&#xe606;</span>jstl</span>
+    
+        <span class="sidebar-tag-name" data-tags="jQuery"><span class="iconfont-archer">&#xe606;</span>jQuery</span>
+    
+        <span class="sidebar-tag-name" data-tags="filler"><span class="iconfont-archer">&#xe606;</span>filler</span>
+    
+        <span class="sidebar-tag-name" data-tags="listener"><span class="iconfont-archer">&#xe606;</span>listener</span>
+    
+        <span class="sidebar-tag-name" data-tags="Ajax"><span class="iconfont-archer">&#xe606;</span>Ajax</span>
+    
+        <span class="sidebar-tag-name" data-tags="maven"><span class="iconfont-archer">&#xe606;</span>maven</span>
+    
+        <span class="sidebar-tag-name" data-tags="idea"><span class="iconfont-archer">&#xe606;</span>idea</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br>
+    1、请确保node版本大于6.2<br>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="编程"><span class="iconfont-archer">&#xe60a;</span>编程</span>
+    
+        <span class="sidebar-category-name" data-categories="杂谈"><span class="iconfont-archer">&#xe60a;</span>杂谈</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/Java"><span class="iconfont-archer">&#xe60a;</span>编程/Java</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/Java/web核心"><span class="iconfont-archer">&#xe60a;</span>编程/Java/web核心</span>
+    
+        <span class="sidebar-category-name" data-categories="源码搭建"><span class="iconfont-archer">&#xe60a;</span>源码搭建</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "404area"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+

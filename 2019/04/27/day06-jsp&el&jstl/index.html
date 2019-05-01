@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="404area">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="404area">
+    
+    <meta name="keywords" content="404area,Java,PHP">
+    
+    <meta name="description" content>
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>day06-jsp&amp;el&amp;jstl.xml · 404area&#39;s Blog</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/">404area</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">day06-jsp&el&jstl.xml</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href="/">404area</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            day06-jsp&el&jstl.xml
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class="post-intro-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="web">web</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="jsp">jsp</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="jstl">jstl</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">2.9k</span>阅读时长: <span class="post-count reading-time">11 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/04/27</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="回顾"><a href="#回顾" class="headerlink" title="回顾:"></a>回顾:</h1><p>会话技术:</p>
+<p>​    会话技术: 用来保存浏览器和服务器交互过程中产生的数据.</p>
+<p>​    浏览器会话: cookie</p>
+<p>​        特征:</p>
+<p>​            cookie由服务器创建</p>
+<p>​            cookie由浏览器保存</p>
+<p>​            cookie中存放文本类型的数据</p>
+<p>​            cookie最大存放4kb内容</p>
+<p>​            cookie中的内容不安全</p>
+<p>​        api:</p>
+<p>​            cookie的默认存活时间为浏览器会话结束.</p>
+<p>​            Cookie c = new Cookie(String name,String value);  </p>
+<p>​            response.addCookie(c);  // 给set-cookie响应头设置值</p>
+<p>​            c.setMaxAge(int 秒);</p>
+<p>​            cookie的默认绑定路径:</p>
+<p>​                访问路径的上一层</p>
+<p>​            c.setPath(“/项目名称/xxx”);</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 访问 /day06/xxx/demo1</span></span><br></pre></td></tr></table></figure>
+<p>​            Cookie []  getCookies();</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// cookie的携带规则</span></span><br><span class="line"><span class="comment">// 访问路径字符串包含原则</span></span><br><span class="line"><span class="comment">// 已知浏览器上有cookie</span></span><br><span class="line"><span class="comment">// 名称 			值 				绑定路径</span></span><br><span class="line"><span class="comment">// a			a				/day06</span></span><br><span class="line"><span class="comment">// b			b				/day06/demo</span></span><br><span class="line"><span class="comment">// c			c				/day06/aaa</span></span><br><span class="line"><span class="comment">// d			d				/day06/aaa/demo</span></span><br><span class="line"><span class="comment">// 访问路径   /day06/index.html	a</span></span><br><span class="line"><span class="comment">// 访问路径   /day06/demo1	a</span></span><br><span class="line"><span class="comment">// 访问路径   /day06/demo	a b</span></span><br><span class="line"><span class="comment">// 访问路径   /day06/aaa/demo1	a	c</span></span><br><span class="line"><span class="comment">// 访问路径   /day06/aaa/demo	a c d</span></span><br></pre></td></tr></table></figure>
+<p>​            getName()</p>
+<p>​            getValue()</p>
+<p>​    服务器会话: session</p>
+<p>​        特征:</p>
+<p>​            session由服务器创建</p>
+<p>​            session保存在服务器上</p>
+<p>​            session中存object数据</p>
+<p>​            存放数据量不受限制</p>
+<p>​            session中的数据相对安全</p>
+<p>​        api:</p>
+<p>​            request.getSession();</p>
+<p>​                // 创建session空间</p>
+<p>​                // 根据jsessionid找到指定的session空间</p>
+<p>​        生命周期:  </p>
+<p>​            注意: 只要session空间创建就会返回jsessionid.</p>
+<p>​            创建:</p>
+<p>​                //在web项目中第一次调用 request.getSession();</p>
+<p>​                在请求没有携带jsessionid时,调用  request.getSession();</p>
+<p>​                请求携带了jsessionid,但没有找到,也会创建session空间</p>
+<p>​            销毁:</p>
+<p>​                服务器非正常关闭(宕机)</p>
+<p>​                session超时(默认30分钟)</p>
+<p>​                手动销毁:</p>
+<p>​                        session.invalidate();</p>
+<p>​        作用域:</p>
+<p>​            setAttribute(String,Object);</p>
+<p>​            ….</p>
+<p>三大域对象:</p>
+<p>​    request:</p>
+<p>​        生命周期:</p>
+<p>​            创建:</p>
+<p>​            销毁:</p>
+<p>​        作用范围: 当前请求.</p>
+<p>​    session:</p>
+<p>​        生命周期:</p>
+<p>​            创建:</p>
+<p>​            销毁:</p>
+<p>​        作用范围:  当前会话</p>
+<p>​    servletContext:</p>
+<p>​        生命周期: 与项目共存亡</p>
+<p>​            创建:</p>
+<p>​            销毁:</p>
+<p>​        作用范围: 当前项目</p>
+<p>servlet:</p>
+<p>​    作用:</p>
+<p>​        接收请求</p>
+<p>​        处理请求</p>
+<p>​        生成响应</p>
+<h1 id="jsp-amp-el-amp-jstl"><a href="#jsp-amp-el-amp-jstl" class="headerlink" title="jsp&amp;el&amp;jstl"></a>jsp&amp;el&amp;jstl</h1><h2 id="JSP-java服务器页面"><a href="#JSP-java服务器页面" class="headerlink" title="JSP(java服务器页面)"></a>JSP(java服务器页面)</h2><h3 id="jsp概述"><a href="#jsp概述" class="headerlink" title="jsp概述:"></a>jsp概述:</h3><p>​    JSP全名为Java Server Pages,中文名称java服务器页面,本质上就是一个Servlet,是服务器上的一种动态的网页技术.</p>
+<p>​    简单理解</p>
+<p>​        在html页面中嵌套java代码</p>
+<p>​    高大上理解</p>
+<p>​        将页面的展示 和 内容的生成相分离</p>
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用:"></a>作用:</h3><p>​    展示动态的信息</p>
+<h3 id="jsp后缀名"><a href="#jsp后缀名" class="headerlink" title="jsp后缀名"></a>jsp后缀名</h3><p>​    *.jsp</p>
+<h3 id="jsp组成部分"><a href="#jsp组成部分" class="headerlink" title="jsp组成部分"></a>jsp组成部分</h3><p>​    html + java + jsp特有内容(三大指令,四大作用域,九大内置对象)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 需求: 访问servlet返回一个表格</span></span><br><span class="line"><span class="comment">// 由于通过servlet返回html信息相当痛苦,我们使用jsp代替servlet完成展示.</span></span><br></pre></td></tr></table></figure>
+<h3 id="jsp执行流程"><a href="#jsp执行流程" class="headerlink" title="jsp执行流程"></a>jsp执行流程</h3><p>​    第一次访问jsp(index.jsp)页面时,服务器接收请求,由jspservlet来处理该请求.<br>​    1.jspservlet会去查找对应的jsp文件<br>​    2.找到之后,服务器会将jsp文件转换成java文件(index_jsp.java)<br>​    3.服务器编译java文件,生成class文件<br>​    4.服务器运行class文件,生成动态的内容,并返回给浏览器.</p>
+<p>​    ==理解:==    </p>
+<p>​        当浏览器访问 *.jsp 时,统一由JspServlet处理这类请求,</p>
+<p>​        找到对应的jsp页面,转成java类(就是Servlet)</p>
+<p>​        然后让转完后的servlet执行,返回的信息就是jsp页面中的html代码</p>
+<h3 id="jsp特有内容"><a href="#jsp特有内容" class="headerlink" title="jsp特有内容"></a>jsp特有内容</h3><h4 id="jsp脚本"><a href="#jsp脚本" class="headerlink" title="jsp脚本"></a>jsp脚本</h4><p>如何在jsp页面写java代码</p>
+<p>​    编写java程序片段</p>
+<p>​        &lt;% …… %&gt;</p>
+<p>​    输出信息表达式</p>
+<p>​        &lt;%= … %&gt;</p>
+<p>​    声明成员变量</p>
+<p>​        &lt;%! … %&gt;</p>
+<h4 id="jsp注释"><a href="#jsp注释" class="headerlink" title="jsp注释"></a>jsp注释</h4><p>​        &lt;%– 注释内容 –%&gt;</p>
+<p>​        注释使用时: ctrl+shift+ / </p>
+<h2 id="el表达式"><a href="#el表达式" class="headerlink" title="el表达式"></a>el表达式</h2><p>全称:Expression Language(表达式语言) jsp2.0以后内置el</p>
+<h3 id="作用-1"><a href="#作用-1" class="headerlink" title="作用:"></a>作用:</h3><p>​    主要用来代替 &lt;%= %&gt;</p>
+<h3 id="格式"><a href="#格式" class="headerlink" title="格式:"></a>格式:</h3><p>​    ${表达式}</p>
+<h3 id="常见功能"><a href="#常见功能" class="headerlink" title="常见功能"></a>常见功能</h3><h4 id="获取作用域中的数据"><a href="#获取作用域中的数据" class="headerlink" title="获取作用域中的数据"></a>获取作用域中的数据</h4><h5 id="获取指定域中的数据信息"><a href="#获取指定域中的数据信息" class="headerlink" title="获取指定域中的数据信息:"></a>获取指定域中的数据信息:</h5><figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">&lt;%--</span><br><span class="line">        jsp内置对象(<span class="number">9</span>个): 实现创建好了<span class="number">9</span>个对象,为了给jsp页面提供方便</span><br><span class="line">            pageContext: 当前页面</span><br><span class="line">            request:</span><br><span class="line">            session:</span><br><span class="line">            application(servletContext):</span><br><span class="line"></span><br><span class="line">            page: <span class="keyword">this</span>(当前页面转完后的java类)</span><br><span class="line">            response:</span><br><span class="line">            config: 配置信息</span><br><span class="line">            out: 输出流对象</span><br><span class="line"></span><br><span class="line">            exception: 异常对象</span><br><span class="line">        jsp四大作用域:</span><br><span class="line">            pageContext: 当前页面</span><br><span class="line">            request:</span><br><span class="line">            session:</span><br><span class="line">            application(servletContext):</span><br><span class="line">    --%&gt;</span><br><span class="line">    &lt;%--使用el获取域对象中的数据-获取简单数据--%&gt;</span><br><span class="line">    &lt;%-- 向作用域中存放数据信息 --%&gt;</span><br><span class="line">    &lt;%</span><br><span class="line">        request.setAttribute(<span class="string">"rkey"</span>,<span class="string">"rvalue"</span>); <span class="comment">// 向request域中放值</span></span><br><span class="line">        session.setAttribute(<span class="string">"skey"</span>,<span class="string">"svalue"</span>); <span class="comment">// 向session域中放值</span></span><br><span class="line">        application.setAttribute(<span class="string">"akey"</span>,<span class="number">47</span>); <span class="comment">// 向servletContext域中放值</span></span><br><span class="line">    %&gt;</span><br><span class="line">    &lt;%-- 从指定域中获取数据信息 --%&gt;</span><br><span class="line">    从request中获取: &lt;br&gt;</span><br><span class="line">    老方式: &lt;%=request.getAttribute(<span class="string">"rkey"</span>)%&gt;  &lt;br&gt;</span><br><span class="line">    el方式: $&#123;requestScope.rkey&#125;</span><br><span class="line">    &lt;hr&gt;</span><br><span class="line">    从session中获取: &lt;br&gt;</span><br><span class="line">    老方式: &lt;%=session.getAttribute(<span class="string">"skey"</span>)%&gt;  &lt;br&gt;</span><br><span class="line">    el方式: $&#123;sessionScope.skey&#125;</span><br><span class="line">    &lt;hr&gt;</span><br><span class="line">    从ServletContext中获取: &lt;br&gt;</span><br><span class="line">    老方式: &lt;%=application.getAttribute(<span class="string">"akey"</span>)%&gt;  &lt;br&gt;</span><br><span class="line">    el方式: $&#123;applicationScope.akey&#125;</span><br><span class="line">    &lt;hr&gt;</span><br><span class="line">    从ServletContext中获取: &lt;br&gt;</span><br><span class="line">    老方式: &lt;%=application.getAttribute(<span class="string">"akey1"</span>)%&gt;  &lt;br&gt; &lt;%-- <span class="keyword">null</span> --%&gt;</span><br><span class="line">    el方式: $&#123;applicationScope.akey1&#125; &lt;%-- 空字符串 --%&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="便捷查找"><a href="#便捷查找" class="headerlink" title="==便捷查找=="></a>==便捷查找==</h5><p>​    ${域中属性的名称}</p>
+<p>​        注释: 在所有作用域中依次从小到大查找指定的属性名所对应的值<br>​               若找到立即返回并结束查询<br>​                 若找不到返回 “”</p>
+<p>​        pageContext  request  session  application</p>
+<h5 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h5><p>​        属性名中一旦使用了”.” “+” “-“等特殊符号的时候${属性名}就不起作用了,要使用{域Scope[“属性名”]}<br>​        例如:${requestScope[“aa.bb”]}</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;%</span><br><span class="line">      request.setAttribute(<span class="string">"aa.bb"</span>,<span class="string">"abc"</span>);</span><br><span class="line">  %&gt;</span><br><span class="line">  &lt;hr&gt;</span><br><span class="line">  老方式: &lt;%=request.getAttribute(<span class="string">"aa.bb"</span>)%&gt; &lt;br&gt;</span><br><span class="line">  el方式: $&#123;aa.bb&#125;  ---  $&#123;requestScope[<span class="string">"aa.bb"</span>]&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="获取复杂数据"><a href="#获取复杂数据" class="headerlink" title="获取复杂数据"></a>获取复杂数据</h4><h5 id="获取数组中的数据"><a href="#获取数组中的数据" class="headerlink" title="获取数组中的数据"></a>获取数组中的数据</h5><p>​    格式</p>
+<p>​        ${数组属性名称[index]}</p>
+<p>​    例子:<br>​        request.setAttribute(“arr”, new String[]{“aa”,”bb”,”cc”});<br>​    获取的时候<br>​        ${arr[1]}</p>
+<h5 id="获取list中的数据"><a href="#获取list中的数据" class="headerlink" title="获取list中的数据"></a>获取list中的数据</h5><p>​    格式</p>
+<p>​        ${list属性名[index]}</p>
+<h5 id="获取map中的数据"><a href="#获取map中的数据" class="headerlink" title="获取map中的数据"></a>获取map中的数据</h5><p>​    格式</p>
+<p>​        ${map属性名称.键名}</p>
+<h5 id="获取javabean中的数据"><a href="#获取javabean中的数据" class="headerlink" title="获取javabean中的数据"></a>获取javabean中的数据</h5><p>​    格式</p>
+<p>​        ${javabean在域中的属性名称.属性名称}</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;%</span><br><span class="line">      <span class="comment">// 存放数组</span></span><br><span class="line">      request.setAttribute(<span class="string">"arr"</span>,<span class="keyword">new</span> String[]&#123;<span class="string">"古力娜扎"</span>,<span class="string">"马尔扎哈"</span>,<span class="string">"泷泽萝拉"</span>&#125;);</span><br><span class="line">      <span class="comment">// 存放list</span></span><br><span class="line">      List&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">      list.add(<span class="string">"宝强"</span>);</span><br><span class="line">      list.add(<span class="string">"乃亮"</span>);</span><br><span class="line">      list.add(<span class="string">"羽凡"</span>);</span><br><span class="line">      list.add(<span class="string">"大郎"</span>);</span><br><span class="line">      list.add(<span class="string">"于帅"</span>);</span><br><span class="line">      request.setAttribute(<span class="string">"list"</span>,list);</span><br><span class="line">      <span class="comment">// 存放map</span></span><br><span class="line">     Map&lt;String,String&gt; map = <span class="keyword">new</span> HashMap&lt;String,String&gt;();</span><br><span class="line">     map.put(<span class="string">"name"</span>,<span class="string">"柳岩"</span>);</span><br><span class="line">     map.put(<span class="string">"age"</span>,<span class="string">"38"</span>);</span><br><span class="line">     request.setAttribute(<span class="string">"map"</span>,map);</span><br><span class="line">     <span class="comment">// 存放实体bean</span></span><br><span class="line">      User user = <span class="keyword">new</span> User(<span class="number">40</span>,<span class="string">"詹英鹏"</span>);</span><br><span class="line">      request.setAttribute(<span class="string">"user"</span>,user);</span><br><span class="line">  %&gt;</span><br><span class="line">  获取数组的值: &lt;br&gt; &lt;%-- $&#123;属性名称[index]&#125; --%&gt;</span><br><span class="line">  $&#123;arr[<span class="number">0</span>]&#125; -- $&#123;arr[<span class="number">2</span>]&#125;</span><br><span class="line">  &lt;hr&gt;</span><br><span class="line">  获取list的值: &lt;br&gt; &lt;%-- $&#123;属性名称[index]&#125; --%&gt;</span><br><span class="line">  $&#123;list[<span class="number">4</span>]&#125; -- $&#123;list&#125;</span><br><span class="line">  &lt;hr&gt;</span><br><span class="line">  获取map的值: &lt;br&gt; &lt;%-- $&#123;属性名称.key&#125; --%&gt;</span><br><span class="line">  $&#123;map.name&#125; -- $&#123;map.age&#125;</span><br><span class="line">  &lt;hr&gt;</span><br><span class="line">  获取实体的值: &lt;br&gt; &lt;%-- $&#123;属性名称.实体属性名&#125; --%&gt;</span><br><span class="line">  $&#123;user.name&#125; -- $&#123;user.age&#125; -- $&#123;user&#125;</span><br><span class="line">  &lt;hr&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="执行简单运算"><a href="#执行简单运算" class="headerlink" title="执行简单运算"></a>执行简单运算</h4><h5 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a>算术运算符</h5><p>​    +    -    *    /    %</p>
+<h5 id="关系运算符"><a href="#关系运算符" class="headerlink" title="关系运算符"></a>关系运算符</h5><p>返回结果为 Boolean值</p>
+<p>​    &gt; 或者 gt， 例如：${8&gt;9}  或者 ${8 gt 9 }</p>
+<p>​    &gt;= 或者 ge， 例如：${45&gt;=9} 或者 ${45 ge 9 }</p>
+<p>​    &lt; 或者 lt， 例如：${4&lt;9} 或者 ${4 lt 9 }</p>
+<p>​    &lt;= 或者 le， 例如：${9&lt;=8} 或者 ${9 le 8 }</p>
+<p>​    == 或者 eq， 例如：${4==4} 或者 ${4 eq 4 }</p>
+<p>​    != 或者 ne， 例如：${4!=3} 或者 ${4 ne 3 }</p>
+<h5 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h5><figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&amp;&amp; 或者 and， 例如：&#123;<span class="keyword">false</span>  &amp;&amp;  <span class="keyword">false</span> &#125; 或者 &#123;<span class="keyword">false</span> and <span class="keyword">false</span> &#125;</span><br><span class="line"></span><br><span class="line">|| 或者 or， 例如：&#123;<span class="keyword">true</span> || <span class="keyword">false</span>&#125; 或者 &#123;<span class="keyword">true</span> or <span class="keyword">false</span> &#125;</span><br><span class="line"></span><br><span class="line">! 或者 not，例如：&#123;!<span class="keyword">true</span>&#125;（相当于&#123;<span class="keyword">false</span>&#125;） 或者 $&#123;not <span class="keyword">true</span> &#125;</span><br></pre></td></tr></table></figure>
+<h5 id="三元运算符"><a href="#三元运算符" class="headerlink" title="三元运算符"></a>三元运算符</h5><p>​    ? :<br>​    例如：${3&gt;2?’是’:’不是’}</p>
+<h5 id="特殊运算符"><a href="#特殊运算符" class="headerlink" title="==特殊运算符=="></a>==特殊运算符==</h5><p>​    empty<br>​    判断EL表达式中的表达式是否为空,返回结果为Boolean值</p>
+<h2 id="jstl"><a href="#jstl" class="headerlink" title="jstl:"></a>jstl:</h2><p>​    apache出品的标签库语言</p>
+<h3 id="作用-2"><a href="#作用-2" class="headerlink" title="作用:"></a>作用:</h3><p>​    增强jsp页面的功能, 在jsp页面上少写java代码</p>
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><p>​    core:核心(目前还在使用)</p>
+<p>​    fmt:格式化(国际化)</p>
+<p>​    xml:和xml相关的(过时了)    json</p>
+<p>​    sql:和sql相关的(过时了)</p>
+<p>​    fn:对字符串处理的函数库(用的很少了)</p>
+<h3 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤:"></a>使用步骤:</h3><p>​    1.导入jar包</p>
+<p>​    2.在页面上引入标签库<br>​    &lt;%@ taglib prefix=”c” uri=”<a href="http://java.sun.com/jsp/jstl/core&quot;" target="_blank" rel="noopener">http://java.sun.com/jsp/jstl/core&quot;</a> %&gt;</p>
+<h3 id="if标签的使用"><a href="#if标签的使用" class="headerlink" title="if标签的使用"></a>if标签的使用</h3><p>​    格式:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--当el表达式返回<span class="keyword">true</span>时,标签体中的数据会被输出--&gt;</span><br><span class="line">&lt;c:if test="el表达式"&gt;...&lt;/c:if&gt;</span><br><span class="line">&lt;!--扩展(了解)</span><br><span class="line">	将el表达式的结果起个名称为flag 默认会放入page域中</span><br><span class="line">	page pageContext</span><br><span class="line">	request request</span><br><span class="line">	session session</span><br><span class="line">	application application</span><br><span class="line">--&gt;</span><br><span class="line">&lt;c:if test="el表达式" var="flag" scope=""&gt;...&lt;/c:if&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="forEach标签的使用"><a href="#forEach标签的使用" class="headerlink" title="forEach标签的使用"></a>forEach标签的使用</h3><figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 基本使用 --&gt;</span><br><span class="line">&lt;c:forEach begin="从哪开始" end="到哪结束" step="步长" var="给变量起个名称"&gt;$&#123;i &#125;&lt;/c:forEach&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 例子 --&gt;</span><br><span class="line">&lt;c:forEach begin=<span class="string">"1"</span> end=<span class="string">"20"</span> step=<span class="string">"1"</span> <span class="keyword">var</span>=<span class="string">"i"</span>&gt;</span><br><span class="line">	$&#123;i&#125;</span><br><span class="line">&lt;/c:forEach&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 高级使用 --&gt;</span><br><span class="line">&lt;!-- 在页面上遍历数组,单列集合和map --&gt;</span><br><span class="line">&lt;!-- 格式: --&gt;</span><br><span class="line">&lt;c:forEach items=<span class="string">"从域中通过el获取集合"</span> <span class="keyword">var</span>=<span class="string">"n"</span>&gt;</span><br><span class="line">	$&#123;n&#125;</span><br><span class="line">&lt;/c:forEach&gt;</span><br><span class="line">&lt;!--属性:varStatus</span><br><span class="line">用来记录循环状态的,有几个常用的属性:	</span><br><span class="line">	index:</span><br><span class="line">	count:</span><br><span class="line">	first:</span><br><span class="line">	last:</span><br><span class="line">--&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="javaEE开发的模式-思想-理解"><a href="#javaEE开发的模式-思想-理解" class="headerlink" title="javaEE开发的模式(思想  理解)"></a>javaEE开发的模式(思想  理解)</h2><h3 id="MVC模式-–-属于所有的web开发"><a href="#MVC模式-–-属于所有的web开发" class="headerlink" title="MVC模式  – 属于所有的web开发"></a>MVC模式  – 属于所有的web开发</h3><h4 id="发展历史"><a href="#发展历史" class="headerlink" title="发展历史"></a>发展历史</h4><h5 id="model1"><a href="#model1" class="headerlink" title="model1"></a>model1</h5><p>​            技术架构: jsp + javaBean</p>
+<p>​                jsp:负责处理业务逻辑  页面展示</p>
+<p>​                javaBean: 实体封装  负责处理简单的业务逻辑  </p>
+<p>​            优缺点</p>
+<p>​                优点</p>
+<p>​                    开发效率高</p>
+<p>​                缺点</p>
+<p>​                    随着业务的复杂性,导致jsp中的业务越来越多,不方便维护</p>
+<h5 id="model2"><a href="#model2" class="headerlink" title="model2"></a>model2</h5><p>​            技术架构:jsp+servlet+javaBean</p>
+<p>​                jsp:页面展示</p>
+<p>​                servlet:负责处理业务逻辑</p>
+<p>​                javaBean:负责处理业务逻辑  实体封装</p>
+<p>​            优缺点</p>
+<p>​                优点</p>
+<p>​                    逻辑清晰 方便维护</p>
+<p>​                缺点</p>
+<p>​                    小型项目开发没有 model1 效率高</p>
+<h3 id="M：model-模型"><a href="#M：model-模型" class="headerlink" title="M：model 模型"></a>M：model 模型</h3><p>​        封装数据 —- javaBean</p>
+<p>​        主要封装数据 业务处理</p>
+<h3 id="V：view-视图"><a href="#V：view-视图" class="headerlink" title="V：view 视图"></a>V：view 视图</h3><p>​        页面展示 —- jsp</p>
+<p>​        作用:页面展示</p>
+<h3 id="C：controller-控制器"><a href="#C：controller-控制器" class="headerlink" title="C：controller 控制器"></a>C：controller 控制器</h3><p>​        控制执行流程—- servlet</p>
+<p>​        作用:与客户端交互</p>
+<h3 id="javaEE的三层架构"><a href="#javaEE的三层架构" class="headerlink" title="javaEE的三层架构"></a>javaEE的三层架构</h3><p>​        通过分包实现</p>
+<p>​            web(action | controller ): 接收请求和前台交互</p>
+<p>​            service: 处理业务逻辑</p>
+<p>​            dao: 操作数据库</p>
+<p>​            domain: 实体</p>
+<p>​            utils:</p>
+<p>​            jsp: 展示信息</p>
+<p>​    </p>
+<h1 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h1><p>查询联系人信息并展示到页面上:</p>
+<p>​    需求分析:</p>
+<p>​        当用户点击”查询所有联系人信息”时,向服务器发送查询所有联系人信息的请求,并将查询结果展示到页面上.</p>
+<p>​    技术分析:</p>
+<p>​        servlet: 接收请求 处理请求 生成响应</p>
+<p>​        jsp: 展示信息</p>
+<p>​    步骤分析:</p>
+<p>环境搭建:</p>
+<p>​    1.创建数据库表</p>
+<p>​    2.创建web项目和包结构</p>
+<p>​    3.导入jar包</p>
+<p>​    4.导入配置文件(修改)</p>
+<p>​    5.导入工具类</p>
+<p>​    6.导入前端页面</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结:"></a>总结:</h1><p>​    jsp: 展示动态信息</p>
+<p>​        后缀名: *.jsp</p>
+<p>​        组成: html + java + jsp特有内容 (三大指令,四大作用域,九大内置对象)</p>
+<p>​        执行流程:</p>
+<p>​            请求来的时候由JspServlet处理所有jsp请求.</p>
+<p>​            将jsp页面转成java类</p>
+<p>​            执行java类的_jspService方法</p>
+<p>​        编写java代码:</p>
+<p>​            &lt;%%&gt;</p>
+<p>​            &lt;%= %&gt;</p>
+<p>​            &lt;%!….%&gt;</p>
+<p>​        jsp注释:  &lt;%– … –%&gt;</p>
+<p>​    el: </p>
+<p>​        作用: 代替&lt;%=  %&gt;</p>
+<p>​        语法格式: ${表达式}</p>
+<p>​        功能:</p>
+<p>​            获取域中的数据:</p>
+<p>​                获取简单数据:</p>
+<p>​                    获取指定域中的数据 requestScope </p>
+<p>​                    便捷查询: ${属性名称}</p>
+<p>​                获取复杂数据:</p>
+<p>​                    数组</p>
+<p>​                    list</p>
+<p>​                    map</p>
+<p>​                    bean:</p>
+<p>​            执行简单运算:</p>
+<p>​                </p>
+<p>​    jstl:</p>
+<p>​        使用步骤:</p>
+<p>​            1.导入jar包</p>
+<p>​            2.在使用的页面上引入</p>
+<p>​                &lt;%@ taglib prefix=”c” uri=”<a href="http://www.sun.com/jsp/jstl/core&quot;" target="_blank" rel="noopener">http://www.sun.com/jsp/jstl/core&quot;</a> %&gt;</p>
+<p>​        c:if</p>
+<p>​            test: el表达式</p>
+<p>​            var  scope</p>
+<p>​        c:forEach</p>
+<p>​            begin    end        step    var</p>
+<p>​            items    varStatus</p>
+<p>MVC思想</p>
+<p>​说到别愿意听,听到别人愿意说</p>
+<p>听:  听有所知 听有所乐 听有所思 听有所悟.</p>
+<p>说: 敢说  能说  会说</p>
+<p>沟通</p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://404area.github.io">404area</a>
+            </p><p>原文链接：<a href="http://404area.github.io/2019/04/27/day06-jsp&el&jstl/">http://404area.github.io/2019/04/27/day06-jsp&el&jstl/</a>
+            </p><p>发表日期：<a href="http://404area.github.io/2019/04/27/day06-jsp&el&jstl/">April 27th 2019, 9:36:19 pm</a>
+            </p><p>更新日期：<a href="http://404area.github.io/2019/04/27/day06-jsp&el&jstl/">May 1st 2019, 3:34:07 pm</a>
+            </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2019/04/27/day07过滤器/" title="day07过滤器.xml">
+                    <div class="nextTitle">day07过滤器.xml</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2019/04/27/day05-会话技术/" title="day05-会话技术.xml">
+                    <div class="prevTitle">day05-会话技术.xml</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:javatest1901@gmail.com" class="iconfont-archer email" title="email"></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/404area" class="iconfont-archer github" target="_blank" title="github"></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title="wechat">
+                  
+                  <img class="profile-qr" src="/assets/example_qr.png">
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#回顾"><span class="toc-number">1.</span> <span class="toc-text">回顾:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#jsp-amp-el-amp-jstl"><span class="toc-number">2.</span> <span class="toc-text">jsp&amp;el&amp;jstl</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#JSP-java服务器页面"><span class="toc-number">2.1.</span> <span class="toc-text">JSP(java服务器页面)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#jsp概述"><span class="toc-number">2.1.1.</span> <span class="toc-text">jsp概述:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#作用"><span class="toc-number">2.1.2.</span> <span class="toc-text">作用:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jsp后缀名"><span class="toc-number">2.1.3.</span> <span class="toc-text">jsp后缀名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jsp组成部分"><span class="toc-number">2.1.4.</span> <span class="toc-text">jsp组成部分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jsp执行流程"><span class="toc-number">2.1.5.</span> <span class="toc-text">jsp执行流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jsp特有内容"><span class="toc-number">2.1.6.</span> <span class="toc-text">jsp特有内容</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#jsp脚本"><span class="toc-number">2.1.6.1.</span> <span class="toc-text">jsp脚本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jsp注释"><span class="toc-number">2.1.6.2.</span> <span class="toc-text">jsp注释</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#el表达式"><span class="toc-number">2.2.</span> <span class="toc-text">el表达式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#作用-1"><span class="toc-number">2.2.1.</span> <span class="toc-text">作用:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#格式"><span class="toc-number">2.2.2.</span> <span class="toc-text">格式:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常见功能"><span class="toc-number">2.2.3.</span> <span class="toc-text">常见功能</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#获取作用域中的数据"><span class="toc-number">2.2.3.1.</span> <span class="toc-text">获取作用域中的数据</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#获取指定域中的数据信息"><span class="toc-number">2.2.3.1.1.</span> <span class="toc-text">获取指定域中的数据信息:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#便捷查找"><span class="toc-number">2.2.3.1.2.</span> <span class="toc-text">==便捷查找==</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#注意事项"><span class="toc-number">2.2.3.1.3.</span> <span class="toc-text">注意事项</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#获取复杂数据"><span class="toc-number">2.2.3.2.</span> <span class="toc-text">获取复杂数据</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#获取数组中的数据"><span class="toc-number">2.2.3.2.1.</span> <span class="toc-text">获取数组中的数据</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#获取list中的数据"><span class="toc-number">2.2.3.2.2.</span> <span class="toc-text">获取list中的数据</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#获取map中的数据"><span class="toc-number">2.2.3.2.3.</span> <span class="toc-text">获取map中的数据</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#获取javabean中的数据"><span class="toc-number">2.2.3.2.4.</span> <span class="toc-text">获取javabean中的数据</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#执行简单运算"><span class="toc-number">2.2.3.3.</span> <span class="toc-text">执行简单运算</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#算术运算符"><span class="toc-number">2.2.3.3.1.</span> <span class="toc-text">算术运算符</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#关系运算符"><span class="toc-number">2.2.3.3.2.</span> <span class="toc-text">关系运算符</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#逻辑运算符"><span class="toc-number">2.2.3.3.3.</span> <span class="toc-text">逻辑运算符</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#三元运算符"><span class="toc-number">2.2.3.3.4.</span> <span class="toc-text">三元运算符</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#特殊运算符"><span class="toc-number">2.2.3.3.5.</span> <span class="toc-text">==特殊运算符==</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jstl"><span class="toc-number">2.3.</span> <span class="toc-text">jstl:</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#作用-2"><span class="toc-number">2.3.1.</span> <span class="toc-text">作用:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分类"><span class="toc-number">2.3.2.</span> <span class="toc-text">分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用步骤"><span class="toc-number">2.3.3.</span> <span class="toc-text">使用步骤:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#if标签的使用"><span class="toc-number">2.3.4.</span> <span class="toc-text">if标签的使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#forEach标签的使用"><span class="toc-number">2.3.5.</span> <span class="toc-text">forEach标签的使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#javaEE开发的模式-思想-理解"><span class="toc-number">2.4.</span> <span class="toc-text">javaEE开发的模式(思想  理解)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MVC模式-–-属于所有的web开发"><span class="toc-number">2.4.1.</span> <span class="toc-text">MVC模式  – 属于所有的web开发</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#发展历史"><span class="toc-number">2.4.1.1.</span> <span class="toc-text">发展历史</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#model1"><span class="toc-number">2.4.1.1.1.</span> <span class="toc-text">model1</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#model2"><span class="toc-number">2.4.1.1.2.</span> <span class="toc-text">model2</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#M：model-模型"><span class="toc-number">2.4.2.</span> <span class="toc-text">M：model 模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#V：view-视图"><span class="toc-number">2.4.3.</span> <span class="toc-text">V：view 视图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C：controller-控制器"><span class="toc-number">2.4.4.</span> <span class="toc-text">C：controller 控制器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#javaEE的三层架构"><span class="toc-number">2.4.5.</span> <span class="toc-text">javaEE的三层架构</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#案例"><span class="toc-number">3.</span> <span class="toc-text">案例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结:</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 14
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span><a class="archive-post-title" href="/2019/05/01/Hexo搭建教程/">Hexo搭建教程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span><a class="archive-post-title" href="/2019/05/01/前言/">前言</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day05-会话技术/">day05-会话技术.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day9jquery3.0/">day9jquery.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day04-response/">day04-request.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day12mavem&idea集成/">day12mavem&idea集成.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day10Ajax&jQuery/">day10Ajax&jQuery.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day07过滤器/">day07过滤器.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day08jquery3.0/">day08jquery.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day06-jsp&el&jstl/">day06-jsp&el&jstl.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day11redis/">day11redis.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day01-xml/">day01-xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day03_request-笔记/">day03-request.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day02-tomcat&servlet/">day02-tomcat&servlet.xml</a>
+        </li>
+    
+    </ul></div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="web"><span class="iconfont-archer">&#xe606;</span>web</span>
+    
+        <span class="sidebar-tag-name" data-tags="reponse"><span class="iconfont-archer">&#xe606;</span>reponse</span>
+    
+        <span class="sidebar-tag-name" data-tags="ServletContext"><span class="iconfont-archer">&#xe606;</span>ServletContext</span>
+    
+        <span class="sidebar-tag-name" data-tags="redis"><span class="iconfont-archer">&#xe606;</span>redis</span>
+    
+        <span class="sidebar-tag-name" data-tags="NOSQL"><span class="iconfont-archer">&#xe606;</span>NOSQL</span>
+    
+        <span class="sidebar-tag-name" data-tags="理想"><span class="iconfont-archer">&#xe606;</span>理想</span>
+    
+        <span class="sidebar-tag-name" data-tags="生活"><span class="iconfont-archer">&#xe606;</span>生活</span>
+    
+        <span class="sidebar-tag-name" data-tags="Hexo"><span class="iconfont-archer">&#xe606;</span>Hexo</span>
+    
+        <span class="sidebar-tag-name" data-tags="源码技术"><span class="iconfont-archer">&#xe606;</span>源码技术</span>
+    
+        <span class="sidebar-tag-name" data-tags="教程"><span class="iconfont-archer">&#xe606;</span>教程</span>
+    
+        <span class="sidebar-tag-name" data-tags="tomcat"><span class="iconfont-archer">&#xe606;</span>tomcat</span>
+    
+        <span class="sidebar-tag-name" data-tags="servlet"><span class="iconfont-archer">&#xe606;</span>servlet</span>
+    
+        <span class="sidebar-tag-name" data-tags="request"><span class="iconfont-archer">&#xe606;</span>request</span>
+    
+        <span class="sidebar-tag-name" data-tags="request域"><span class="iconfont-archer">&#xe606;</span>request域</span>
+    
+        <span class="sidebar-tag-name" data-tags="xml"><span class="iconfont-archer">&#xe606;</span>xml</span>
+    
+        <span class="sidebar-tag-name" data-tags="cookie"><span class="iconfont-archer">&#xe606;</span>cookie</span>
+    
+        <span class="sidebar-tag-name" data-tags="Session"><span class="iconfont-archer">&#xe606;</span>Session</span>
+    
+        <span class="sidebar-tag-name" data-tags="jsp"><span class="iconfont-archer">&#xe606;</span>jsp</span>
+    
+        <span class="sidebar-tag-name" data-tags="jstl"><span class="iconfont-archer">&#xe606;</span>jstl</span>
+    
+        <span class="sidebar-tag-name" data-tags="jQuery"><span class="iconfont-archer">&#xe606;</span>jQuery</span>
+    
+        <span class="sidebar-tag-name" data-tags="filler"><span class="iconfont-archer">&#xe606;</span>filler</span>
+    
+        <span class="sidebar-tag-name" data-tags="listener"><span class="iconfont-archer">&#xe606;</span>listener</span>
+    
+        <span class="sidebar-tag-name" data-tags="Ajax"><span class="iconfont-archer">&#xe606;</span>Ajax</span>
+    
+        <span class="sidebar-tag-name" data-tags="maven"><span class="iconfont-archer">&#xe606;</span>maven</span>
+    
+        <span class="sidebar-tag-name" data-tags="idea"><span class="iconfont-archer">&#xe606;</span>idea</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br>
+    1、请确保node版本大于6.2<br>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="编程"><span class="iconfont-archer">&#xe60a;</span>编程</span>
+    
+        <span class="sidebar-category-name" data-categories="杂谈"><span class="iconfont-archer">&#xe60a;</span>杂谈</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/Java"><span class="iconfont-archer">&#xe60a;</span>编程/Java</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/Java/web核心"><span class="iconfont-archer">&#xe60a;</span>编程/Java/web核心</span>
+    
+        <span class="sidebar-category-name" data-categories="源码搭建"><span class="iconfont-archer">&#xe60a;</span>源码搭建</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "404area"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
