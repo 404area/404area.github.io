@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="404area">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="404area">
+    
+    <meta name="keywords" content="404area,Java,PHP">
+    
+    <meta name="description" content>
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>品优购day05 · 404area&#39;s Blog</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+    <script>
+        (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-139425886-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/">404area</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">品优购day05</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href="/">404area</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            品优购day05
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class="post-intro-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="SpringSecurity">SpringSecurity</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">4k</span>阅读时长: <span class="post-count reading-time">21 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/06/05</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h3 id="学习目标"><a href="#学习目标" class="headerlink" title="学习目标"></a>学习目标</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">目标1：实现SpringSecurity入门小Demo</span><br><span class="line">目标2：完成运营商登陆与安全控制功能</span><br><span class="line">目标3：完成商家入驻</span><br><span class="line">目标4：完成商家审核</span><br><span class="line">目标5：完成商家系统登陆与安全控制功能</span><br></pre></td></tr></table></figure>
+<h3 id="一、SpringSecurity入门Demo"><a href="#一、SpringSecurity入门Demo" class="headerlink" title="一、SpringSecurity入门Demo"></a>一、SpringSecurity入门Demo</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.创建springSecurityDemo的war工程</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2.pom文件及web.xml的导入从资源-&gt;配置文件-&gt;SpringSecurity中拷贝</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3.创建index.html欢迎页</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4.修改spring-security.xml文件</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">	&lt;!-- 设置页面不登陆也可以访问 --&gt;</span><br><span class="line">	&lt;http pattern=&quot;/login.html&quot; security=&quot;none&quot;&gt;&lt;/http&gt;</span><br><span class="line">	&lt;http pattern=&quot;/login_error.html&quot; security=&quot;none&quot;&gt;&lt;/http&gt;</span><br><span class="line"></span><br><span class="line">	&lt;!-- 页面的拦截规则    use-expressions:是否启动SPEL表达式 默认是true --&gt;</span><br><span class="line">	&lt;http use-expressions=&quot;false&quot;&gt;</span><br><span class="line">		&lt;!-- 当前用户必须有ROLE_USER的角色 才可以访问根目录及所属子目录的资源 --&gt;</span><br><span class="line">		&lt;intercept-url pattern=&quot;/**&quot; access=&quot;ROLE_USER&quot;/&gt;</span><br><span class="line">		&lt;!-- 开启表单登陆功能，自定义登录页login.html，错误跳转页login_error.html --&gt;</span><br><span class="line">		&lt;form-login   login-page=&quot;/login.html&quot; default-target-url=&quot;/index.html&quot; authentication-failure-url=&quot;/login_error.html&quot;/&gt;</span><br><span class="line">		&lt;!--解决跨域访问错误问题--&gt;</span><br><span class="line">		&lt;csrf disabled=&quot;true&quot;/&gt;</span><br><span class="line">		&lt;!-- &lt;form-login /&gt; --&gt;</span><br><span class="line">	&lt;/http&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;!-- 认证管理器 --&gt;</span><br><span class="line">	&lt;authentication-manager&gt;</span><br><span class="line">		&lt;authentication-provider&gt;</span><br><span class="line">			&lt;user-service&gt;</span><br><span class="line">				&lt;user name=&quot;admin&quot; password=&quot;123456&quot; authorities=&quot;ROLE_USER&quot;/&gt;</span><br><span class="line">			&lt;/user-service&gt;</span><br><span class="line">		&lt;/authentication-provider&gt;	</span><br><span class="line">	&lt;/authentication-manager&gt;</span><br><span class="line">		</span><br><span class="line">&lt;/beans:beans&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">5.如果不想第一次登录的时候看到错误提示，将favicon.ico文件拷贝webapp目录</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">6.login.html内容是</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">--欢迎的登陆我的系统--</span><br><span class="line">&lt;form action=&quot;/login&quot; method=&quot;post&quot;&gt;</span><br><span class="line">	用户名：&lt;input name=&quot;username&quot;&gt;&lt;br&gt;</span><br><span class="line">	密码：&lt;input name=&quot;password&quot;&gt;&lt;br&gt;</span><br><span class="line">	&lt;button&gt;登陆&lt;/button&gt;</span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="二、运营商系统"><a href="#二、运营商系统" class="headerlink" title="二、运营商系统"></a>二、运营商系统</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.pinyougou-manager-web的pom文件加入两个依赖（该依赖已经添加到父工程中，可以跳过）</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.springframework.security&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-security-web&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.springframework.security&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-security-config&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2.web.xml文件将spring-security的配置放到springmvc下面，注意配置文件路径</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3.pinyougou-manager-web加入spring-security.xml文件</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans:beans xmlns=&quot;http://www.springframework.org/schema/security&quot;</span><br><span class="line">	xmlns:beans=&quot;http://www.springframework.org/schema/beans&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">	xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd</span><br><span class="line">						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">	&lt;!-- 设置页面不登陆也可以访问 --&gt;</span><br><span class="line">	&lt;http pattern=&quot;/*.html&quot; security=&quot;none&quot;&gt;&lt;/http&gt;</span><br><span class="line">	&lt;http pattern=&quot;/css/**&quot; security=&quot;none&quot;&gt;&lt;/http&gt;</span><br><span class="line">	&lt;http pattern=&quot;/img/**&quot; security=&quot;none&quot;&gt;&lt;/http&gt;</span><br><span class="line">	&lt;http pattern=&quot;/js/**&quot; security=&quot;none&quot;&gt;&lt;/http&gt;</span><br><span class="line">	&lt;http pattern=&quot;/plugins/**&quot; security=&quot;none&quot;&gt;&lt;/http&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;!-- 页面的拦截规格 use-expressions:默认启用SPEL表达式 需要将 access=&quot;hasRole(&apos;ROLE_USER&apos;)&quot; --&gt;</span><br><span class="line">	&lt;http use-expressions=&quot;false&quot;&gt;</span><br><span class="line">		&lt;!-- 当前用户必须有ROLE_USER的角色才可以访问根目录及所属子目录的资源 ROLE_是固定写法--&gt;</span><br><span class="line">		&lt;intercept-url pattern=&quot;/**&quot; access=&quot;ROLE_USER&quot; /&gt;</span><br><span class="line">		&lt;!-- 开启表单登录功能  csrf跨域访问需要jsp页，因为是html的所以需要关闭--&gt;</span><br><span class="line">		&lt;form-login   login-page=&quot;/login.html&quot; default-target-url=&quot;/admin/index.html&quot; authentication-failure-url=&quot;/login.html&quot;/&gt;</span><br><span class="line">		&lt;csrf disabled=&quot;true&quot;/&gt;</span><br><span class="line">	&lt;/http&gt;</span><br><span class="line">	&lt;!-- 认证管理器 --&gt;</span><br><span class="line">	&lt;authentication-manager&gt;</span><br><span class="line">		&lt;!-- 认证提供者 --&gt;</span><br><span class="line">		&lt;authentication-provider&gt;</span><br><span class="line">			&lt;user-service&gt;</span><br><span class="line">				&lt;!-- 配置当前系统的用户 authorities该用户属于哪个角色 --&gt;</span><br><span class="line">				&lt;user name=&quot;admin&quot; password=&quot;123456&quot; authorities=&quot;ROLE_USER&quot; /&gt;</span><br><span class="line">			&lt;/user-service&gt;</span><br><span class="line">		&lt;/authentication-provider&gt;</span><br><span class="line">	&lt;/authentication-manager&gt;</span><br><span class="line">&lt;/beans:beans&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2.login.html页面的用户名密码的form表单处的action=&quot;/login&quot;,这里的login是默认的，可以通过修改login-processing-url属性来替换掉默认的login</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3.配置文件可以对username和password进行重命名</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--提交表单的地址就改成login2，password-parameter提交的密码改名--&gt;</span><br><span class="line">&lt;form-login  password-parameter=&quot;pass&quot; username-parameter=&quot;user&quot; login-processing-url=&quot;/login2&quot; login-page=&quot;/login.html&quot; default-target-url=&quot;/admin/index.html&quot; authentication-failure-url=&quot;/login.html&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">当前页面的输入表单绑定用户名和密码，username和password也可以修改，参照上面的配置</span><br></pre></td></tr></table></figure>
+<p><strong>注意页面的action地址，如果是tomcat启动需要加上项目路径</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;form class=&quot;sui-form&quot; action=&quot;/login&quot; method=&quot;post&quot; id=&quot;loginform&quot;&gt;</span><br><span class="line">...</span><br><span class="line">   &lt;input id=&quot;prependedInput&quot; name=&quot;user&quot; type=&quot;text&quot; placeholder=&quot;邮箱/用户名/手机号&quot; class=&quot;span2 input-xfat&quot;&gt;</span><br><span class="line">...</span><br><span class="line">   &lt;input id=&quot;prependedInput&quot; name=&quot;pass&quot; type=&quot;password&quot; placeholder=&quot;请输入密码&quot; class=&quot;span2 input-xfat&quot;&gt;</span><br><span class="line">...</span><br><span class="line">&lt;a class=&quot;sui-btn btn-block btn-xlarge btn-danger&quot; target=&quot;_blank&quot; onclick=&quot;document:loginform.submit()&quot;&gt;登&amp;nbsp;&amp;nbsp;录&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">界面看不到详细页，报错</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">页面报错：Refused to display &apos;http://localhost:9101/pinyougou-manager-web/admin/home.html&apos; in a frame because it set &apos;X-Frame-Options&apos; to &apos;deny&apos;.</span><br><span class="line">&lt;!-- 页面的拦截规则    use-expressions:是否启动SPEL表达式 默认是true --&gt;</span><br><span class="line">	&lt;http use-expressions=&quot;false&quot;&gt;</span><br><span class="line">		...上面重复</span><br><span class="line">		&lt;headers&gt;</span><br><span class="line">		//DENY：浏览器拒绝当前页面加载任何Frame页面</span><br><span class="line">   		//SAMEORIGIN：frame页面的地址只能为同源域名下的页面</span><br><span class="line">    	//ALLOW-FROM：origin为允许frame加载的页面地址。</span><br><span class="line">			&lt;frame-options policy=&quot;SAMEORIGIN&quot;/&gt;</span><br><span class="line">		&lt;/headers&gt;</span><br><span class="line">	&lt;/http&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="三、显示登录名"><a href="#三、显示登录名" class="headerlink" title="三、显示登录名"></a>三、显示登录名</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.增加LoginController.java</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">package com.pinyougou.manager.controller;</span><br><span class="line">import java.util.HashMap;</span><br><span class="line">import java.util.Map;</span><br><span class="line">import org.springframework.security.core.context.SecurityContextHolder;</span><br><span class="line">import org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line">import org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line">@RestController</span><br><span class="line">@RequestMapping(&quot;/login&quot;)</span><br><span class="line">public class LoginController &#123;</span><br><span class="line">	@RequestMapping(&quot;/name&quot;)</span><br><span class="line">	public Map name()&#123;</span><br><span class="line">		String name = SecurityContextHolder.getContext().getAuthentication().getName();</span><br><span class="line">		Map map = new HashMap&lt;&gt;();</span><br><span class="line">		map.put(&quot;loginName&quot;, name);</span><br><span class="line">		return map;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2.增加loginService.js</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">app.service(&apos;loginService&apos;,function($http)&#123;</span><br><span class="line">	this.loginName = function()&#123;</span><br><span class="line">		return $http.get(&apos;../login/name.do&apos;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3.增加loginController.js</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">app.controller(&apos;loginController&apos;,function($scope,loginService)&#123;</span><br><span class="line">	//显示当前用户名</span><br><span class="line">	$scope.showLoginName=function()&#123;</span><br><span class="line">		loginService.loginName().success(</span><br><span class="line">				function(response)&#123;</span><br><span class="line">					$scope.loginName=response.loginName;</span><br><span class="line">				&#125;</span><br><span class="line">		);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4.index.html修改</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//导入js引用</span><br><span class="line">...</span><br><span class="line">	&lt;script type=&quot;text/javascript&quot; src=&quot;../plugins/angularjs/angular.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">	&lt;script type=&quot;text/javascript&quot; src=&quot;../js/base.js&quot; &gt;&lt;/script&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot; src=&quot;../js/service/loginService.js&quot; &gt;&lt;/script&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot; src=&quot;../js/controller/loginController.js&quot; &gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">//修改body中的初始化</span><br><span class="line">&lt;body class=&quot;hold-transition skin-green sidebar-mini&quot; ng-app=&quot;pinyougou&quot; ng-controller=&quot;loginController&quot; ng-init=&quot;showLoginName()&quot;&gt;</span><br><span class="line">...</span><br><span class="line">//测试用户文本替换成&#123;&#123;loginName&#125;&#125;显示当前用户名,一共三处进行用户名的替换</span><br></pre></td></tr></table></figure>
+<h3 id="四、退出登录"><a href="#四、退出登录" class="headerlink" title="四、退出登录"></a>四、退出登录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.在spring-security.xml文件中增加</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;http use-expressions=&quot;false&quot;&gt;</span><br><span class="line">	....省略//这里增加logout后，可通过logout进行调用</span><br><span class="line">	&lt;logout/&gt;</span><br><span class="line">&lt;/http&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2.在index.html中将注销按钮修改**href=&quot;../logout&quot;**</span><br></pre></td></tr></table></figure>
+<h3 id="五、商家申请入驻"><a href="#五、商家申请入驻" class="headerlink" title="五、商家申请入驻"></a>五、商家申请入驻</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.创建pinyougou-shop-web商家web模块</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.拷贝商家管理后台静态资源到pinyougou-shop-web</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2.拷贝文件**前方高能，注意修改主键类型，seller主键是String类型！！！**</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">======sellergoods-interface子模块中拷贝</span><br><span class="line">	（1）GoodsService.java</span><br><span class="line">	（2）SellerService.java</span><br><span class="line"></span><br><span class="line">======sellergoods-service子模块中拷贝</span><br><span class="line">	（1）GoodsServiceImpl.java</span><br><span class="line">	（2）SellerServiceImpl.java</span><br><span class="line"></span><br><span class="line">======shop-web项目创建js文件夹，文件夹下创建service和controller文件夹，从代码生成器中拷贝下面6个</span><br><span class="line">	（1）goodsService.js</span><br><span class="line">	（2）sellerService.js</span><br><span class="line">	（3）goodsController.js</span><br><span class="line">	（4）sellerController.js</span><br><span class="line">	（5）GoodsController.java</span><br><span class="line">	（6）SellerController.java</span><br><span class="line">	</span><br><span class="line">=======shop-web项目拷贝，从pinyougou-manager-web项目拷贝下面三个文件：</span><br><span class="line">		（1）baseController.js</span><br><span class="line">		（2）base_pagination.js</span><br><span class="line">		（3）base.js</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3.pinyougou-shop-web项目的pom文件引入pinyougou-sellergoods-interface</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4.在register.html中进行修改</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">   //需要引入相关js文件</span><br><span class="line">   &lt;script type=&quot;text/javascript&quot; src=&quot;plugins/angularjs/angular.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot; src=&quot;js/base.js&quot; &gt;&lt;/script&gt;</span><br><span class="line">   &lt;script type=&quot;text/javascript&quot; src=&quot;js/service/sellerService.js&quot; &gt;&lt;/script&gt;</span><br><span class="line">   &lt;script type=&quot;text/javascript&quot; src=&quot;js/controller/baseController.js&quot; &gt;&lt;/script&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot; src=&quot;js/controller/sellerController.js&quot; &gt;&lt;/script&gt;</span><br><span class="line">...</span><br><span class="line">//需要在body中</span><br><span class="line">&lt;body ng-app=&quot;pinyougou&quot; ng-controller=&quot;sellerController&quot;&gt;</span><br><span class="line">//每个intput标签绑定属性</span><br><span class="line">&lt;input type=&quot;text&quot; placeholder=&quot;登陆名&quot; ng-model=&quot;entity.sellerId&quot;  其他省略...&quot;&gt;</span><br><span class="line">//最后保存按钮去掉href替换成ng-click</span><br><span class="line">&lt;a class=&quot;...省略&quot; ng-click=&quot;save()&quot; target=&quot;_blank&quot;&gt;申请入驻&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">5.需要在sellerController.js文件中增加add方法</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//新增</span><br><span class="line">$scope.add=function()&#123;	</span><br><span class="line">	sellerService.add( $scope.entity  ).success(</span><br><span class="line">		function(response)&#123;</span><br><span class="line">			if(response.success)&#123;</span><br><span class="line">				//如果注册成功跳转到登录页面</span><br><span class="line">				location.href=&quot;shoplogin.html&quot;;</span><br><span class="line">			&#125;else&#123;</span><br><span class="line">				alert(response.message);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;		</span><br><span class="line">	);				</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">6.关于新增后初始值默认值处理SellerServiceImpl.java的add方法修改</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public void add(TbSeller seller) &#123;</span><br><span class="line">	seller.setStatus(&quot;0&quot;); //状态初始化 0:未审核 1:已审核 2:已驳回 3:已停用</span><br><span class="line">	seller.setCreateTime(new Date());//日期初始化</span><br><span class="line">	sellerMapper.insert(seller);		</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="六、商家待审核列表"><a href="#六、商家待审核列表" class="headerlink" title="六、商家待审核列表"></a>六、商家待审核列表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.pinyougou-manager-web工程中的seller_1.html</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">//1.拷贝以下三个文件到manager-web项目</span><br><span class="line">sellerService.js,sellerController.js,sellerController.java</span><br><span class="line"></span><br><span class="line">//2.body中做配置</span><br><span class="line">&lt;body class=&quot;hold-transition skin-red sidebar-mini&quot;  ng-app=&quot;pinyougou&quot; ng-controller=&quot;sellerController&quot; ng-init=&quot;searchEntity=&#123;status:&apos;0&apos;&#125;&quot;&gt;</span><br><span class="line">//3.修改tr内容为循环</span><br><span class="line"> &lt;tr ng-repeat=&quot;entity in list&quot;&gt;</span><br><span class="line">	&lt;td&gt;&lt;input  type=&quot;checkbox&quot;&gt;&lt;/td&gt;			                              </span><br><span class="line">	&lt;td&gt;&#123;&#123;entity.sellerId&#125;&#125;&lt;/td&gt;</span><br><span class="line">	&lt;td&gt;&#123;&#123;entity.name&#125;&#125;&lt;/td&gt;</span><br><span class="line">	&lt;td&gt;&#123;&#123;entity.nickName&#125;&#125;&lt;/td&gt;</span><br><span class="line">	&lt;td&gt;&#123;&#123;entity.linkmanName&#125;&#125;&lt;/td&gt;</span><br><span class="line">	&lt;td&gt;&#123;&#123;entity.telephone&#125;&#125;&lt;/td&gt;</span><br><span class="line">	&lt;td class=&quot;text-center&quot;&gt;                                           </span><br><span class="line">		&lt;button type=&quot;button&quot; class=&quot;btn bg-olive btn-xs&quot; data-toggle=&quot;modal&quot; data-target=&quot;#sellerModal&quot; &gt;详情&lt;/button&gt;                                           </span><br><span class="line">	&lt;/td&gt;</span><br><span class="line">&lt;/tr&gt;</span><br><span class="line">//4.分页控件</span><br><span class="line">&lt;tm-pagination conf=&quot;paginationConf&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="七、商家详情"><a href="#七、商家详情" class="headerlink" title="七、商家详情"></a>七、商家详情</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.seller_1.html详情按钮增加ng-click=&quot;findOne(entity.sellerId)&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;tr&gt;</span><br><span class="line">    		&lt;td&gt;公司名称&lt;/td&gt;</span><br><span class="line">    		&lt;td&gt;&#123;&#123;entity.name&#125;&#125;&lt;/td&gt;</span><br><span class="line">    	&lt;/tr&gt;</span><br><span class="line">    	&lt;tr&gt;</span><br><span class="line">    		&lt;td&gt;店铺名称&lt;/td&gt;</span><br><span class="line">    		&lt;td&gt;&#123;&#123;entity.nickName&#125;&#125;&lt;/td&gt;</span><br><span class="line">    	&lt;/tr&gt;</span><br><span class="line">    	&lt;tr&gt;</span><br><span class="line">    		&lt;td&gt;公司电话&lt;/td&gt;</span><br><span class="line">    		&lt;td&gt;&#123;&#123;entity.telephone&#125;&#125;&lt;/td&gt;</span><br><span class="line">    	&lt;/tr&gt;</span><br><span class="line">    	&lt;tr&gt;</span><br><span class="line">    		&lt;td&gt;公司详细地址&lt;/td&gt;</span><br><span class="line">    		&lt;td&gt;&#123;&#123;entity.addressDetail&#125;&#125;&lt;/td&gt;</span><br><span class="line">    	&lt;/tr&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="八、商家审核"><a href="#八、商家审核" class="headerlink" title="八、商家审核"></a>八、商家审核</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.SellerService接口类增加方法</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public void updateStatus(String sellerId,String status);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2.SellerServiceImpl.java实现updateStatus方法</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public void updateStatus(String sellerId, String status) &#123;</span><br><span class="line">	// TODO Auto-generated method stub</span><br><span class="line">	TbSeller seller = sellerMapper.selectByPrimaryKey(sellerId);</span><br><span class="line">	seller.setStatus(status);</span><br><span class="line">	sellerMapper.updateByPrimaryKey(seller);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3.SellerController.java增加updateStatus方法</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(&quot;/updateStatus&quot;)</span><br><span class="line">public Result updateStatus(String sellerId, String status) &#123;</span><br><span class="line">	try &#123;</span><br><span class="line">		sellerService.updateStatus(sellerId, status);</span><br><span class="line">		return new Result(true, &quot;成功&quot;);</span><br><span class="line">	&#125; catch (Exception e) &#123;</span><br><span class="line">		e.printStackTrace();</span><br><span class="line">		return new Result(false,&quot;失败&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4.sellerService.js文件增加</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">this.updateStatus=function(sellerId,status)&#123;</span><br><span class="line">	return $http.get(&apos;../seller/updateStatus.do?sellerId=&apos;+sellerId+&apos;&amp;status=&apos;+status);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">5.sellerController.js文件增加</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$scope.updateStatus=function(sellerId,status)&#123;</span><br><span class="line">	sellerService.updateStatus(sellerId,status).success(</span><br><span class="line">			function(response)&#123;</span><br><span class="line">				if(response.success)&#123;</span><br><span class="line">					$scope.reloadList();</span><br><span class="line">				&#125;else&#123;</span><br><span class="line">					alert(response.message);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">	);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">6.seller_1.html中的审核按钮增加点击效果</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;button class=&quot;btn btn-success&quot; data-dismiss=&quot;modal&quot; aria-hidden=&quot;true&quot; ng-click=&quot;updateStatus(entity.sellerId,&apos;1&apos;)&quot;&gt;审核通过&lt;/button&gt;</span><br><span class="line">&lt;button class=&quot;btn btn-danger&quot;  data-dismiss=&quot;modal&quot; aria-hidden=&quot;true&quot; ng-click=&quot;updateStatus(entity.sellerId,&apos;2&apos;)&quot;&gt;审核未通过&lt;/button&gt;</span><br><span class="line">&lt;button class=&quot;btn btn-danger&quot; data-dismiss=&quot;modal&quot; aria-hidden=&quot;true&quot; ng-click=&quot;updateStatus(entity.sellerId,&apos;3&apos;)&quot;&gt;关闭商家&lt;/button&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="九、商家登录系统与安全控制"><a href="#九、商家登录系统与安全控制" class="headerlink" title="九、商家登录系统与安全控制"></a>九、商家登录系统与安全控制</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//整体流程</span><br><span class="line">1.authentication-provider中设置user-service-ref</span><br><span class="line">2.需要创建个userDetialService的beans，注入sellerService</span><br><span class="line">3.sellerService得从dubbo中获取</span><br><span class="line">4.编写UserDetailsServiceImpl实现UserDetailsService</span><br><span class="line">	返回的new User(用户名,密码,角色集合);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.拷贝web.xml文件中的springSecurity部分配置，spring-security.xml拷贝</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans:beans xmlns=&quot;http://www.springframework.org/schema/security&quot;</span><br><span class="line">	xmlns:beans=&quot;http://www.springframework.org/schema/beans&quot; </span><br><span class="line">	xmlns:dubbo=&quot;http://code.alibabatech.com/schema/dubbo&quot;</span><br><span class="line">	xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">	xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd</span><br><span class="line">						http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd</span><br><span class="line">						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd&quot;&gt;</span><br><span class="line">   </span><br><span class="line">	&lt;!-- 设置页面不登陆也可以访问 --&gt;</span><br><span class="line">	&lt;http pattern=&quot;/*.html&quot; security=&quot;none&quot;&gt;&lt;/http&gt;</span><br><span class="line">	&lt;http pattern=&quot;/css/**&quot; security=&quot;none&quot;&gt;&lt;/http&gt;</span><br><span class="line">	&lt;http pattern=&quot;/img/**&quot; security=&quot;none&quot;&gt;&lt;/http&gt;</span><br><span class="line">	&lt;http pattern=&quot;/js/**&quot; security=&quot;none&quot;&gt;&lt;/http&gt;</span><br><span class="line">	&lt;http pattern=&quot;/plugins/**&quot; security=&quot;none&quot;&gt;&lt;/http&gt;</span><br><span class="line">	&lt;http pattern=&quot;/seller/add.do&quot; security=&quot;none&quot;&gt;&lt;/http&gt;</span><br><span class="line">	&lt;http pattern=&quot;/shoplogin.html&quot; security=&quot;none&quot;&gt;&lt;/http&gt;</span><br><span class="line">	&lt;!-- 页面的拦截规则    use-expressions:是否启动SPEL表达式 默认是true --&gt;</span><br><span class="line">	&lt;http use-expressions=&quot;false&quot;&gt;</span><br><span class="line">		&lt;!-- 当前用户必须有ROLE_USER的角色 才可以访问根目录及所属子目录的资源 --&gt;</span><br><span class="line">		&lt;intercept-url pattern=&quot;/**&quot; access=&quot;ROLE_USER&quot;/&gt;</span><br><span class="line">		&lt;!-- 开启表单登陆功能 --&gt;</span><br><span class="line">		&lt;form-login  login-page=&quot;/shoplogin.html&quot; default-target-url=&quot;/admin/index.html&quot; authentication-failure-url=&quot;/shoplogin.html&quot; always-use-default-target=&quot;true&quot;/&gt;</span><br><span class="line">		&lt;csrf disabled=&quot;true&quot;/&gt;</span><br><span class="line">		&lt;headers&gt;</span><br><span class="line">			&lt;frame-options policy=&quot;SAMEORIGIN&quot;/&gt;</span><br><span class="line">		&lt;/headers&gt;</span><br><span class="line">		&lt;logout/&gt;</span><br><span class="line">	&lt;/http&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;!-- 认证管理器 --&gt;</span><br><span class="line">	&lt;authentication-manager&gt;</span><br><span class="line">		&lt;authentication-provider user-service-ref=&quot;userDetialService&quot;&gt;</span><br><span class="line">		&lt;/authentication-provider&gt;	</span><br><span class="line">	&lt;/authentication-manager&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;!-- 认证类 --&gt;</span><br><span class="line">	&lt;beans:bean id=&quot;userDetialService&quot; class=&quot;com.pinyougou.service.UserDetailsServiceImpl&quot;&gt;</span><br><span class="line">		&lt;beans:property name=&quot;sellerService&quot; ref=&quot;sellerService&quot;&gt;&lt;/beans:property&gt;</span><br><span class="line">	&lt;/beans:bean&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;!-- 引用dubbo 服务 --&gt;</span><br><span class="line">	&lt;dubbo:application name=&quot;pinyougou-shop-web&quot; /&gt;</span><br><span class="line">	&lt;dubbo:registry address=&quot;zookeeper://192.168.25.130:2181&quot;/&gt;	</span><br><span class="line">	&lt;dubbo:reference id=&quot;sellerService&quot; interface=&quot;com.pinyougou.sellergoods.service.SellerService&quot; /&gt;</span><br><span class="line">&lt;/beans:beans&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2.shoplogin.html页面修改表单提交部分</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;form class=&quot;sui-form&quot; method=&quot;post&quot; action=&quot;/login&quot; method=&quot;post&quot; id=&quot;loginform&quot;&gt;</span><br><span class="line">	&lt;input id=&quot;prependedInput&quot; type=&quot;text&quot; name=&quot;username&quot; placeholder=&quot;邮箱/用户名/手机号&quot; class=&quot;span2 input-xfat&quot;&gt;</span><br><span class="line">	&lt;input id=&quot;prependedInput&quot; type=&quot;password&quot; name=&quot;password&quot; placeholder=&quot;请输入密码&quot; class=&quot;span2 input-xfat&quot;&gt;</span><br><span class="line">	//登录按钮增加点击提交表单</span><br><span class="line">	&lt;a class=&quot;sui-btn btn-block btn-xlarge btn-danger&quot; onclick=&quot;document:loginform.submit()&quot; target=&quot;_blank&quot;&gt;登&amp;nbsp;&amp;nbsp;录&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3.在shop系统中增加com.pinyougou.service包</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">package com.pinyougou.service;</span><br><span class="line"></span><br><span class="line">import java.util.ArrayList;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">import org.springframework.security.core.GrantedAuthority;</span><br><span class="line">import org.springframework.security.core.authority.SimpleGrantedAuthority;</span><br><span class="line">import org.springframework.security.core.userdetails.User;</span><br><span class="line">import org.springframework.security.core.userdetails.UserDetails;</span><br><span class="line">import org.springframework.security.core.userdetails.UserDetailsService;</span><br><span class="line">import org.springframework.security.core.userdetails.UsernameNotFoundException;</span><br><span class="line"></span><br><span class="line">import com.pinyougou.pojo.TbSeller;</span><br><span class="line">import com.pinyougou.sellergoods.service.SellerService;</span><br><span class="line"></span><br><span class="line">public class UserDetailsServiceImpl implements UserDetailsService&#123;</span><br><span class="line"></span><br><span class="line">	private SellerService sellerService;</span><br><span class="line">	public void setSellerService(SellerService sellerService) &#123;</span><br><span class="line">		this.sellerService = sellerService;</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException &#123;</span><br><span class="line">		System.out.println(&quot;经过了UserDetailsServiceImpl&quot;);</span><br><span class="line">		//构建角色列表</span><br><span class="line">		List&lt;GrantedAuthority&gt; authorities = new ArrayList&lt;&gt;();</span><br><span class="line">		authorities.add(new SimpleGrantedAuthority(&quot;ROLE_USER&quot;));</span><br><span class="line">		TbSeller seller = sellerService.findOne(name);</span><br><span class="line">		if(seller!=null&amp;&amp;seller.getStatus().equals(&quot;1&quot;))&#123;</span><br><span class="line">			//测试的时候注意用户需要状态为1已审核的</span><br><span class="line">			return new User(name, seller.getPassword(), authorities);</span><br><span class="line">		&#125;else&#123;</span><br><span class="line">			return null;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="十、BCrypt加密"><a href="#十、BCrypt加密" class="headerlink" title="十、BCrypt加密"></a>十、BCrypt加密</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.SellerController.java的add方法增加加密密码功能</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public Result add(@RequestBody TbSeller seller)&#123;</span><br><span class="line">	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();</span><br><span class="line">	String encode = encoder.encode(seller.getPassword());</span><br><span class="line">	seller.setPassword(encode);</span><br><span class="line">	</span><br><span class="line">	try &#123;</span><br><span class="line">		sellerService.add(seller);</span><br><span class="line">		return new Result(true, &quot;增加成功&quot;);</span><br><span class="line">	&#125; catch (Exception e) &#123;</span><br><span class="line">		e.printStackTrace();</span><br><span class="line">		return new Result(false, &quot;增加失败&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2.在spring-security.xml配置下面增加密码加密</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;authentication-provider user-service-ref=&quot;userDetialService&quot;&gt;</span><br><span class="line">			&lt;!-- 增加这行是为了支持密码加密 --&gt;</span><br><span class="line">			&lt;password-encoder ref=&quot;passwordEncoder&quot;&gt;&lt;/password-encoder&gt;</span><br><span class="line">&lt;/authentication-provider&gt;	</span><br><span class="line">&lt;beans:bean id=&quot;passwordEncoder&quot; class=&quot;org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder&quot;&gt;&lt;/beans:bean&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3.测试的时候记得商户状态需要手动改为1，才可以登录成功</span><br></pre></td></tr></table></figure>
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://404area.github.io">404area</a>
+            </p><p>原文链接：<a href="http://404area.github.io/2019/06/05/品优购day05/">http://404area.github.io/2019/06/05/品优购day05/</a>
+            </p><p>发表日期：<a href="http://404area.github.io/2019/06/05/品优购day05/">June 5th 2019, 2:44:47 pm</a>
+            </p><p>更新日期：<a href="http://404area.github.io/2019/06/05/品优购day05/">June 10th 2019, 2:56:34 pm</a>
+            </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2019/06/08/品优购day06/" title="品优购day06">
+                    <div class="nextTitle">品优购day06</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2019/06/04/品优购day04/" title="品优购day04">
+                    <div class="prevTitle">品优购day04</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+    <div id="lv-container" data-id="city" data-uid="MTAyMC80NDAyNS8yMDU2MA==">
+        <script type="text/javascript">
+            (function (d, s) {
+                var j, e = d.getElementsByTagName(s)[0];
+                if (typeof LivereTower === 'function') { return; }
+                j = d.createElement(s);
+                j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                j.async = true;
+
+                e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+        </script>
+        <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:javatest1901@gmail.com" class="iconfont-archer email" title="email"></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/404area" class="iconfont-archer github" target="_blank" title="github"></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title="wechat">
+                  
+                  <img class="profile-qr" src="/assets/example_qr.png">
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by 404area  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://404area.github.io/" target="_blank">404area</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">test <a href="https://github.com/404area" target="_blank">Next</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#学习目标"><span class="toc-number">1.</span> <span class="toc-text">学习目标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一、SpringSecurity入门Demo"><span class="toc-number">2.</span> <span class="toc-text">一、SpringSecurity入门Demo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、运营商系统"><span class="toc-number">3.</span> <span class="toc-text">二、运营商系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、显示登录名"><span class="toc-number">4.</span> <span class="toc-text">三、显示登录名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、退出登录"><span class="toc-number">5.</span> <span class="toc-text">四、退出登录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五、商家申请入驻"><span class="toc-number">6.</span> <span class="toc-text">五、商家申请入驻</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#六、商家待审核列表"><span class="toc-number">7.</span> <span class="toc-text">六、商家待审核列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#七、商家详情"><span class="toc-number">8.</span> <span class="toc-text">七、商家详情</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#八、商家审核"><span class="toc-number">9.</span> <span class="toc-text">八、商家审核</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#九、商家登录系统与安全控制"><span class="toc-number">10.</span> <span class="toc-text">九、商家登录系统与安全控制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#十、BCrypt加密"><span class="toc-number">11.</span> <span class="toc-text">十、BCrypt加密</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 21
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/08</span><a class="archive-post-title" href="/2019/06/08/品优购day06/">品优购day06</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/05</span><a class="archive-post-title" href="/2019/06/05/品优购day05/">品优购day05</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/04</span><a class="archive-post-title" href="/2019/06/04/品优购day04/">品优购day04</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/03</span><a class="archive-post-title" href="/2019/06/03/品优购day03/">品优购day03</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span><a class="archive-post-title" href="/2019/06/01/品优购day02/">品优购day02</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/31</span><a class="archive-post-title" href="/2019/05/31/品优购day01/">品优购day01</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/15</span><a class="archive-post-title" href="/2019/05/15/spring的AOP/">spring的AOP</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/14</span><a class="archive-post-title" href="/2019/05/14/Ioc和DI工厂的基本原理/">Ioc和DI工厂的基本原理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span><a class="archive-post-title" href="/2019/05/01/前言/">前言</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day08jquery3.0/">day08jquery.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day05-会话技术/">day05-会话技术.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day04-response/">day04-request.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day11redis/">day11redis.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day03_request-笔记/">day03-request.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day01-xml/">day01-xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day06-jsp&el&jstl/">day06-jsp&el&jstl.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day02-tomcat&servlet/">day02-tomcat&servlet.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day07过滤器/">day07过滤器.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day9jquery3.0/">day9jquery.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day12mavem&idea集成/">day12mavem&idea集成.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day10Ajax&jQuery/">day10Ajax&jQuery.xml</a>
+        </li>
+    
+    </ul></div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="web"><span class="iconfont-archer">&#xe606;</span>web</span>
+    
+        <span class="sidebar-tag-name" data-tags="reponse"><span class="iconfont-archer">&#xe606;</span>reponse</span>
+    
+        <span class="sidebar-tag-name" data-tags="ServletContext"><span class="iconfont-archer">&#xe606;</span>ServletContext</span>
+    
+        <span class="sidebar-tag-name" data-tags="redis"><span class="iconfont-archer">&#xe606;</span>redis</span>
+    
+        <span class="sidebar-tag-name" data-tags="NOSQL"><span class="iconfont-archer">&#xe606;</span>NOSQL</span>
+    
+        <span class="sidebar-tag-name" data-tags="spring"><span class="iconfont-archer">&#xe606;</span>spring</span>
+    
+        <span class="sidebar-tag-name" data-tags="AOP"><span class="iconfont-archer">&#xe606;</span>AOP</span>
+    
+        <span class="sidebar-tag-name" data-tags="理想"><span class="iconfont-archer">&#xe606;</span>理想</span>
+    
+        <span class="sidebar-tag-name" data-tags="生活"><span class="iconfont-archer">&#xe606;</span>生活</span>
+    
+        <span class="sidebar-tag-name" data-tags="Ioc和DI"><span class="iconfont-archer">&#xe606;</span>Ioc和DI</span>
+    
+        <span class="sidebar-tag-name" data-tags="request"><span class="iconfont-archer">&#xe606;</span>request</span>
+    
+        <span class="sidebar-tag-name" data-tags="request域"><span class="iconfont-archer">&#xe606;</span>request域</span>
+    
+        <span class="sidebar-tag-name" data-tags="xml"><span class="iconfont-archer">&#xe606;</span>xml</span>
+    
+        <span class="sidebar-tag-name" data-tags="jsp"><span class="iconfont-archer">&#xe606;</span>jsp</span>
+    
+        <span class="sidebar-tag-name" data-tags="jstl"><span class="iconfont-archer">&#xe606;</span>jstl</span>
+    
+        <span class="sidebar-tag-name" data-tags="tomcat"><span class="iconfont-archer">&#xe606;</span>tomcat</span>
+    
+        <span class="sidebar-tag-name" data-tags="servlet"><span class="iconfont-archer">&#xe606;</span>servlet</span>
+    
+        <span class="sidebar-tag-name" data-tags="cookie"><span class="iconfont-archer">&#xe606;</span>cookie</span>
+    
+        <span class="sidebar-tag-name" data-tags="Session"><span class="iconfont-archer">&#xe606;</span>Session</span>
+    
+        <span class="sidebar-tag-name" data-tags="jQuery"><span class="iconfont-archer">&#xe606;</span>jQuery</span>
+    
+        <span class="sidebar-tag-name" data-tags="filler"><span class="iconfont-archer">&#xe606;</span>filler</span>
+    
+        <span class="sidebar-tag-name" data-tags="listener"><span class="iconfont-archer">&#xe606;</span>listener</span>
+    
+        <span class="sidebar-tag-name" data-tags="Ajax"><span class="iconfont-archer">&#xe606;</span>Ajax</span>
+    
+        <span class="sidebar-tag-name" data-tags="maven"><span class="iconfont-archer">&#xe606;</span>maven</span>
+    
+        <span class="sidebar-tag-name" data-tags="idea"><span class="iconfont-archer">&#xe606;</span>idea</span>
+    
+        <span class="sidebar-tag-name" data-tags="模板管理"><span class="iconfont-archer">&#xe606;</span>模板管理</span>
+    
+        <span class="sidebar-tag-name" data-tags="分页控件"><span class="iconfont-archer">&#xe606;</span>分页控件</span>
+    
+        <span class="sidebar-tag-name" data-tags="面包屑"><span class="iconfont-archer">&#xe606;</span>面包屑</span>
+    
+        <span class="sidebar-tag-name" data-tags="AngularJS"><span class="iconfont-archer">&#xe606;</span>AngularJS</span>
+    
+        <span class="sidebar-tag-name" data-tags="项目实战"><span class="iconfont-archer">&#xe606;</span>项目实战</span>
+    
+        <span class="sidebar-tag-name" data-tags="mvc模式"><span class="iconfont-archer">&#xe606;</span>mvc模式</span>
+    
+        <span class="sidebar-tag-name" data-tags="双向绑定"><span class="iconfont-archer">&#xe606;</span>双向绑定</span>
+    
+        <span class="sidebar-tag-name" data-tags="依赖注入"><span class="iconfont-archer">&#xe606;</span>依赖注入</span>
+    
+        <span class="sidebar-tag-name" data-tags="模块化设计"><span class="iconfont-archer">&#xe606;</span>模块化设计</span>
+    
+        <span class="sidebar-tag-name" data-tags="指令"><span class="iconfont-archer">&#xe606;</span>指令</span>
+    
+        <span class="sidebar-tag-name" data-tags="--富文本编辑器 --FastDFS --图片上传"><span class="iconfont-archer">&#xe606;</span>--富文本编辑器 --FastDFS --图片上传</span>
+    
+        <span class="sidebar-tag-name" data-tags="前端分离"><span class="iconfont-archer">&#xe606;</span>前端分离</span>
+    
+        <span class="sidebar-tag-name" data-tags="SpringSecurity"><span class="iconfont-archer">&#xe606;</span>SpringSecurity</span>
+    
+        <span class="sidebar-tag-name" data-tags="工程骨架"><span class="iconfont-archer">&#xe606;</span>工程骨架</span>
+    
+        <span class="sidebar-tag-name" data-tags="pom"><span class="iconfont-archer">&#xe606;</span>pom</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br>
+    1、请确保node版本大于6.2<br>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="编程"><span class="iconfont-archer">&#xe60a;</span>编程</span>
+    
+        <span class="sidebar-category-name" data-categories="杂谈"><span class="iconfont-archer">&#xe60a;</span>杂谈</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/Java"><span class="iconfont-archer">&#xe60a;</span>编程/Java</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/java"><span class="iconfont-archer">&#xe60a;</span>编程/java</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/Java/web核心"><span class="iconfont-archer">&#xe60a;</span>编程/Java/web核心</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/java/SSM"><span class="iconfont-archer">&#xe60a;</span>编程/java/SSM</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/java/前端"><span class="iconfont-archer">&#xe60a;</span>编程/java/前端</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/java/前端/ssm"><span class="iconfont-archer">&#xe60a;</span>编程/java/前端/ssm</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/java/前端/ssm/项目"><span class="iconfont-archer">&#xe60a;</span>编程/java/前端/ssm/项目</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/java/前端/ssm/权限控制"><span class="iconfont-archer">&#xe60a;</span>编程/java/前端/ssm/权限控制</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/java/前端/ssm/权限控制/项目"><span class="iconfont-archer">&#xe60a;</span>编程/java/前端/ssm/权限控制/项目</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/java/ssm"><span class="iconfont-archer">&#xe60a;</span>编程/java/ssm</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/java/ssm/项目"><span class="iconfont-archer">&#xe60a;</span>编程/java/ssm/项目</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "404area"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+

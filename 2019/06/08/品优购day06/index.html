@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="404area">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="404area">
+    
+    <meta name="keywords" content="404area,Java,PHP">
+    
+    <meta name="description" content>
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>品优购day06 · 404area&#39;s Blog</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+    <script>
+        (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-139425886-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/">404area</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">品优购day06</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href="/">404area</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            品优购day06
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class="post-intro-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="--富文本编辑器 --FastDFS --图片上传">--富文本编辑器 --FastDFS --图片上传</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">2.1k</span>阅读时长: <span class="post-count reading-time">10 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/06/08</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <p>学习目标</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">目标1：了解电商概念SPU 和SKU及表结构分析</span><br><span class="line">目标2：掌握富文本编辑器的使用</span><br><span class="line">目标3：掌握上传服务器FastDFS的流程</span><br><span class="line">目标4：掌握angularJS图片上传</span><br></pre></td></tr></table></figure>
+<h3 id="一、商家管理平台-商品录入基本信息保存到数据库"><a href="#一、商家管理平台-商品录入基本信息保存到数据库" class="headerlink" title="一、商家管理平台-商品录入基本信息保存到数据库"></a>一、商家管理平台-商品录入基本信息保存到数据库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.在TbGoodsMapper.xml中insert方法增加</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//新增后获取插入数据得id</span><br><span class="line">&lt;selectKey resultType=&quot;java.lang.Long&quot; order=&quot;AFTER&quot; keyProperty=&quot;id&quot;&gt;</span><br><span class="line"> 		select last_insert_id() as id</span><br><span class="line"> 	&lt;/selectKey&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2.新增组合实体类在在 com.pinyougou.pojogroup包下</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">package com.pinyougou.pojogroup;</span><br><span class="line"></span><br><span class="line">import java.io.Serializable;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">import com.pinyougou.pojo.TbGoods;</span><br><span class="line">import com.pinyougou.pojo.TbGoodsDesc;</span><br><span class="line">import com.pinyougou.pojo.TbItem;</span><br><span class="line"></span><br><span class="line">public class Goods implements Serializable&#123;</span><br><span class="line">	private TbGoods goods;</span><br><span class="line">	private TbGoodsDesc goodsDesc;</span><br><span class="line">	private List&lt;TbItem&gt; itemList;</span><br><span class="line">	public TbGoods getGoods() &#123;</span><br><span class="line">		return goods;</span><br><span class="line">	&#125;</span><br><span class="line">	public void setGoods(TbGoods goods) &#123;</span><br><span class="line">		this.goods = goods;</span><br><span class="line">	&#125;</span><br><span class="line">	public TbGoodsDesc getGoodsDesc() &#123;</span><br><span class="line">		return goodsDesc;</span><br><span class="line">	&#125;</span><br><span class="line">	public void setGoodsDesc(TbGoodsDesc goodsDesc) &#123;</span><br><span class="line">		this.goodsDesc = goodsDesc;</span><br><span class="line">	&#125;</span><br><span class="line">	public List&lt;TbItem&gt; getItemList() &#123;</span><br><span class="line">		return itemList;</span><br><span class="line">	&#125;</span><br><span class="line">	public void setItemList(List&lt;TbItem&gt; itemList) &#123;</span><br><span class="line">		this.itemList = itemList;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3.修改GoodsService.java接口</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 增加</span><br><span class="line">*/</span><br><span class="line">public void add(Goods goods);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4.修改GoodsServiceImpl.java的add方法</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//新增是商品状态设置为0</span><br><span class="line">//指定商品详情和商品的id一直</span><br><span class="line">//新增的商品需要设置商家ID</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public void add(Goods goods) &#123;</span><br><span class="line">	goods.getGoods().setAuditStatus(&quot;0&quot;);//未审核</span><br><span class="line">	goodsMapper.insert(goods.getGoods());//插入商品基本信息</span><br><span class="line">	</span><br><span class="line">	goods.getGoodsDesc().setGoodsId(goods.getGoods().getId());//商品基本表ID赋予商品扩展表</span><br><span class="line">	goodsDescMapper.insert(goods.getGoodsDesc());//插入商品口信息	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">5.商家后台的GoodsController.java中修改add方法,为新增商品直接设置商家ID</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(&quot;/add&quot;)</span><br><span class="line">public Result add(@RequestBody Goods goods)&#123;</span><br><span class="line">	String sellerId = SecurityContextHolder.getContext().getAuthentication().getName();</span><br><span class="line">	goods.getGoods().setSellerId(sellerId); //设置商家ID</span><br><span class="line">	</span><br><span class="line">	try &#123;</span><br><span class="line">		goodsService.add(goods);</span><br><span class="line">		return new Result(true, &quot;增加成功&quot;);</span><br><span class="line">	&#125; catch (Exception e) &#123;</span><br><span class="line">		e.printStackTrace();</span><br><span class="line">		return new Result(false, &quot;增加失败&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">7.修改前端goodsController.js</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//保存 </span><br><span class="line">$scope.add=function()&#123;				</span><br><span class="line">	goodsService.add( $scope.entity  ).success(</span><br><span class="line">		function(response)&#123;</span><br><span class="line">			if(response.success)&#123;</span><br><span class="line">	        	$scope.entity=&#123;&#125;;</span><br><span class="line">			&#125;</span><br><span class="line">			alert(response.message);</span><br><span class="line">		&#125;		</span><br><span class="line">	);				</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">8.修改页面goods_edit.html</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">	//引入js文件</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot; src=&quot;../plugins/angularjs/angular.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">	&lt;script type=&quot;text/javascript&quot; src=&quot;../js/base.js&quot; &gt;&lt;/script&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot; src=&quot;../js/service/goodsService.js&quot; &gt;&lt;/script&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot; src=&quot;../js/controller/baseController.js&quot; &gt;&lt;/script&gt;</span><br><span class="line">	&lt;script type=&quot;text/javascript&quot; src=&quot;../js/controller/goodsController.js&quot; &gt;&lt;/script&gt;</span><br><span class="line">	//body中初始化</span><br><span class="line">	&lt;body ... ng-app=&quot;pinyougou&quot; ng-controller=&quot;goodsController&quot;&gt;</span><br><span class="line">	//数据绑定（商品名称，副标题，价格，包装列表，售后服务）五处</span><br><span class="line">	 &lt;div class=&quot;col-md-2 title&quot;&gt;商品名称&lt;/div&gt;</span><br><span class="line">		                           &lt;div class=&quot;col-md-10 data&quot;&gt;</span><br><span class="line">		                               &lt;input type=&quot;text&quot; class=&quot;form-control&quot;  ng-model=&quot;entity.goods.goodsName&quot;  placeholder=&quot;商品名称&quot; value=&quot;&quot;&gt;</span><br><span class="line">		                           &lt;/div&gt;</span><br><span class="line">		                           </span><br><span class="line">		                           &lt;div class=&quot;col-md-2 title&quot;&gt;品牌&lt;/div&gt;</span><br><span class="line">		                           &lt;div class=&quot;col-md-10 data&quot;&gt;</span><br><span class="line">		                              &lt;select class=&quot;form-control&quot; &gt;&lt;/select&gt;</span><br><span class="line">		                           &lt;/div&gt;</span><br><span class="line">		</span><br><span class="line">								   &lt;div class=&quot;col-md-2 title&quot;&gt;副标题&lt;/div&gt;</span><br><span class="line">		                           &lt;div class=&quot;col-md-10 data&quot;&gt;</span><br><span class="line">		                               &lt;input type=&quot;text&quot; class=&quot;form-control&quot;  ng-model=&quot;entity.goods.caption&quot; placeholder=&quot;副标题&quot; value=&quot;&quot;&gt;</span><br><span class="line">		                           &lt;/div&gt;</span><br><span class="line">		                           </span><br><span class="line">		                           &lt;div class=&quot;col-md-2 title&quot;&gt;价格&lt;/div&gt;</span><br><span class="line">		                           &lt;div class=&quot;col-md-10 data&quot;&gt;</span><br><span class="line">		                           	   &lt;div class=&quot;input-group&quot;&gt;</span><br><span class="line">			                          	   &lt;span class=&quot;input-group-addon&quot;&gt;¥&lt;/span&gt;</span><br><span class="line">			                               &lt;input type=&quot;text&quot; class=&quot;form-control&quot; ng-model=&quot;entity.goods.price&quot; placeholder=&quot;价格&quot; value=&quot;&quot;&gt;</span><br><span class="line">		                           	   &lt;/div&gt;</span><br><span class="line">		                           &lt;/div&gt;</span><br><span class="line">		                           </span><br><span class="line">		                           &lt;div class=&quot;col-md-2 title editer&quot;&gt;商品介绍&lt;/div&gt;</span><br><span class="line">                                   &lt;div class=&quot;col-md-10 data editer&quot;&gt;</span><br><span class="line">                                       &lt;textarea name=&quot;content&quot; style=&quot;width:800px;height:400px;visibility:hidden;&quot; &gt;&lt;/textarea&gt;</span><br><span class="line">                                   &lt;/div&gt;</span><br><span class="line">		                           </span><br><span class="line">		                           &lt;div class=&quot;col-md-2 title rowHeight2x&quot;&gt;包装列表&lt;/div&gt;</span><br><span class="line">		                           &lt;div class=&quot;col-md-10 data rowHeight2x&quot;&gt;</span><br><span class="line">		                               </span><br><span class="line">		                           	&lt;textarea rows=&quot;4&quot;  class=&quot;form-control&quot;  ng-model=&quot;entity.goodsDesc.packageList&quot; placeholder=&quot;包装列表&quot;&gt;&lt;/textarea&gt;</span><br><span class="line">		                           &lt;/div&gt;</span><br><span class="line">		                           </span><br><span class="line">		                           &lt;div class=&quot;col-md-2 title rowHeight2x&quot;&gt;售后服务&lt;/div&gt;</span><br><span class="line">		                           &lt;div class=&quot;col-md-10 data rowHeight2x&quot;&gt;</span><br><span class="line">		                               &lt;textarea rows=&quot;4&quot;  class=&quot;form-control&quot; ng-model=&quot;entity.goodsDesc.saleService&quot;   placeholder=&quot;售后服务&quot;&gt;&lt;/textarea&gt;</span><br><span class="line">		                           &lt;/div&gt;                        </span><br><span class="line">//修改保存按钮进行数据提交</span><br><span class="line"> &lt;button class=&quot;btn btn-primary&quot; &gt;&lt;i class=&quot;fa fa-save&quot; ng-click=&quot;add()&quot;&gt;保存&lt;/button&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="二、完成新增商品下拉列表的显示"><a href="#二、完成新增商品下拉列表的显示" class="headerlink" title="二、完成新增商品下拉列表的显示"></a>二、完成新增商品下拉列表的显示</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">//拷贝itemCatController.java，itemCatService.js从manager模块中到shop模块</span><br><span class="line">//在goodsController.js文件中引入itemCatService文件</span><br><span class="line">//页面引入itemCatService.js文件</span><br><span class="line"></span><br><span class="line">对goodsController.js文件中增加方法</span><br><span class="line">	//获取商品新增一级分类数据</span><br><span class="line">    $scope.selectItemCat1List=function()&#123;</span><br><span class="line">		itemCatService.findByParentId(&apos;0&apos;).success(</span><br><span class="line">			function(response)&#123;</span><br><span class="line">                $scope.itemCat1List = response;</span><br><span class="line">            &#125;</span><br><span class="line">		)</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line"> //会观察一个变量的变化</span><br><span class="line">	$scope.$watch(&apos;entity.goods.category1Id&apos;,function(newValue,oldValue)&#123;</span><br><span class="line">		//根据选择的一级分类id查询二级分类列表数据</span><br><span class="line">        itemCatService.findByParentId(newValue).success(</span><br><span class="line">            function(response)&#123;</span><br><span class="line">                $scope.itemCat2List = response;</span><br><span class="line">            &#125;</span><br><span class="line">        )</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">    //根据二级分类确定3及分类列表数据</span><br><span class="line">    $scope.$watch(&apos;entity.goods.category2Id&apos;,function(newValue,oldValue)&#123;</span><br><span class="line">        itemCatService.findByParentId(newValue).success(</span><br><span class="line">            function(response)&#123;</span><br><span class="line">                $scope.itemCat3List = response;</span><br><span class="line">            &#125;</span><br><span class="line">        )</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">	//根据三级分类id获取分类对象中的typeId</span><br><span class="line">    $scope.$watch(&apos;entity.goods.category3Id&apos;,function(newValue,oldValue)&#123;</span><br><span class="line">        itemCatService.findOne(newValue).success(</span><br><span class="line">            function(response)&#123;</span><br><span class="line">                $scope.entity.goods.typeTemplateId = response.typeId;</span><br><span class="line">            &#125;</span><br><span class="line">        )</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">	//根据模板id获取模板对象</span><br><span class="line">    $scope.$watch(&apos;entity.goods.typeTemplateId&apos;,function(newValue,oldValue)&#123;</span><br><span class="line">        typeTemplateService.findOne(newValue).success(</span><br><span class="line">            function(response)&#123;</span><br><span class="line">                $scope.typeTemplate = response;</span><br><span class="line">                $scope.typeTemplate.brandIds = JSON.parse($scope.typeTemplate.brandIds);</span><br><span class="line">            &#125;</span><br><span class="line">        )</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">//goods_edit.html页面需要增加ng-options显示下拉列表框</span><br><span class="line">&lt;td&gt;</span><br><span class="line">	&lt;select class=&quot;form-control&quot; ng-model=&quot;entity.goods.category1Id&quot; ng-options=&quot;itemCat.id as itemCat.name for itemCat in itemCat1List&quot;&gt;&lt;/select&gt;</span><br><span class="line">&lt;/td&gt;</span><br><span class="line">&lt;td&gt;</span><br><span class="line">	&lt;select class=&quot;form-control select-sm&quot; ng-model=&quot;entity.goods.category2Id&quot; ng-options=&quot;itemCat.id as itemCat.name for itemCat in itemCat2List&quot;&gt;&lt;/select&gt;</span><br><span class="line">&lt;/td&gt;</span><br><span class="line">&lt;td&gt;</span><br><span class="line">	&lt;select class=&quot;form-control select-sm&quot; ng-model=&quot;entity.goods.category3Id&quot; ng-options=&quot;itemCat.id as itemCat.name for itemCat in itemCat3List&quot;&gt;&lt;/select&gt;</span><br><span class="line">&lt;/td&gt;</span><br><span class="line"></span><br><span class="line">//页面显示模版id值</span><br><span class="line">模板ID:&#123;&#123;entity.goods.typeTemplateId&#125;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="三、富文本编辑器"><a href="#三、富文本编辑器" class="headerlink" title="三、富文本编辑器"></a>三、富文本编辑器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//工程提供的kindeditor文件夹下的所有js文件</span><br><span class="line">//导入js及相关css样式文件</span><br><span class="line">	&lt;link rel=&quot;stylesheet&quot; href=&quot;../plugins/kindeditor/themes/default/default.css&quot; /&gt;</span><br><span class="line">	&lt;script charset=&quot;utf-8&quot; src=&quot;../plugins/kindeditor/kindeditor-min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">	&lt;script charset=&quot;utf-8&quot; src=&quot;../plugins/kindeditor/lang/zh_CN.js&quot;&gt;&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">//将textarea的名字为content的创建成KindEditor编辑框,allowFileManager可以传图片</span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">	var editor;</span><br><span class="line">	KindEditor.ready(function(K) &#123;</span><br><span class="line">		editor = K.create(&apos;textarea[name=&quot;content&quot;]&apos;, &#123;</span><br><span class="line">			allowFileManager : true</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.goodsController.js文件的add方法中增加</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//增加获取赋值</span><br><span class="line">$scope.entity.goodsDesc.introduction=editor.html();</span><br><span class="line">//以及清空</span><br><span class="line">editor.html(&quot;&quot;);  //提交后清空</span><br></pre></td></tr></table></figure>
+<p>七、fastDFS安装及Demo</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.压缩包解压缩</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2.设置仅主机模式必须是25网段，ip地址是固定的192.168.25.133，必须选择移动该主机，这样能固定IP否则会改变</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3.用户名root密码itcast</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4.新建工程fastDFSDemo的jar工程</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">5.将pom文件新增</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependencies&gt;</span><br><span class="line">	&lt;dependency&gt;</span><br><span class="line">		&lt;groupId&gt;org.csource.fastdfs&lt;/groupId&gt;</span><br><span class="line">		&lt;artifactId&gt;fastdfs&lt;/artifactId&gt;</span><br><span class="line">		&lt;version&gt;1.2&lt;/version&gt;</span><br><span class="line">	&lt;/dependency&gt;</span><br><span class="line">&lt;/dependencies&gt;</span><br><span class="line"></span><br><span class="line">//拷贝fdfs_client.conf配置文件到resources目录下</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">6.新增fastDFSTest.java</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 1、 加载配置文件， 配置文件中的内容就是 tracker 服务的地址。</span><br><span class="line">// 2、 创建一个 TrackerClient 对象。 直接 new 一个。</span><br><span class="line">// 3、 使用 TrackerClient 对象创建连接， 获得一个 TrackerServer 对象。</span><br><span class="line">// 4、 创建一个 StorageServer 的引用， 值为 null</span><br><span class="line">// 5、 创建一个 StorageClient 对象， 需要两个参数 TrackerServer 对象、 StorageServer的引用</span><br><span class="line">// 6、 使用 StorageClient 对象上传图片。</span><br><span class="line">// 7、 返回数组。 包含组名和图片的路径。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) throws FileNotFoundException, IOException, Exception &#123;</span><br><span class="line">	// 1、 加载配置文件， 配置文件中的内容就是 tracker 服务的地址。</span><br><span class="line">ClientGlobal.init(&quot;C:\\workspace1\\fastDFSDemo\\src\\main\\resources\\fdfs_client.conf&quot;);</span><br><span class="line">	// 2、 创建一个 TrackerClient 对象。 直接 new 一个。</span><br><span class="line">	TrackerClient trackerClient = new TrackerClient();</span><br><span class="line">	// 3、 使用 TrackerClient 对象创建连接， 获得一个 TrackerServer 对象。</span><br><span class="line">	TrackerServer trackerServer = trackerClient.getConnection();</span><br><span class="line">	// 4、 创建一个 StorageServer 的引用， 值为 null</span><br><span class="line">	StorageServer storageServer = null;</span><br><span class="line">	// 5、 创建一个 StorageClient 对象， 需要两个参数 TrackerServer 对象、 StorageServer的引用</span><br><span class="line">	StorageClient storageClient = new StorageClient(trackerServer, storageServer);</span><br><span class="line">	// 6、 使用 StorageClient 对象上传图片。</span><br><span class="line">	//参数一:上传文件路径  参数二:图片扩展名,扩展名不带“.”  参数三:文件信息 </span><br><span class="line">	String[] strings = storageClient.upload_file(&quot;E:\\test.jpg&quot;, &quot;jpg&quot;,null);</span><br><span class="line">	// 7、 返回数组。 包含组名和图片的路径。</span><br><span class="line">	for (String string : strings) &#123;</span><br><span class="line">	System.out.println(string);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">7.访问地址http://192.168.25.133/group1/M00/00/00/wKgZhVqT1kaAMxgHAABtBwqnSTg028.jpg</span><br></pre></td></tr></table></figure>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://404area.github.io">404area</a>
+            </p><p>原文链接：<a href="http://404area.github.io/2019/06/08/品优购day06/">http://404area.github.io/2019/06/08/品优购day06/</a>
+            </p><p>发表日期：<a href="http://404area.github.io/2019/06/08/品优购day06/">June 8th 2019, 2:47:45 pm</a>
+            </p><p>更新日期：<a href="http://404area.github.io/2019/06/08/品优购day06/">June 10th 2019, 2:56:47 pm</a>
+            </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2019/06/05/品优购day05/" title="品优购day05">
+                    <div class="prevTitle">品优购day05</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+    <div id="lv-container" data-id="city" data-uid="MTAyMC80NDAyNS8yMDU2MA==">
+        <script type="text/javascript">
+            (function (d, s) {
+                var j, e = d.getElementsByTagName(s)[0];
+                if (typeof LivereTower === 'function') { return; }
+                j = d.createElement(s);
+                j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                j.async = true;
+
+                e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+        </script>
+        <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:javatest1901@gmail.com" class="iconfont-archer email" title="email"></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/404area" class="iconfont-archer github" target="_blank" title="github"></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title="wechat">
+                  
+                  <img class="profile-qr" src="/assets/example_qr.png">
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by 404area  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://404area.github.io/" target="_blank">404area</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">test <a href="https://github.com/404area" target="_blank">Next</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、商家管理平台-商品录入基本信息保存到数据库"><span class="toc-number">1.</span> <span class="toc-text">一、商家管理平台-商品录入基本信息保存到数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、完成新增商品下拉列表的显示"><span class="toc-number">2.</span> <span class="toc-text">二、完成新增商品下拉列表的显示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、富文本编辑器"><span class="toc-number">3.</span> <span class="toc-text">三、富文本编辑器</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 21
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/08</span><a class="archive-post-title" href="/2019/06/08/品优购day06/">品优购day06</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/05</span><a class="archive-post-title" href="/2019/06/05/品优购day05/">品优购day05</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/04</span><a class="archive-post-title" href="/2019/06/04/品优购day04/">品优购day04</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/03</span><a class="archive-post-title" href="/2019/06/03/品优购day03/">品优购day03</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span><a class="archive-post-title" href="/2019/06/01/品优购day02/">品优购day02</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/31</span><a class="archive-post-title" href="/2019/05/31/品优购day01/">品优购day01</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/15</span><a class="archive-post-title" href="/2019/05/15/spring的AOP/">spring的AOP</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/14</span><a class="archive-post-title" href="/2019/05/14/Ioc和DI工厂的基本原理/">Ioc和DI工厂的基本原理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span><a class="archive-post-title" href="/2019/05/01/前言/">前言</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day08jquery3.0/">day08jquery.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day05-会话技术/">day05-会话技术.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day04-response/">day04-request.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day11redis/">day11redis.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day03_request-笔记/">day03-request.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day01-xml/">day01-xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day06-jsp&el&jstl/">day06-jsp&el&jstl.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day02-tomcat&servlet/">day02-tomcat&servlet.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day07过滤器/">day07过滤器.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day9jquery3.0/">day9jquery.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day12mavem&idea集成/">day12mavem&idea集成.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day10Ajax&jQuery/">day10Ajax&jQuery.xml</a>
+        </li>
+    
+    </ul></div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="web"><span class="iconfont-archer">&#xe606;</span>web</span>
+    
+        <span class="sidebar-tag-name" data-tags="reponse"><span class="iconfont-archer">&#xe606;</span>reponse</span>
+    
+        <span class="sidebar-tag-name" data-tags="ServletContext"><span class="iconfont-archer">&#xe606;</span>ServletContext</span>
+    
+        <span class="sidebar-tag-name" data-tags="redis"><span class="iconfont-archer">&#xe606;</span>redis</span>
+    
+        <span class="sidebar-tag-name" data-tags="NOSQL"><span class="iconfont-archer">&#xe606;</span>NOSQL</span>
+    
+        <span class="sidebar-tag-name" data-tags="spring"><span class="iconfont-archer">&#xe606;</span>spring</span>
+    
+        <span class="sidebar-tag-name" data-tags="AOP"><span class="iconfont-archer">&#xe606;</span>AOP</span>
+    
+        <span class="sidebar-tag-name" data-tags="理想"><span class="iconfont-archer">&#xe606;</span>理想</span>
+    
+        <span class="sidebar-tag-name" data-tags="生活"><span class="iconfont-archer">&#xe606;</span>生活</span>
+    
+        <span class="sidebar-tag-name" data-tags="Ioc和DI"><span class="iconfont-archer">&#xe606;</span>Ioc和DI</span>
+    
+        <span class="sidebar-tag-name" data-tags="request"><span class="iconfont-archer">&#xe606;</span>request</span>
+    
+        <span class="sidebar-tag-name" data-tags="request域"><span class="iconfont-archer">&#xe606;</span>request域</span>
+    
+        <span class="sidebar-tag-name" data-tags="xml"><span class="iconfont-archer">&#xe606;</span>xml</span>
+    
+        <span class="sidebar-tag-name" data-tags="jsp"><span class="iconfont-archer">&#xe606;</span>jsp</span>
+    
+        <span class="sidebar-tag-name" data-tags="jstl"><span class="iconfont-archer">&#xe606;</span>jstl</span>
+    
+        <span class="sidebar-tag-name" data-tags="tomcat"><span class="iconfont-archer">&#xe606;</span>tomcat</span>
+    
+        <span class="sidebar-tag-name" data-tags="servlet"><span class="iconfont-archer">&#xe606;</span>servlet</span>
+    
+        <span class="sidebar-tag-name" data-tags="cookie"><span class="iconfont-archer">&#xe606;</span>cookie</span>
+    
+        <span class="sidebar-tag-name" data-tags="Session"><span class="iconfont-archer">&#xe606;</span>Session</span>
+    
+        <span class="sidebar-tag-name" data-tags="jQuery"><span class="iconfont-archer">&#xe606;</span>jQuery</span>
+    
+        <span class="sidebar-tag-name" data-tags="filler"><span class="iconfont-archer">&#xe606;</span>filler</span>
+    
+        <span class="sidebar-tag-name" data-tags="listener"><span class="iconfont-archer">&#xe606;</span>listener</span>
+    
+        <span class="sidebar-tag-name" data-tags="Ajax"><span class="iconfont-archer">&#xe606;</span>Ajax</span>
+    
+        <span class="sidebar-tag-name" data-tags="maven"><span class="iconfont-archer">&#xe606;</span>maven</span>
+    
+        <span class="sidebar-tag-name" data-tags="idea"><span class="iconfont-archer">&#xe606;</span>idea</span>
+    
+        <span class="sidebar-tag-name" data-tags="模板管理"><span class="iconfont-archer">&#xe606;</span>模板管理</span>
+    
+        <span class="sidebar-tag-name" data-tags="分页控件"><span class="iconfont-archer">&#xe606;</span>分页控件</span>
+    
+        <span class="sidebar-tag-name" data-tags="面包屑"><span class="iconfont-archer">&#xe606;</span>面包屑</span>
+    
+        <span class="sidebar-tag-name" data-tags="AngularJS"><span class="iconfont-archer">&#xe606;</span>AngularJS</span>
+    
+        <span class="sidebar-tag-name" data-tags="项目实战"><span class="iconfont-archer">&#xe606;</span>项目实战</span>
+    
+        <span class="sidebar-tag-name" data-tags="mvc模式"><span class="iconfont-archer">&#xe606;</span>mvc模式</span>
+    
+        <span class="sidebar-tag-name" data-tags="双向绑定"><span class="iconfont-archer">&#xe606;</span>双向绑定</span>
+    
+        <span class="sidebar-tag-name" data-tags="依赖注入"><span class="iconfont-archer">&#xe606;</span>依赖注入</span>
+    
+        <span class="sidebar-tag-name" data-tags="模块化设计"><span class="iconfont-archer">&#xe606;</span>模块化设计</span>
+    
+        <span class="sidebar-tag-name" data-tags="指令"><span class="iconfont-archer">&#xe606;</span>指令</span>
+    
+        <span class="sidebar-tag-name" data-tags="--富文本编辑器 --FastDFS --图片上传"><span class="iconfont-archer">&#xe606;</span>--富文本编辑器 --FastDFS --图片上传</span>
+    
+        <span class="sidebar-tag-name" data-tags="前端分离"><span class="iconfont-archer">&#xe606;</span>前端分离</span>
+    
+        <span class="sidebar-tag-name" data-tags="SpringSecurity"><span class="iconfont-archer">&#xe606;</span>SpringSecurity</span>
+    
+        <span class="sidebar-tag-name" data-tags="工程骨架"><span class="iconfont-archer">&#xe606;</span>工程骨架</span>
+    
+        <span class="sidebar-tag-name" data-tags="pom"><span class="iconfont-archer">&#xe606;</span>pom</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br>
+    1、请确保node版本大于6.2<br>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="编程"><span class="iconfont-archer">&#xe60a;</span>编程</span>
+    
+        <span class="sidebar-category-name" data-categories="杂谈"><span class="iconfont-archer">&#xe60a;</span>杂谈</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/Java"><span class="iconfont-archer">&#xe60a;</span>编程/Java</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/java"><span class="iconfont-archer">&#xe60a;</span>编程/java</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/Java/web核心"><span class="iconfont-archer">&#xe60a;</span>编程/Java/web核心</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/java/SSM"><span class="iconfont-archer">&#xe60a;</span>编程/java/SSM</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/java/前端"><span class="iconfont-archer">&#xe60a;</span>编程/java/前端</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/java/前端/ssm"><span class="iconfont-archer">&#xe60a;</span>编程/java/前端/ssm</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/java/前端/ssm/项目"><span class="iconfont-archer">&#xe60a;</span>编程/java/前端/ssm/项目</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/java/前端/ssm/权限控制"><span class="iconfont-archer">&#xe60a;</span>编程/java/前端/ssm/权限控制</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/java/前端/ssm/权限控制/项目"><span class="iconfont-archer">&#xe60a;</span>编程/java/前端/ssm/权限控制/项目</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/java/ssm"><span class="iconfont-archer">&#xe60a;</span>编程/java/ssm</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/java/ssm/项目"><span class="iconfont-archer">&#xe60a;</span>编程/java/ssm/项目</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "404area"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
