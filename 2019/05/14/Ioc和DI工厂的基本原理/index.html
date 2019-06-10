@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="404area">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="404area">
+    
+    <meta name="keywords" content="404area,Java,PHP">
+    
+    <meta name="description" content>
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Ioc和DI工厂的基本原理 · 404area&#39;s Blog</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+    <script>
+        (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-139425886-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/">404area</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">Ioc和DI工厂的基本原理</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href="/">404area</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            Ioc和DI工厂的基本原理
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class="post-intro-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="-spring -Ioc和DI -AOP">-spring -Ioc和DI -AOP</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">2.8k</span>阅读时长: <span class="post-count reading-time">11 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/05/14</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="1-IOC-amp-DI"><a href="#1-IOC-amp-DI" class="headerlink" title="1.IOC&amp;DI"></a>1.IOC&amp;DI</h2><h3 id="1-1Ioc"><a href="#1-1Ioc" class="headerlink" title="1.1Ioc"></a>1.1Ioc</h3><h4 id="ioc是什么"><a href="#ioc是什么" class="headerlink" title="ioc是什么?"></a>ioc是什么?</h4><p>控制反转</p>
+<h4 id="Ioc的作用"><a href="#Ioc的作用" class="headerlink" title="Ioc的作用:"></a>Ioc的作用:</h4><p>以下一系列的操作无非是为了一个目的，那就是在service层调用dao层时，在service层中的类不通过new dao层中类的对象的方式，就可以使用dao层中类生成的对象(即bean工厂通过读取配置文件然后反射的方式生成所需要的对象，并存到spring这个容器中，这个操作是在spring初始化的过程中就 完成的)，这样service层与dao层就没有‘依赖性’（但还是需要dao层的接口即写在配置文件中的全限定名），继而改变为service层与bean工厂的直接依赖，从而完成了松耦合的目的。</p>
+<p><strong>代码示例</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">工厂作用：黑盒操作。把对象的生产过程透明化。</span></span><br><span class="line"><span class="comment">实例工厂：先创建工厂对象，再调用方法，方法是实例方法</span></span><br><span class="line"><span class="comment">静态工厂：方法是静态方法，直接用工厂类名.方法名即可</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BeanFactory</span> </span>&#123;</span><br><span class="line">    <span class="comment">//key：名字；value：对象。容器   这里container只是一个map容器用来存储 键-对象</span></span><br><span class="line">            同时这个key起到两个作用：①通过key找到全限定名，用以反射创建对象，②通过key找到map集合中所存的对象</span><br><span class="line">        <span class="comment">//bean工厂的作用：通过配置文件中的key找到全限定名，并反射创建对象，并将这个key与生成的对象保存在map集合中，等待取用。</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Map&lt;String,Object&gt; container = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line">    <span class="keyword">static</span>&#123;</span><br><span class="line">        <span class="comment">//加载配置文件，初始化容器</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            ResourceBundle resourceBundle = ResourceBundle.getBundle(<span class="string">"object"</span>); <span class="comment">//加载名称为object的配置文件</span></span><br><span class="line">            Enumeration&lt;String&gt; keys = resourceBundle.getKeys(); <span class="comment">//获取配置文件中的key值并存入Enumeration中</span></span><br><span class="line">            <span class="keyword">while</span>(keys.hasMoreElements())&#123;</span><br><span class="line">                String key = keys.nextElement();<span class="comment">//从集合中取出key</span></span><br><span class="line">                String className = resourceBundle.getString(key);<span class="comment">//通过key获取类的全名：com.itheima.ioc.demo4.domain.dao.impl.UserDaoImpl1</span></span><br><span class="line">                Object obj = Class.forName(className).newInstance(); <span class="comment">//通过全限定名创建类的实例.</span></span><br><span class="line">                container.put(key,obj);  <span class="comment">//将读取到的配置文件中的key(标识)-value(类的实例)存入到名为container的map集合中.</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"初始化容器失败，请检查您的配置文件"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">     <span class="comment">//方法二：从容器中获取指定名称的对象，这个方法就是对方法一进行了重载，在用的时候就不需要进行强转了。</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">T <span class="title">getBean</span><span class="params">(String beanName, Class&lt;T&gt; clazz)</span> </span>&#123;<span class="comment">//为什么需要传入id，因为类中的键-值对太多了，需要通过这个id来定位到底是哪个对象</span></span><br><span class="line">        <span class="comment">//通过传入的标识id(这里注意配置文件中的key即id  key是什么这里就要传入什么标识),获取map类中的实例(对象)</span></span><br><span class="line">        Object obj = container.get(beanName);</span><br><span class="line">        <span class="keyword">if</span> (obj == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"未找到name为："</span> + beanName + <span class="string">"的对象"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (T) obj;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//方法一：从容器中获取指定名称的对象 （此方法有一个弊端就是还需要将方法进行强转）</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">getBean</span><span class="params">(String beanName)</span></span>&#123;</span><br><span class="line">        Object obj = container.get(beanName);</span><br><span class="line">        <span class="keyword">if</span>(obj==<span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"未找到name为："</span>+beanName+<span class="string">"的对象"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> obj;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>测试类test</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        UserServiceImpl userService = <span class="keyword">new</span> UserServiceImpl();  <span class="comment">//service的实现类对象</span></span><br><span class="line">        <span class="comment">//userDao是 UseDao接口的实现类对象</span></span><br><span class="line">        <span class="comment">//getBean 传入一个id 经过工厂类 得到全限定名(无所不能:有了这个全限定名就可以得到实现类的对象)</span></span><br><span class="line">        UserDao userDao =BeanFactory.getBean(<span class="string">"userDao"</span>,UserDao.class); <span class="comment">//userDao是一个参数是一个id,即标识 UserDao.class规定了生成对象的类型.得到一个UserDao接口类型的实现类对象。(同时应重点注意为什么需要传入这两个参数，因为map中的对象太多了，需要传入一个对象的标识来找到这个对象，同时规定了这个对象的类型)</span></span><br><span class="line">        <span class="comment">// 为什么传入一个对象(因为Service这个实现类对象需要一个dao层的userDao对象来完成Service的业务逻辑,所以就传入一个对象)</span></span><br><span class="line">        <span class="comment">//如果什么也不传入就会造成空指针异常</span></span><br><span class="line">        userService.setUserDao(userDao);<span class="comment">//依赖注入：Dependency Inject（通过构造方法、通过setter属性）</span></span><br><span class="line">        User user = userService.login(<span class="string">"admin"</span>,<span class="string">"sorry"</span>);</span><br><span class="line">        System.out.println(user);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ServiceImpl的类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceImpl</span> <span class="keyword">implements</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="comment">/* public UserServiceImpl() &#123;</span></span><br><span class="line"><span class="comment">        System.out.println("调用了ServiceImp的默认构造方法");</span></span><br><span class="line"><span class="comment">    &#125;*/</span></span><br><span class="line">    <span class="comment">//因为这里service的实现类需要dao层的userDao，所以通过setter的方法进行注入</span></span><br><span class="line">    <span class="keyword">private</span> UserDao userDao;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUserDao</span><span class="params">(UserDao userDao)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.userDao = userDao;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">login</span><span class="params">(String name, String password)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> userDao.findUser(name,password);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-2DI"><a href="#1-2DI" class="headerlink" title="1.2DI"></a>1.2DI</h3><h4 id="DI是什么"><a href="#DI是什么" class="headerlink" title="DI是什么?"></a>DI是什么?</h4><p>依赖注入</p>
+<h4 id="DI的作用"><a href="#DI的作用" class="headerlink" title="DI的作用:"></a>DI的作用:</h4><p>DI：  注入引用类型就相当于将一个对象装配到一个对象的属性上。基本类型也可参与装配(注入装配是一回事其本质就是DI)。</p>
+<p>关于注入传参的方式： 传参一共两种方式构造方法(空参构造) setter方法</p>
+<p>service层中的一个类的实现，需要dao层一个类的实现，那么就直接传入dao层一个类的实现就行(可以通过Ioc的方式生成这个类的实现，在spring中体现的非常明确，那么就是通过配置bean的方式生成类的实例，然后再进行装配，说的通俗一点就是给service层传参)</p>
+<p><strong>DI的代码解析</strong></p>
+<p>service层</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AccountServiceImpl</span> <span class="keyword">implements</span> <span class="title">AccountService</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> AccountDao accountDao; </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAccountDao</span><span class="params">(AccountDao accountDao)</span> </span>&#123;<span class="comment">//由外部注入AccountDao的实现（即对象）必须得有构造方法这个类才能接收由外部传入的基本类型数据（int，string，age）或者是引用类型的对象，并最终赋值给最上边的全局变量accountDao</span></span><br><span class="line">        <span class="keyword">this</span>.accountDao = accountDao;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addAccount</span><span class="params">(Account account)</span> </span>&#123;</span><br><span class="line">        accountDao.addAccount(account);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateAccount</span><span class="params">(Account account)</span> </span>&#123;</span><br><span class="line">        accountDao.updateAccount(account);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteAccount</span><span class="params">(Integer aid)</span> </span>&#123;</span><br><span class="line">        accountDao.deleteAccount(aid);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Account <span class="title">findAccountByName</span><span class="params">(String accountName)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> accountDao.findAccountByName(accountName);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Account <span class="title">findAccountById</span><span class="params">(Integer aid)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> accountDao.findAccountById(aid);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Account&gt; <span class="title">findAllAccounts</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> accountDao.findAllAccounts();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="关于在xml中配置数据源的说明"><a href="#关于在xml中配置数据源的说明" class="headerlink" title="关于在xml中配置数据源的说明"></a><strong>关于在xml中配置数据源的说明</strong></h4><p>配置数据源也是同理：其本质就是通过全限定名生成数据源对象        （ 问？能通过注解的方式配置数据源吗？不能，因为这个类不是我们自己写的，是打包好的jar包里的东西）   即在生成数据源的过程中，只通过数据源的全限定类名，然后再通过装配的方式(就是传参)，这些参数就是数据库的一些信息.生成数据源的实例</p>
+<p><strong>resources配置文件(applicationContext文件)</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/beans/spring-beans.xsd"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--配置Druid数据源--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"druidDataSource"</span> <span class="attr">class</span>=<span class="string">"com.alibaba.druid.pool.DruidDataSource"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClassName"</span> <span class="attr">value</span>=<span class="string">"com.mysql.jdbc.Driver"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span> <span class="attr">value</span>=<span class="string">"jdbc:mysql:///day05"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"root"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"sorry"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"queryRunner"</span> <span class="attr">class</span>=<span class="string">"org.apache.commons.dbutils.QueryRunner"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">index</span>=<span class="string">"0"</span> <span class="attr">ref</span>=<span class="string">"druidDataSource"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--实例化AccountDao的实现类--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"accountDao"</span> <span class="attr">class</span>=<span class="string">"com.itheima.dao.impl.AccountDaoImpl"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"queryRunner"</span> <span class="attr">ref</span>=<span class="string">"queryRunner"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"accountService"</span> <span class="attr">class</span>=<span class="string">"com.itheima.service.impl.AccountServiceImpl"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"accountDao"</span> <span class="attr">ref</span>=<span class="string">"accountDao"</span>/&gt;</span>   //这一行的代码的作用是明确将哪一个对象传入accountService的属性上</span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>Test实例</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AccountServiceTest</span> </span>&#123;   </span><br><span class="line">  <span class="meta">@Test</span>    </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testFindAllAccounts</span><span class="params">()</span></span>&#123;        </span><br><span class="line">  ApplicationContext applicationContext = <span class="keyword">new</span>   ClassPathXmlApplicationContext(<span class="string">"applicationContext.xml"</span>);           </span><br><span class="line">           <span class="comment">//通过id值直接从spring容器中取出对象        </span></span><br><span class="line">  AccountService accountService = applicationContext.getBean(<span class="string">"accountService"</span>, AccountService.class);           </span><br><span class="line">          <span class="comment">//通过对象调用方法        </span></span><br><span class="line">          List&lt;Account&gt; accounts = accountService.findAllAccounts();                               <span class="keyword">for</span>(Account account:accounts)            </span><br><span class="line">          System.out.println(account);    </span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-注解方式开发"><a href="#2-注解方式开发" class="headerlink" title="2.注解方式开发"></a>2.注解方式开发</h3><h4 id="2-1开发中常用的一些注解"><a href="#2-1开发中常用的一些注解" class="headerlink" title="2.1开发中常用的一些注解"></a>2.1开发中常用的一些注解</h4><p>@Controller,@Service,@Repository,@Component和@Autowired,@Qualifier</p>
+<h4 id="2-2注解的之作用"><a href="#2-2注解的之作用" class="headerlink" title="2.2注解的之作用:"></a>2.2注解的之作用:</h4><p>注解是代替xml进行配置的</p>
+<h4 id="2-3使用的原则"><a href="#2-3使用的原则" class="headerlink" title="2.3使用的原则:"></a>2.3使用的原则:</h4><p>简单的配置bean就用注解，复杂的还是需要xml，这里注意注解只能用在自己写的类上！！！</p>
+<h4 id="2-4关于-Component"><a href="#2-4关于-Component" class="headerlink" title="2.4关于@Component:"></a>2.4关于@Component:</h4><p>@Component 非常厉害(一个顶三个(即,@Service,@Repository,@Component)或多个,所谓多个就是不知道用哪个语义化注解的时候可以用@Component) ,这几个注解本质上用的就是Ioc</p>
+<p><strong>举例:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">   属性：value，指定bean的名称。如果没有改属性，默认名称为当前类的简单类名(UserDao)接口类型</span><br><span class="line">比如：@Component(value=“userDao”)      value这个词可以不写</span><br><span class="line">相当于： &lt;bean id=”userDao” class=”XXXX”/&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="2-5-Controller、-Service、-Respository的区别和作用"><a href="#2-5-Controller、-Service、-Respository的区别和作用" class="headerlink" title="2.5@Controller、@Service、@Respository的区别和作用:"></a>2.5@Controller、@Service、@Respository的区别和作用:</h4><p>和@Component完全一样，更加语义化的。   </p>
+<p>@Controller：用在表现层。（webmvc中经常使用的）   </p>
+<p>@Service:用在业务层。   </p>
+<p>@Respository:用在持久层</p>
+<h4 id="2-6指定要扫描的包含子包作用："><a href="#2-6指定要扫描的包含子包作用：" class="headerlink" title="2.6指定要扫描的包含子包作用："></a>2.6指定要扫描的包含子包作用：</h4><p>扫描指定包和子包中的所有类，根据注解完成bean的实例化。</p>
+<p>&lt;context:component-scan base-package=’com.itheima’&gt;</p>
+<h4 id="2-7-Autowired"><a href="#2-7-Autowired" class="headerlink" title="2.7@Autowired"></a>2.7@<strong>Autowired</strong></h4><h5 id="2-7-1作用"><a href="#2-7-1作用" class="headerlink" title="2.7.1作用:"></a>2.7.1作用:</h5><p>自动装配。非常强大。查找spring容器，按照类型自动赋予对象（暴力反射方式）</p>
+<h5 id="2-7-2执行流程"><a href="#2-7-2执行流程" class="headerlink" title="2.7.2执行流程"></a>2.7.2执行流程</h5><p>首先在AccountDaoImpl中有private QueryRunner queryRunner属性, 这个属性是QueryRunner类型的，他需要这个类型的属性，所以这个注解会自动去spring容器中找，并传入属性到accountDao属性上,注意在这一步中，(使用xml配置QueryRunner这个bean主要原因是这个类即QueryRunner不是我们写的所以需要用配置文件配置bean，但是如果是我们自己写的类那么就完全不需要了)。意思是通过注解方式配置bean，生成对象。 就不需要setter了。@Qualifier和@Autowired配合使用，用于指定具体名称的实现类。</p>
+<h5 id="2-7-3-Autowired-Qualifier-Pesource"><a href="#2-7-3-Autowired-Qualifier-Pesource" class="headerlink" title="2.7.3 @Autowired,@Qualifier,@Pesource"></a>2.7.3 @Autowired,@Qualifier,@Pesource</h5><p>@Autowired//默认按type注入<br>@Qualifier(“cusInfoService”)//一般作为@Autowired()的修饰用(两个条件来确定)<br>@Resource(name=”cusInfoService”)//默认按name注入，可以通过name和type属性进行选择性注入</p>
+<p> 一般@Autowired和@Qualifier一起用，@Resource单独用。</p>
+<p>当然没有冲突的话@Autowired也可以单独用</p>
+<p><strong>代码示例</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">//@Component(&quot;accountDao&quot;)//相当于&lt;bean id=&quot;accountDao&quot; class=&quot;com.itheima.dao.impl.AccountDaoImpl&quot;&gt; 即Ioc</span><br><span class="line">@Repository(&quot;accountDao&quot;)  //这是更加语义化的注解，让人一看这就是dao层的东西 ，其实就是生成这个实现类的对象</span><br><span class="line">public class AccountDaoImpl implements AccountDao &#123;</span><br><span class="line">    @Autowired  将一个对象装配到一个对象的属性上，在本代码中意思是accontDao对象需要注入一个属性(属性为实体对象)，这个注解会自动扫描下面的private的属性字段，确定类型是QueryRunner类型的。然后去spring容器中找到这个类型对象并完成装配。说白了这个类需要queryRunner才能真正完成标识为accountDao对象的创建</span><br><span class="line">    @Qualifier(queryRunner) 就是增强指定所需要的对象类型</span><br><span class="line">    private QueryRunner queryRunner;</span><br><span class="line">//</span><br><span class="line">//</span><br><span class="line">//    public void setQueryRunner(QueryRunner queryRunner) &#123;</span><br><span class="line">//        this.queryRunner = queryRunner;</span><br><span class="line">//    &#125;</span><br><span class="line"></span><br><span class="line">    public void addAccount(Account account) &#123;</span><br><span class="line">        if(account==null)</span><br><span class="line">            throw new IllegalArgumentException(&quot;参数错误&quot;);</span><br><span class="line">        try &#123;</span><br><span class="line">            //update方法内部：先从给定的数据源获取一个连接，在方法即将执行完毕后，将连接归还</span><br><span class="line">            queryRunner.update(&quot;insert into accounts values (null,?,?)&quot;,account.getAccountName(),account.getBalance());</span><br><span class="line">        &#125; catch (SQLException e) &#123;</span><br><span class="line">            throw new RuntimeException(e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    。。。。。。。。。。。此处省略增删改查一些方法</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://404area.github.io">404area</a>
+            </p><p>原文链接：<a href="http://404area.github.io/2019/05/14/Ioc和DI工厂的基本原理/">http://404area.github.io/2019/05/14/Ioc和DI工厂的基本原理/</a>
+            </p><p>发表日期：<a href="http://404area.github.io/2019/05/14/Ioc和DI工厂的基本原理/">May 14th 2019, 11:40:23 am</a>
+            </p><p>更新日期：<a href="http://404area.github.io/2019/05/14/Ioc和DI工厂的基本原理/">June 10th 2019, 1:54:51 pm</a>
+            </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2019/05/01/前言/" title="前言">
+                    <div class="prevTitle">前言</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+    <div id="lv-container" data-id="city" data-uid="MTAyMC80NDAyNS8yMDU2MA==">
+        <script type="text/javascript">
+            (function (d, s) {
+                var j, e = d.getElementsByTagName(s)[0];
+                if (typeof LivereTower === 'function') { return; }
+                j = d.createElement(s);
+                j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                j.async = true;
+
+                e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+        </script>
+        <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:javatest1901@gmail.com" class="iconfont-archer email" title="email"></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/404area" class="iconfont-archer github" target="_blank" title="github"></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title="wechat">
+                  
+                  <img class="profile-qr" src="/assets/example_qr.png">
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by 404area  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://404area.github.io/" target="_blank">404area</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">test <a href="https://github.com/404area" target="_blank">Next</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-IOC-amp-DI"><span class="toc-number">1.</span> <span class="toc-text">1.IOC&amp;DI</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1Ioc"><span class="toc-number">1.1.</span> <span class="toc-text">1.1Ioc</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ioc是什么"><span class="toc-number">1.1.1.</span> <span class="toc-text">ioc是什么?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Ioc的作用"><span class="toc-number">1.1.2.</span> <span class="toc-text">Ioc的作用:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2DI"><span class="toc-number">1.2.</span> <span class="toc-text">1.2DI</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#DI是什么"><span class="toc-number">1.2.1.</span> <span class="toc-text">DI是什么?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DI的作用"><span class="toc-number">1.2.2.</span> <span class="toc-text">DI的作用:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#关于在xml中配置数据源的说明"><span class="toc-number">1.2.3.</span> <span class="toc-text">关于在xml中配置数据源的说明</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-注解方式开发"><span class="toc-number">1.3.</span> <span class="toc-text">2.注解方式开发</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1开发中常用的一些注解"><span class="toc-number">1.3.1.</span> <span class="toc-text">2.1开发中常用的一些注解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2注解的之作用"><span class="toc-number">1.3.2.</span> <span class="toc-text">2.2注解的之作用:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3使用的原则"><span class="toc-number">1.3.3.</span> <span class="toc-text">2.3使用的原则:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4关于-Component"><span class="toc-number">1.3.4.</span> <span class="toc-text">2.4关于@Component:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5-Controller、-Service、-Respository的区别和作用"><span class="toc-number">1.3.5.</span> <span class="toc-text">2.5@Controller、@Service、@Respository的区别和作用:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6指定要扫描的包含子包作用："><span class="toc-number">1.3.6.</span> <span class="toc-text">2.6指定要扫描的包含子包作用：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-7-Autowired"><span class="toc-number">1.3.7.</span> <span class="toc-text">2.7@Autowired</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-7-1作用"><span class="toc-number">1.3.7.1.</span> <span class="toc-text">2.7.1作用:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-7-2执行流程"><span class="toc-number">1.3.7.2.</span> <span class="toc-text">2.7.2执行流程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-7-3-Autowired-Qualifier-Pesource"><span class="toc-number">1.3.7.3.</span> <span class="toc-text">2.7.3 @Autowired,@Qualifier,@Pesource</span></a></li></ol></li></ol></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 14
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/14</span><a class="archive-post-title" href="/2019/05/14/Ioc和DI工厂的基本原理/">Ioc和DI工厂的基本原理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span><a class="archive-post-title" href="/2019/05/01/前言/">前言</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day06-jsp&el&jstl/">day06-jsp&el&jstl.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day9jquery3.0/">day9jquery.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day04-response/">day04-request.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day12mavem&idea集成/">day12mavem&idea集成.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day07过滤器/">day07过滤器.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day08jquery3.0/">day08jquery.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day05-会话技术/">day05-会话技术.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day10Ajax&jQuery/">day10Ajax&jQuery.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day11redis/">day11redis.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day02-tomcat&servlet/">day02-tomcat&servlet.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day01-xml/">day01-xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day03_request-笔记/">day03-request.xml</a>
+        </li>
+    
+    </ul></div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="web"><span class="iconfont-archer">&#xe606;</span>web</span>
+    
+        <span class="sidebar-tag-name" data-tags="reponse"><span class="iconfont-archer">&#xe606;</span>reponse</span>
+    
+        <span class="sidebar-tag-name" data-tags="ServletContext"><span class="iconfont-archer">&#xe606;</span>ServletContext</span>
+    
+        <span class="sidebar-tag-name" data-tags="redis"><span class="iconfont-archer">&#xe606;</span>redis</span>
+    
+        <span class="sidebar-tag-name" data-tags="NOSQL"><span class="iconfont-archer">&#xe606;</span>NOSQL</span>
+    
+        <span class="sidebar-tag-name" data-tags="理想"><span class="iconfont-archer">&#xe606;</span>理想</span>
+    
+        <span class="sidebar-tag-name" data-tags="生活"><span class="iconfont-archer">&#xe606;</span>生活</span>
+    
+        <span class="sidebar-tag-name" data-tags="xml"><span class="iconfont-archer">&#xe606;</span>xml</span>
+    
+        <span class="sidebar-tag-name" data-tags="request"><span class="iconfont-archer">&#xe606;</span>request</span>
+    
+        <span class="sidebar-tag-name" data-tags="request域"><span class="iconfont-archer">&#xe606;</span>request域</span>
+    
+        <span class="sidebar-tag-name" data-tags="-spring -Ioc和DI -AOP"><span class="iconfont-archer">&#xe606;</span>-spring -Ioc和DI -AOP</span>
+    
+        <span class="sidebar-tag-name" data-tags="tomcat"><span class="iconfont-archer">&#xe606;</span>tomcat</span>
+    
+        <span class="sidebar-tag-name" data-tags="servlet"><span class="iconfont-archer">&#xe606;</span>servlet</span>
+    
+        <span class="sidebar-tag-name" data-tags="jsp"><span class="iconfont-archer">&#xe606;</span>jsp</span>
+    
+        <span class="sidebar-tag-name" data-tags="jstl"><span class="iconfont-archer">&#xe606;</span>jstl</span>
+    
+        <span class="sidebar-tag-name" data-tags="jQuery"><span class="iconfont-archer">&#xe606;</span>jQuery</span>
+    
+        <span class="sidebar-tag-name" data-tags="Ajax"><span class="iconfont-archer">&#xe606;</span>Ajax</span>
+    
+        <span class="sidebar-tag-name" data-tags="cookie"><span class="iconfont-archer">&#xe606;</span>cookie</span>
+    
+        <span class="sidebar-tag-name" data-tags="Session"><span class="iconfont-archer">&#xe606;</span>Session</span>
+    
+        <span class="sidebar-tag-name" data-tags="filler"><span class="iconfont-archer">&#xe606;</span>filler</span>
+    
+        <span class="sidebar-tag-name" data-tags="listener"><span class="iconfont-archer">&#xe606;</span>listener</span>
+    
+        <span class="sidebar-tag-name" data-tags="maven"><span class="iconfont-archer">&#xe606;</span>maven</span>
+    
+        <span class="sidebar-tag-name" data-tags="idea"><span class="iconfont-archer">&#xe606;</span>idea</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br>
+    1、请确保node版本大于6.2<br>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="编程"><span class="iconfont-archer">&#xe60a;</span>编程</span>
+    
+        <span class="sidebar-category-name" data-categories="杂谈"><span class="iconfont-archer">&#xe60a;</span>杂谈</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/Java"><span class="iconfont-archer">&#xe60a;</span>编程/Java</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/Java/web核心"><span class="iconfont-archer">&#xe60a;</span>编程/Java/web核心</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/java"><span class="iconfont-archer">&#xe60a;</span>编程/java</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/java/SSM"><span class="iconfont-archer">&#xe60a;</span>编程/java/SSM</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "404area"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+

@@ -357,200 +357,26 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/04/27/day12mavem&idea集成/">
+        <a class="abstract-title" href="/2019/05/14/Ioc和DI工厂的基本原理/">
             
-                <span>day12mavem&amp;idea集成.xml</span>
+                <span>Ioc和DI工厂的基本原理</span>
         </a>
         <div class="abstract-content">
-            回顾:redis: 
-​    nosql: 
-​        非关系型数据库
-​            存放的数据和数据之间没有任何的关联关系.
-​            存在内存中,效率比较高
-​        关系型数据库        
-​            存放的数据和数据之间有一定的关联关系.
-​            存放在硬盘中,效率比较低
-​        作用:
-​            高并发:
-​            高负载(高存储):
-​            高可用(高扩展):
-​    redis:
-​        概述: c语言编写
-​     ...
+            1.IOC&amp;DI1.1Iocioc是什么?控制反转
+Ioc的作用:以下一系列的操作无非是为了一个目的，那就是在service层调用dao层时，在service层中的类不通过new dao层中类的对象的方式，就可以使用dao层中类生成的对象(即bean工厂通过读取配置文件然后反射的方式生成所需要的对象，并存到spring这个容器中，这个操作是在spring初始化的过程中就 完成的)，这样service层与dao层就没有‘依赖性’（但还是需要dao层的接口即写在配置文件中的全限定名），继而改变为service层与bean工厂的直接依赖，从而完成了松耦合的目的。
+代码示例
+123456...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/27</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/14</span>
             </div>
             <!-- tags  -->
             
             <div class="abstract-tags">
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="web">web</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="maven">maven</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="idea">idea</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/04/27/day11redis/">
-            
-                <span>day11redis.xml</span>
-        </a>
-        <div class="abstract-content">
-            回顾:ajax:
-​    概述: 异步的js和xml.
-​        使用ajax可以实现异步从服务器获取数据.
-​        哪个函数发送的ajax请求,响应结果就返回给那个函数.
-​    原生ajax:
-​        1.创建ajax引擎对象 (XMLHttpRequest)
-​        2.编写回调函数(监听ajax引擎对象的状态变化)
-​            xmlhttp.onreadystatechange = function(){
-​                if(xmlhttp.readystate == 4 &amp;&amp; xmlh...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/27</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="web">web</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="redis">redis</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="NOSQL">NOSQL</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/04/27/day9jquery3.0/">
-            
-                <span>day9jquery.xml</span>
-        </a>
-        <div class="abstract-content">
-            回顾:jQuery:
-​    概述:
-​        jQuery本质上就是一个外部的js文件,我们管他叫做 js类库 或 js框架.
-​    jQuery使用:
-​        1.下载
-​            3.3.1版本    2.0版本以后不再支持ie 6 7 8
-​        2.在需要使用的html页面中引入即可
-​            使用外联式:  的src属性.
-​    jQuery语法:
-​        $(“选择器”)    jQuery(“选择器”)
-​        使用jq的语法获取的对象叫做jq对象,除了jq对象外其他的对象均是js(d...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/27</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="web">web</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="jQuery">jQuery</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/04/27/day10Ajax&jQuery/">
-            
-                <span>day10Ajax&amp;jQuery.xml</span>
-        </a>
-        <div class="abstract-content">
-            回顾:jQuery:
-​    jQueryDom操作:
-​        效果:
-​            基本效果:    show()    hide()     toggle()
-​            滑入滑出:    slideDown()    slideUp()    slideToggle()
-​            淡入淡出:    fadeIn()    fadeOut()    fadetoggle()
-​            以上方法均可以添加参数
-​                show([毫秒值],[速度],[function(){
-​       ...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/27</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="web">web</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="jQuery">jQuery</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Ajax">Ajax</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/04/27/day08jquery3.0/">
-            
-                <span>day08jquery.xml</span>
-        </a>
-        <div class="abstract-content">
-            学习目录:123456789101. 能够理解js框架的概念2. 能够引入jQuery3. 能够使用jQuery的基本选择器4. 能够使用jQuery的层级选择器5. 能够使用jQuery的属性选择器6. 能够使用jQuery的基本过滤选择器7. 能够使用jQuery的属性过滤选择器8. 能够使用jQuery的DOM操作的方法9. 能够完成隔行换色案例10. 能够完成全选全不选案例
-回顾:​    过滤器:Filter
-​        作用: 过滤请求和响应,主要过滤请求.
-​        入门:
-​            xml:
-​                1.编写一个类实...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/27</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="web">web</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="jQuery">jQuery</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="-spring -Ioc和DI -AOP">-spring -Ioc和DI -AOP</a>
     
 </div>
             
@@ -558,10 +384,6 @@
     </article>
     
     <!-- paginator  -->
-    
-    <nav class="page-nav">
-        <span class="page-number current">1</span><a class="page-number" href="/categories/编程/Java/page/2/">2</a><a class="page-number" href="/categories/编程/Java/page/3/">3</a><a class="extend next" rel="next" href="/categories/编程/Java/page/2/">NEXT &#62;</a>
-    </nav>
     
 </main>
             <!-- profile -->
@@ -845,9 +667,20 @@
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 13
+        Total : 14
         </div>
         <!-- search  -->
         
@@ -863,12 +696,17 @@
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">05/14</span><a class="archive-post-title" href="/2019/05/14/Ioc和DI工厂的基本原理/">Ioc和DI工厂的基本原理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">05/01</span><a class="archive-post-title" href="/2019/05/01/前言/">前言</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day05-会话技术/">day05-会话技术.xml</a>
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day06-jsp&el&jstl/">day06-jsp&el&jstl.xml</a>
         </li>
     
     
@@ -888,11 +726,6 @@
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day10Ajax&jQuery/">day10Ajax&jQuery.xml</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day07过滤器/">day07过滤器.xml</a>
         </li>
     
@@ -903,7 +736,12 @@
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day06-jsp&el&jstl/">day06-jsp&el&jstl.xml</a>
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day05-会话技术/">day05-会话技术.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day10Ajax&jQuery/">day10Ajax&jQuery.xml</a>
         </li>
     
     
@@ -918,20 +756,18 @@
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day03_request-笔记/">day03-request.xml</a>
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day01-xml/">day01-xml</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day01-xml/">day01-xml</a>
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day03_request-笔记/">day03-request.xml</a>
         </li>
     
     </ul></div>
   </div>
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
-    
-        <span class="sidebar-tag-name" data-tags="ssm"><span class="iconfont-archer">&#xe606;</span>ssm</span>
     
         <span class="sidebar-tag-name" data-tags="web"><span class="iconfont-archer">&#xe606;</span>web</span>
     
@@ -947,25 +783,17 @@
     
         <span class="sidebar-tag-name" data-tags="生活"><span class="iconfont-archer">&#xe606;</span>生活</span>
     
-        <span class="sidebar-tag-name" data-tags="Hexo"><span class="iconfont-archer">&#xe606;</span>Hexo</span>
-    
-        <span class="sidebar-tag-name" data-tags="源码技术"><span class="iconfont-archer">&#xe606;</span>源码技术</span>
-    
-        <span class="sidebar-tag-name" data-tags="教程"><span class="iconfont-archer">&#xe606;</span>教程</span>
-    
         <span class="sidebar-tag-name" data-tags="xml"><span class="iconfont-archer">&#xe606;</span>xml</span>
     
         <span class="sidebar-tag-name" data-tags="request"><span class="iconfont-archer">&#xe606;</span>request</span>
     
         <span class="sidebar-tag-name" data-tags="request域"><span class="iconfont-archer">&#xe606;</span>request域</span>
     
+        <span class="sidebar-tag-name" data-tags="-spring -Ioc和DI -AOP"><span class="iconfont-archer">&#xe606;</span>-spring -Ioc和DI -AOP</span>
+    
         <span class="sidebar-tag-name" data-tags="tomcat"><span class="iconfont-archer">&#xe606;</span>tomcat</span>
     
         <span class="sidebar-tag-name" data-tags="servlet"><span class="iconfont-archer">&#xe606;</span>servlet</span>
-    
-        <span class="sidebar-tag-name" data-tags="cookie"><span class="iconfont-archer">&#xe606;</span>cookie</span>
-    
-        <span class="sidebar-tag-name" data-tags="Session"><span class="iconfont-archer">&#xe606;</span>Session</span>
     
         <span class="sidebar-tag-name" data-tags="jsp"><span class="iconfont-archer">&#xe606;</span>jsp</span>
     
@@ -973,31 +801,19 @@
     
         <span class="sidebar-tag-name" data-tags="jQuery"><span class="iconfont-archer">&#xe606;</span>jQuery</span>
     
+        <span class="sidebar-tag-name" data-tags="Ajax"><span class="iconfont-archer">&#xe606;</span>Ajax</span>
+    
+        <span class="sidebar-tag-name" data-tags="cookie"><span class="iconfont-archer">&#xe606;</span>cookie</span>
+    
+        <span class="sidebar-tag-name" data-tags="Session"><span class="iconfont-archer">&#xe606;</span>Session</span>
+    
         <span class="sidebar-tag-name" data-tags="filler"><span class="iconfont-archer">&#xe606;</span>filler</span>
     
         <span class="sidebar-tag-name" data-tags="listener"><span class="iconfont-archer">&#xe606;</span>listener</span>
     
-        <span class="sidebar-tag-name" data-tags="Ajax"><span class="iconfont-archer">&#xe606;</span>Ajax</span>
-    
         <span class="sidebar-tag-name" data-tags="maven"><span class="iconfont-archer">&#xe606;</span>maven</span>
     
         <span class="sidebar-tag-name" data-tags="idea"><span class="iconfont-archer">&#xe606;</span>idea</span>
-    
-        <span class="sidebar-tag-name" data-tags="AngularJS"><span class="iconfont-archer">&#xe606;</span>AngularJS</span>
-    
-        <span class="sidebar-tag-name" data-tags="项目实战"><span class="iconfont-archer">&#xe606;</span>项目实战</span>
-    
-        <span class="sidebar-tag-name" data-tags="mvc模式"><span class="iconfont-archer">&#xe606;</span>mvc模式</span>
-    
-        <span class="sidebar-tag-name" data-tags="双向绑定"><span class="iconfont-archer">&#xe606;</span>双向绑定</span>
-    
-        <span class="sidebar-tag-name" data-tags="依赖注入"><span class="iconfont-archer">&#xe606;</span>依赖注入</span>
-    
-        <span class="sidebar-tag-name" data-tags="模块化设计"><span class="iconfont-archer">&#xe606;</span>模块化设计</span>
-    
-        <span class="sidebar-tag-name" data-tags="指令"><span class="iconfont-archer">&#xe606;</span>指令</span>
-    
-        <span class="sidebar-tag-name" data-tags="工程骨架"><span class="iconfont-archer">&#xe606;</span>工程骨架</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -1040,13 +856,140 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="编程/Java/web核心"><span class="iconfont-archer">&#xe60a;</span>编程/Java/web核心</span>
     
-        <span class="sidebar-category-name" data-categories="源码搭建"><span class="iconfont-archer">&#xe60a;</span>源码搭建</span>
+        <span class="sidebar-category-name" data-categories="编程/java"><span class="iconfont-archer">&#xe60a;</span>编程/java</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/java/SSM"><span class="iconfont-archer">&#xe60a;</span>编程/java/SSM</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "404area"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+     
+    </body>
+</html>
+
+
+    <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="web"><span class="iconfont-archer">&#xe606;</span>web</span>
+    
+        <span class="sidebar-tag-name" data-tags="reponse"><span class="iconfont-archer">&#xe606;</span>reponse</span>
+    
+        <span class="sidebar-tag-name" data-tags="ServletContext"><span class="iconfont-archer">&#xe606;</span>ServletContext</span>
+    
+        <span class="sidebar-tag-name" data-tags="redis"><span class="iconfont-archer">&#xe606;</span>redis</span>
+    
+        <span class="sidebar-tag-name" data-tags="NOSQL"><span class="iconfont-archer">&#xe606;</span>NOSQL</span>
+    
+        <span class="sidebar-tag-name" data-tags="理想"><span class="iconfont-archer">&#xe606;</span>理想</span>
+    
+        <span class="sidebar-tag-name" data-tags="生活"><span class="iconfont-archer">&#xe606;</span>生活</span>
+    
+        <span class="sidebar-tag-name" data-tags="xml"><span class="iconfont-archer">&#xe606;</span>xml</span>
+    
+        <span class="sidebar-tag-name" data-tags="request"><span class="iconfont-archer">&#xe606;</span>request</span>
+    
+        <span class="sidebar-tag-name" data-tags="request域"><span class="iconfont-archer">&#xe606;</span>request域</span>
+    
+        <span class="sidebar-tag-name" data-tags="-spring -Ioc和DI -AOP"><span class="iconfont-archer">&#xe606;</span>-spring -Ioc和DI -AOP</span>
+    
+        <span class="sidebar-tag-name" data-tags="tomcat"><span class="iconfont-archer">&#xe606;</span>tomcat</span>
+    
+        <span class="sidebar-tag-name" data-tags="servlet"><span class="iconfont-archer">&#xe606;</span>servlet</span>
+    
+        <span class="sidebar-tag-name" data-tags="jsp"><span class="iconfont-archer">&#xe606;</span>jsp</span>
+    
+        <span class="sidebar-tag-name" data-tags="jstl"><span class="iconfont-archer">&#xe606;</span>jstl</span>
+    
+        <span class="sidebar-tag-name" data-tags="jQuery"><span class="iconfont-archer">&#xe606;</span>jQuery</span>
+    
+        <span class="sidebar-tag-name" data-tags="Ajax"><span class="iconfont-archer">&#xe606;</span>Ajax</span>
+    
+        <span class="sidebar-tag-name" data-tags="cookie"><span class="iconfont-archer">&#xe606;</span>cookie</span>
+    
+        <span class="sidebar-tag-name" data-tags="Session"><span class="iconfont-archer">&#xe606;</span>Session</span>
+    
+        <span class="sidebar-tag-name" data-tags="filler"><span class="iconfont-archer">&#xe606;</span>filler</span>
+    
+        <span class="sidebar-tag-name" data-tags="listener"><span class="iconfont-archer">&#xe606;</span>listener</span>
+    
+        <span class="sidebar-tag-name" data-tags="maven"><span class="iconfont-archer">&#xe606;</span>maven</span>
+    
+        <span class="sidebar-tag-name" data-tags="idea"><span class="iconfont-archer">&#xe606;</span>idea</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br>
+    1、请确保node版本大于6.2<br>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="编程"><span class="iconfont-archer">&#xe60a;</span>编程</span>
+    
+        <span class="sidebar-category-name" data-categories="杂谈"><span class="iconfont-archer">&#xe60a;</span>杂谈</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/Java"><span class="iconfont-archer">&#xe60a;</span>编程/Java</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/Java/web核心"><span class="iconfont-archer">&#xe60a;</span>编程/Java/web核心</span>
     
         <span class="sidebar-category-name" data-categories="编程/java"><span class="iconfont-archer">&#xe60a;</span>编程/java</span>
     
-        <span class="sidebar-category-name" data-categories="编程/java/前端"><span class="iconfont-archer">&#xe60a;</span>编程/java/前端</span>
-    
-        <span class="sidebar-category-name" data-categories="编程/java/pom"><span class="iconfont-archer">&#xe60a;</span>编程/java/pom</span>
+        <span class="sidebar-category-name" data-categories="编程/java/SSM"><span class="iconfont-archer">&#xe60a;</span>编程/java/SSM</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
