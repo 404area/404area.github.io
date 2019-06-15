@@ -460,11 +460,14 @@
                 <span>品优购day04</span>
         </a>
         <div class="abstract-content">
-            学习目标
-123目标1：了解代码生成迅速完成基础代码目标2：完成模板管理的CRUD操作目标3：完成商品分类的CRUD操作
-一、模版列表得显示，调整好界面，即后端及前端文件都已拷贝到项目中
-11.type_template.html导入步骤一:js相关文件，步骤二:body中增加，步骤三:table下面加分页控件
-1234567891011121314151617181920212223&lt;script type=&quot;text/javascript&quot; src=&quot;../plugins/angularjs/angular.min.js&quot;&gt;&lt;...
+            1.学习目标123目标1：了解代码生成迅速完成基础代码目标2：完成模板管理的CRUD操作目标3：完成商品分类的CRUD操作
+2.商品类型模板的编辑说明:后台@RequestBody接受的是一个json对象 。 
+商品类型的模板编辑: 
+商品类型模板干什么用的?
+商品模板的作用:比方我们上架一款新的手机(iphoneX,/或者小米8),必然需要用到手机模板,来设置他的品牌规格等属性.  
+一个商品类型一个模板(例如:手机 洗衣机,电视)
+表和实体类:它涉及到了一张tb_type_template表, TbTypeTemplate实体类,
+列表查询:首先前端发送findPage的请求,分页查...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -1013,12 +1016,12 @@
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day07过滤器/">day07过滤器.xml</a>
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day08jquery3.0/">day08jquery.xml</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day05-会话技术/">day05-会话技术.xml</a>
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day06-jsp&el&jstl/">day06-jsp&el&jstl.xml</a>
         </li>
     
     
@@ -1043,22 +1046,22 @@
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day05-会话技术/">day05-会话技术.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day03_request-笔记/">day03-request.xml</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day06-jsp&el&jstl/">day06-jsp&el&jstl.xml</a>
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day12mavem&idea集成/">day12mavem&idea集成.xml</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day10Ajax&jQuery/">day10Ajax&jQuery.xml</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day08jquery3.0/">day08jquery.xml</a>
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day07过滤器/">day07过滤器.xml</a>
         </li>
     
     
@@ -1068,7 +1071,7 @@
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day12mavem&idea集成/">day12mavem&idea集成.xml</a>
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day10Ajax&jQuery/">day10Ajax&jQuery.xml</a>
         </li>
     
     </ul></div>
@@ -1094,13 +1097,17 @@
     
         <span class="sidebar-tag-name" data-tags="AOP"><span class="iconfont-archer">&#xe606;</span>AOP</span>
     
-        <span class="sidebar-tag-name" data-tags="Ioc和DI"><span class="iconfont-archer">&#xe606;</span>Ioc和DI</span>
-    
         <span class="sidebar-tag-name" data-tags="xml"><span class="iconfont-archer">&#xe606;</span>xml</span>
+    
+        <span class="sidebar-tag-name" data-tags="Ioc和DI"><span class="iconfont-archer">&#xe606;</span>Ioc和DI</span>
     
         <span class="sidebar-tag-name" data-tags="tomcat"><span class="iconfont-archer">&#xe606;</span>tomcat</span>
     
         <span class="sidebar-tag-name" data-tags="servlet"><span class="iconfont-archer">&#xe606;</span>servlet</span>
+    
+        <span class="sidebar-tag-name" data-tags="cookie"><span class="iconfont-archer">&#xe606;</span>cookie</span>
+    
+        <span class="sidebar-tag-name" data-tags="Session"><span class="iconfont-archer">&#xe606;</span>Session</span>
     
         <span class="sidebar-tag-name" data-tags="request"><span class="iconfont-archer">&#xe606;</span>request</span>
     
@@ -1110,21 +1117,19 @@
     
         <span class="sidebar-tag-name" data-tags="jstl"><span class="iconfont-archer">&#xe606;</span>jstl</span>
     
-        <span class="sidebar-tag-name" data-tags="cookie"><span class="iconfont-archer">&#xe606;</span>cookie</span>
-    
-        <span class="sidebar-tag-name" data-tags="Session"><span class="iconfont-archer">&#xe606;</span>Session</span>
-    
-        <span class="sidebar-tag-name" data-tags="jQuery"><span class="iconfont-archer">&#xe606;</span>jQuery</span>
-    
         <span class="sidebar-tag-name" data-tags="filler"><span class="iconfont-archer">&#xe606;</span>filler</span>
     
         <span class="sidebar-tag-name" data-tags="listener"><span class="iconfont-archer">&#xe606;</span>listener</span>
     
-        <span class="sidebar-tag-name" data-tags="Ajax"><span class="iconfont-archer">&#xe606;</span>Ajax</span>
+        <span class="sidebar-tag-name" data-tags="jQuery"><span class="iconfont-archer">&#xe606;</span>jQuery</span>
     
         <span class="sidebar-tag-name" data-tags="maven"><span class="iconfont-archer">&#xe606;</span>maven</span>
     
         <span class="sidebar-tag-name" data-tags="idea"><span class="iconfont-archer">&#xe606;</span>idea</span>
+    
+        <span class="sidebar-tag-name" data-tags="Ajax"><span class="iconfont-archer">&#xe606;</span>Ajax</span>
+    
+        <span class="sidebar-tag-name" data-tags="--富文本编辑器 --FastDFS --图片上传"><span class="iconfont-archer">&#xe606;</span>--富文本编辑器 --FastDFS --图片上传</span>
     
         <span class="sidebar-tag-name" data-tags="AngularJS"><span class="iconfont-archer">&#xe606;</span>AngularJS</span>
     
@@ -1140,19 +1145,17 @@
     
         <span class="sidebar-tag-name" data-tags="指令"><span class="iconfont-archer">&#xe606;</span>指令</span>
     
+        <span class="sidebar-tag-name" data-tags="前端分离"><span class="iconfont-archer">&#xe606;</span>前端分离</span>
+    
         <span class="sidebar-tag-name" data-tags="模板管理"><span class="iconfont-archer">&#xe606;</span>模板管理</span>
     
         <span class="sidebar-tag-name" data-tags="分页控件"><span class="iconfont-archer">&#xe606;</span>分页控件</span>
     
         <span class="sidebar-tag-name" data-tags="面包屑"><span class="iconfont-archer">&#xe606;</span>面包屑</span>
     
-        <span class="sidebar-tag-name" data-tags="--富文本编辑器 --FastDFS --图片上传"><span class="iconfont-archer">&#xe606;</span>--富文本编辑器 --FastDFS --图片上传</span>
-    
-        <span class="sidebar-tag-name" data-tags="前端分离"><span class="iconfont-archer">&#xe606;</span>前端分离</span>
+        <span class="sidebar-tag-name" data-tags="sku"><span class="iconfont-archer">&#xe606;</span>sku</span>
     
         <span class="sidebar-tag-name" data-tags="SpringSecurity"><span class="iconfont-archer">&#xe606;</span>SpringSecurity</span>
-    
-        <span class="sidebar-tag-name" data-tags="sku"><span class="iconfont-archer">&#xe606;</span>sku</span>
     
         <span class="sidebar-tag-name" data-tags="工程骨架"><span class="iconfont-archer">&#xe606;</span>工程骨架</span>
     
@@ -1209,13 +1212,13 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="编程/java/前端/ssm/项目"><span class="iconfont-archer">&#xe60a;</span>编程/java/前端/ssm/项目</span>
     
-        <span class="sidebar-category-name" data-categories="编程/java/前端/ssm/权限控制"><span class="iconfont-archer">&#xe60a;</span>编程/java/前端/ssm/权限控制</span>
-    
         <span class="sidebar-category-name" data-categories="编程/java/ssm"><span class="iconfont-archer">&#xe60a;</span>编程/java/ssm</span>
     
-        <span class="sidebar-category-name" data-categories="编程/java/前端/ssm/权限控制/项目"><span class="iconfont-archer">&#xe60a;</span>编程/java/前端/ssm/权限控制/项目</span>
+        <span class="sidebar-category-name" data-categories="编程/java/前端/ssm/权限控制"><span class="iconfont-archer">&#xe60a;</span>编程/java/前端/ssm/权限控制</span>
     
         <span class="sidebar-category-name" data-categories="编程/java/ssm/项目"><span class="iconfont-archer">&#xe60a;</span>编程/java/ssm/项目</span>
+    
+        <span class="sidebar-category-name" data-categories="编程/java/前端/ssm/权限控制/项目"><span class="iconfont-archer">&#xe60a;</span>编程/java/前端/ssm/权限控制/项目</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
