@@ -416,6 +416,7 @@ height:50vh;
 <h3 id="一、自定义服务"><a href="#一、自定义服务" class="headerlink" title="一、自定义服务:"></a>一、自定义服务:</h3><p>就是将之前的所有与后台请求相关代码抽取出</p>
 <p>1.在brand.html中拆分service和controller</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">app.service(<span class="string">'brandService'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">$http</span>)</span>&#123;</span><br><span class="line">   		<span class="keyword">this</span>.findAll = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">   			<span class="keyword">return</span> $http.get(<span class="string">'../brand/findAll.do'</span>);</span><br><span class="line">   		&#125;</span><br><span class="line">   		</span><br><span class="line">   		<span class="keyword">this</span>.add = <span class="function"><span class="keyword">function</span>(<span class="params">entity</span>)</span>&#123;</span><br><span class="line">   			<span class="keyword">return</span> $http.post(<span class="string">'../brand/add.do'</span>,entity)</span><br><span class="line">   		&#125;</span><br><span class="line">   		</span><br><span class="line">   		<span class="keyword">this</span>.update = <span class="function"><span class="keyword">function</span>(<span class="params">entity</span>)</span>&#123;</span><br><span class="line">   			<span class="keyword">return</span> $http.post(<span class="string">'../brand/update.do'</span>,entity)</span><br><span class="line">   		&#125;</span><br><span class="line">   		</span><br><span class="line">   		<span class="keyword">this</span>.findOne = <span class="function"><span class="keyword">function</span>(<span class="params">id</span>)</span>&#123;</span><br><span class="line">   			<span class="keyword">return</span> $http.get(<span class="string">'../brand/findOne.do?id='</span>+id);</span><br><span class="line">   		&#125;</span><br><span class="line">   		</span><br><span class="line">   		<span class="keyword">this</span>.dele = <span class="function"><span class="keyword">function</span>(<span class="params">ids</span>)</span>&#123;</span><br><span class="line">   			<span class="keyword">return</span> $http.get(<span class="string">'../brand/delete.do?ids='</span>+ids);</span><br><span class="line">   		&#125;</span><br><span class="line">   		</span><br><span class="line">   		<span class="keyword">this</span>.findPage = <span class="function"><span class="keyword">function</span>(<span class="params">pageNum,pageSize,searchEntity</span>)</span>&#123;</span><br><span class="line">   			<span class="keyword">return</span> $http.post(<span class="string">'../brand/findPage.do?pageNum='</span>+pageNum+<span class="string">"&amp;pageSize="</span>+pageSize,searchEntity);</span><br><span class="line">   		&#125;</span><br><span class="line">   	&#125;)</span><br></pre></td></tr></table></figure>
+<p>controller</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">app.controller(<span class="string">'brandController'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">$scope,brandService</span>)</span>&#123;</span><br><span class="line">	$scope.save = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;      <span class="comment">//其他方法都参照修改进行重新调用</span></span><br><span class="line">   			<span class="keyword">var</span> object = <span class="literal">null</span>;</span><br><span class="line">   			<span class="keyword">if</span>($scope.entity.id != <span class="literal">null</span>)&#123;</span><br><span class="line">   				object = brandService.update($scope.entity);</span><br><span class="line">   			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">   				object = brandService.add($scope.entity);</span><br><span class="line">   			&#125;</span><br><span class="line">   			</span><br><span class="line">   			object.success(</span><br><span class="line">   				<span class="function"><span class="keyword">function</span>(<span class="params">response</span>)</span>&#123;</span><br><span class="line">   					<span class="keyword">if</span>(response.success)&#123;</span><br><span class="line">   						$scope.reloadList();</span><br><span class="line">   					&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">   						alert(response.message);</span><br><span class="line">   					&#125;</span><br><span class="line">   				&#125;</span><br><span class="line">   			)</span><br><span class="line">   		&#125;</span><br><span class="line">   	.......</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 <h3 id="二、代码分离："><a href="#二、代码分离：" class="headerlink" title="二、代码分离："></a>二、代码分离：</h3><p>分离出base，base_pagination，brandService.js，brandController.js</p>
 <p>​    1.pinyougou-manager-web的js目录中增加base_pagination.js和base.js文件</p>
@@ -535,7 +536,7 @@ height:50vh;
             <p>原文作者：<a href="http://404area.github.io">404area</a>
             </p><p>原文链接：<a href="http://404area.github.io/2019/06/03/品优购day03/">http://404area.github.io/2019/06/03/品优购day03/</a>
             </p><p>发表日期：<a href="http://404area.github.io/2019/06/03/品优购day03/">June 3rd 2019, 2:33:17 pm</a>
-            </p><p>更新日期：<a href="http://404area.github.io/2019/06/03/品优购day03/">June 10th 2019, 3:43:36 pm</a>
+            </p><p>更新日期：<a href="http://404area.github.io/2019/06/03/品优购day03/">June 15th 2019, 6:33:12 pm</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -1026,8 +1027,6 @@ top:50vh;
     
     
     
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 22
@@ -1101,7 +1100,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day05-会话技术/">day05-会话技术.xml</a>
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day06-jsp&el&jstl/">day06-jsp&el&jstl.xml</a>
         </li>
     
     
@@ -1121,17 +1120,17 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day02-tomcat&servlet/">day02-tomcat&servlet.xml</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day03_request-笔记/">day03-request.xml</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day07过滤器/">day07过滤器.xml</a>
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day02-tomcat&servlet/">day02-tomcat&servlet.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day05-会话技术/">day05-会话技术.xml</a>
         </li>
     
     
@@ -1141,17 +1140,17 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day06-jsp&el&jstl/">day06-jsp&el&jstl.xml</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day9jquery3.0/">day9jquery.xml</a>
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day07过滤器/">day07过滤器.xml</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day12mavem&idea集成/">day12mavem&idea集成.xml</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/27</span><a class="archive-post-title" href="/2019/04/27/day9jquery3.0/">day9jquery.xml</a>
         </li>
     
     </ul></div>
@@ -1181,17 +1180,13 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="xml"><span class="iconfont-archer">&#xe606;</span>xml</span>
     
-        <span class="sidebar-tag-name" data-tags="tomcat"><span class="iconfont-archer">&#xe606;</span>tomcat</span>
-    
-        <span class="sidebar-tag-name" data-tags="servlet"><span class="iconfont-archer">&#xe606;</span>servlet</span>
-    
         <span class="sidebar-tag-name" data-tags="request"><span class="iconfont-archer">&#xe606;</span>request</span>
     
         <span class="sidebar-tag-name" data-tags="request域"><span class="iconfont-archer">&#xe606;</span>request域</span>
     
-        <span class="sidebar-tag-name" data-tags="filler"><span class="iconfont-archer">&#xe606;</span>filler</span>
+        <span class="sidebar-tag-name" data-tags="tomcat"><span class="iconfont-archer">&#xe606;</span>tomcat</span>
     
-        <span class="sidebar-tag-name" data-tags="listener"><span class="iconfont-archer">&#xe606;</span>listener</span>
+        <span class="sidebar-tag-name" data-tags="servlet"><span class="iconfont-archer">&#xe606;</span>servlet</span>
     
         <span class="sidebar-tag-name" data-tags="cookie"><span class="iconfont-archer">&#xe606;</span>cookie</span>
     
@@ -1200,6 +1195,10 @@ top:50vh;
         <span class="sidebar-tag-name" data-tags="jsp"><span class="iconfont-archer">&#xe606;</span>jsp</span>
     
         <span class="sidebar-tag-name" data-tags="jstl"><span class="iconfont-archer">&#xe606;</span>jstl</span>
+    
+        <span class="sidebar-tag-name" data-tags="filler"><span class="iconfont-archer">&#xe606;</span>filler</span>
+    
+        <span class="sidebar-tag-name" data-tags="listener"><span class="iconfont-archer">&#xe606;</span>listener</span>
     
         <span class="sidebar-tag-name" data-tags="jQuery"><span class="iconfont-archer">&#xe606;</span>jQuery</span>
     
@@ -1210,8 +1209,6 @@ top:50vh;
         <span class="sidebar-tag-name" data-tags="idea"><span class="iconfont-archer">&#xe606;</span>idea</span>
     
         <span class="sidebar-tag-name" data-tags="--富文本编辑器 --FastDFS --图片上传"><span class="iconfont-archer">&#xe606;</span>--富文本编辑器 --FastDFS --图片上传</span>
-    
-        <span class="sidebar-tag-name" data-tags="前端分离"><span class="iconfont-archer">&#xe606;</span>前端分离</span>
     
         <span class="sidebar-tag-name" data-tags="AngularJS"><span class="iconfont-archer">&#xe606;</span>AngularJS</span>
     
@@ -1226,6 +1223,8 @@ top:50vh;
         <span class="sidebar-tag-name" data-tags="模块化设计"><span class="iconfont-archer">&#xe606;</span>模块化设计</span>
     
         <span class="sidebar-tag-name" data-tags="指令"><span class="iconfont-archer">&#xe606;</span>指令</span>
+    
+        <span class="sidebar-tag-name" data-tags="前端分离"><span class="iconfont-archer">&#xe606;</span>前端分离</span>
     
         <span class="sidebar-tag-name" data-tags="模板管理"><span class="iconfont-archer">&#xe606;</span>模板管理</span>
     
